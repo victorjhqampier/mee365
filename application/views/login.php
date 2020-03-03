@@ -176,8 +176,6 @@ $("#btnformuserloginarixmee").click(function () {
     }
   })
 });
-
-
 </script>
 </body>
 </html>
