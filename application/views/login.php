@@ -76,7 +76,6 @@
                         <label for="inputUsernameEmail" class="label">Usuario</label>
                         <input type="text" class="form-control" name="txtinputUsernameEmail" id="inputUsernameEmail" placeholder="Email ...">
                      </div>
-                     <h1>carajo</h1>
                      <div class="form-group">
                         <label for="inputPassword">Contraseña</label>
                         <input type="password" class="form-control" name="txtinputPassword" id="inputPassword" placeholder="Contraseña">
