@@ -21,7 +21,7 @@ class Configuraciones extends CI_Controller {
 	}
 	public function empleados(){
 		if ($this->input->is_ajax_request()) {
-			$this->load->view('app_configuraciones/sucursales');
+			$this->load->view('app_configuraciones/empleados');
 		}
 		else{
 			show_404();
@@ -29,7 +29,15 @@ class Configuraciones extends CI_Controller {
 	}
 	public function areas(){
 		if ($this->input->is_ajax_request()) {
-			$this->load->view('app_configuraciones/sucursales');
+			$this->load->view('app_configuraciones/areas');
+		}
+		else{
+			show_404();
+		}
+	}
+	public function usuarios(){
+		if ($this->input->is_ajax_request()) {
+			$this->load->view('app_configuraciones/usuarios');
 		}
 		else{
 			show_404();
