@@ -1,5 +1,5 @@
 ######################################################
-We are a small software company named Arix Cororation
+We are a small software company named Arix Corporation
 ######################################################
 
 Our organization was founded by Victor Jcaxi, an its developers
