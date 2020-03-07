@@ -138,7 +138,7 @@ function arixshell_cargar_paginas(lugar, url){
 $('nav #dropdown-item-u3').click(function(){
     dato = arixshell_download_datos('arixapi/arixapi_cerrar_sesion');
     if (dato.status == true) {
-        window.location.replace('../arixmeebeta');
+        window.location.replace('../arixmeebetagit');
     }else{
         return;
     }
