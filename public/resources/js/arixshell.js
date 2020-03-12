@@ -135,6 +135,72 @@ function arixshell_cargar_paginas(lugar, url){
         }
     });
 }
+function arixshell_cargar_botones_menu(boton='btn-ayuda,btn-actualizar'){
+   var numbotones = [
+        'btn-editar',
+        'btn-ayuda',
+        'btn-atras',
+        'btn-guardar',
+        'btn-cerrar',
+        'btn-agregar',
+        'btn-listar',
+        'btn-imprimir',
+        'btn-descargar',
+        'btn-actualizar',
+        'btn-borrar',
+        'btn-detalles',
+        'btn-terminar'
+        ];
+    var botones = [
+        '<button type="button" class="btn btn-secondary btn-editar"><i class="fas fa-pen"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-ayuda"><i class="fas fa-info-circle"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-atras"><i class="fas fa-backward"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-guardar"><i class="fas fa-check"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-cerrar"><i class="fas fa-times"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-agregar"><i class="fas fa-plus"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-listar"><i class="fas fa-th-list"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-imprimir"><i class="fas fa-print"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-descargar"><i class="fas fa-download"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-actualizar"><i class="fas fa-retweet"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-borrar"><i class="fas fa-trash"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-detalles"><i class="fas fa-window-restore"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-terminar"><i class="fas fa-power-off"></i></button>'
+        ];
+    var losbotones = [];
+    var elocation = 'main #nav-item-input-botones';
+    if (boton!=null) {
+        boton = boton.split(',');
+        for(var i = 0; i<boton.length; i++){
+            pos = numbotones.indexOf(boton[i]);
+            if(pos >=0){
+                losbotones.push(botones[pos]);
+            }else{
+                return;
+            }            
+        }
+        $(elocation).html('');//borras los registros actuales
+        for (var i = 0; i < losbotones.length; i++) {           
+            $(elocation).append(losbotones[i]);//agregas al final
+        }
+    }else{
+        return;
+    }
+}
+function arixshell_vaciar_menu(){
+    var elocation1 = 'main #nav-item-input-buscar';
+    var elocation = 'main #nav-item-input-botones';
+    $(elocation1).html('')
+    $(elocation).html('');
+}
+function arixshell_cargar_boton_simple(){
+
+}
+function arixshell_cargar_boton_buscar(placeholder = 'Buscar ...'){
+    var elocation = 'main #nav-item-input-buscar';
+    $(elocation).html('')
+    buscar = '<div class="input-group input-group-sm mb-1" style="padding-right: 5px;"><input type="text" class="form-control" placeholder="'+placeholder+'" aria-label="Buscar ..." aria-describedby="button-addon2"><div class="input-group-append"><button class="btn btn-outline-secondary btn-sm" type="button" id="button-addon2"><i class="fas fa-search"></i></button></div></div>';
+    $(elocation).append(buscar);
+}
 $('nav #dropdown-item-u3').click(function(){
     dato = arixshell_download_datos('arixapi/arixapi_cerrar_sesion');
     if (dato.status == true) {
@@ -146,7 +212,7 @@ $('nav #dropdown-item-u3').click(function(){
 //Camputa el clic submenu
 $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno de los elementos del munu
     var a = $(this).attr('controller'), b = $(this).text(), cant = $('#nav-idont-know .breadcrumb-item').length;
-    arixshell_cargar_paginas('#use-container-stretched', window.location.href+'/'+a);
+    arixshell_cargar_paginas('#use-container-primary', window.location.href+'/'+a);
     $('#sidenavAccordion').find('a').removeClass('active');
     $(this).addClass('active');
     //console.log(cant);

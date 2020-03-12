@@ -11,7 +11,7 @@
                 <strong> | </strong>
                 <span>A cargo: 2 sucursales, 3 apps</span>
                 <strong> / </strong>
-                <small>Puede Leer, Escribir, Actualizar y Borrar</small>
+                <small>Estoy en views->app_confi.->usuarios</small>
             </div>
         </div>
         <div class="card-footer d-flex align-items-left justify-content-between">
@@ -20,3 +20,9 @@
         </div>
      </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){    
+    arixshell_cargar_botones_menu('btn-agregar,btn-listar,btn-imprimir,btn-actualizar');
+    arixshell_cargar_boton_buscar('Buscar por DNI');
+}); 
+</script>

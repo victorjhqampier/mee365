@@ -11,3 +11,10 @@
       </div>
     </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    arixshell_vaciar_menu();
+    arixshell_cargar_botones_menu();
+    //arixshell_cargar_boton_buscar('Buscar por DNI');
+}); 
+</script>

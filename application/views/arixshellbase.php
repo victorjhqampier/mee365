@@ -88,28 +88,19 @@
                                     <li class="breadcrumb-item active">Buscando ...</li>
                                 </ul>
                                 <ul class="navbar-nav mt-2 mt-lg-0">                                    
-                                    <li class="nav-item">
-                                        <div class="input-group input-group-sm mb-1" style="padding-right: 5px;">
-                                            <input type="text" class="form-control" placeholder="Buscar ..." aria-label="Buscar ..." aria-describedby="button-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary btn-sm" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-                                            </div>
-                                        </div>
+                                    <li class="nav-item" id="nav-item-input-buscar">
+                                        
                                     </li>
                                     <li class="nav-item">
-                                        <div class="btn-group btn-group-sm">
-                                            <button type="button" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
-                                            <button type="button" class="btn btn-secondary"><i class="fas fa-th-list"></i></button>
-                                            <button type="button" class="btn btn-secondary"><i class="fas fa-print"></i></button>
-                                            <button type="button" class="btn btn-secondary"><i class="fas fa-download"></i></button>
-                                            <button type="button" class="btn btn-secondary"><i class="fas fa-refresh"></i></button>
-                                        </div>
+                                        <div class="btn-group btn-group-sm" id="nav-item-input-botones"></div>
                                     </li>
                                 </ul>
                               </div>
+                            </div>                            
+                            <div class="row" id="use-container-primary">                            
                             </div>
-                        <div class="row" id="use-container-stretched">                            
-                        </div>
+                            <div class="row" id="use-container-secondary">                            
+                            </div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -133,7 +124,7 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="<?php echo base_url('public/resources/js/scripts.js');?>"></script>
-        <script src="<?php echo base_url('public/resources/js/arixmeejs.js');?>"></script>
+        <script src="<?php echo base_url('public/resources/js/arixshell.js');?>"></script>
         <?php if($js!=null){for($i=0;$i<count($js);$i++){echo '<script src="'.str_replace('base_url();',base_url(),$js[$i]).'" crossorigin="anonymous"></script>';}}else{return false;}//para cragar JS al sistema ?>
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
