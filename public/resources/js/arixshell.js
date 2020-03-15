@@ -195,6 +195,20 @@ function arixshell_vaciar_menu(){
 function arixshell_cargar_boton_simple(){
 
 }
+function arixshell_mostrar_card_users(image, title, title_2, message, message_2, message_3, bnt_1, btn_2, uid){
+    var list = '<div class="col-xl-4 col-md-6" style="margin-top: 7px"> <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <strong class="mr-auto">'
+            +title.substring(0,28)+'</strong> <small>'+title_2.substring(0,11)
+            +'</small> </div><div class="toast-body" style="padding-top: 2px"> <div class="row"> <div class="col-md-10" style="padding: 0px"> <dl class="dl-horizontal"> <dt class="col-sm-12">'
+            +message.substring(0,36)+'</dt> <dd class="col-sm-12">Acceso a: <span>'
+            +message_2.substring(0,28)+'</span></dd> <dd class="col-sm-12" style="margin-top: -9px"><small>'
+            +message_3.substring(0,49)+'</small></dd> </dl> </div><div class="col-md-2" style="padding:4px;">'
+            +'<img class="img-fluid" src="'+image+'" alt="'+title+'">'
+            +'</div><div class="col-md-12" style=""> <hr style="margin-top: -7px;"> <div class="text-right"> <div class="btn-group btn-group-sm" style="margin-top: -10px; margin-right: -8px">' 
+            +'<button type="button" class="btn btn-secondary btn-detalles"><i class="fas fa-window-restore"></i></button>'
+            +'<button type="button" class="btn btn-secondary btn-terminar"><i class="fas fa-power-off"></i></button>'
+            +'</div></div></div></div></div></div></div>';
+
+}
 function arixshell_cargar_boton_buscar(placeholder = 'Buscar ...'){
     var elocation = 'main #nav-item-input-buscar';
     $(elocation).html('')
