@@ -135,7 +135,7 @@ function arixshell_cargar_paginas(lugar, url){
         }
     });
 }
-function arixshell_cargar_botones_menu(boton='btn-ayuda,btn-actualizar'){
+function arixshell_cargar_botones_menu(boton='btn-ayuda,btn-actualizar'){//carga botones en la barra de titulo
    var numbotones = [
         'btn-editar',
         'btn-ayuda',
@@ -192,21 +192,66 @@ function arixshell_vaciar_menu(){
     $(elocation1).html('')
     $(elocation).html('');
 }
-function arixshell_cargar_boton_simple(){
-
+function arixshell_cargar_boton_simple(boton='btn-detalles,btn-borrar', uid='error!'){//devuelve botones en bormato html
+    var numbotones = [
+        'btn-editar',
+        'btn-ayuda',
+        'btn-atras',
+        'btn-guardar',
+        'btn-cerrar',
+        'btn-agregar',
+        'btn-listar',
+        'btn-imprimir',
+        'btn-descargar',
+        'btn-actualizar',
+        'btn-borrar',
+        'btn-detalles',
+        'btn-terminar'
+        ];
+    var botones = [
+        '<button type="button" class="btn btn-secondary btn-editar" uid="'+uid+'"><i class="fas fa-pen"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-ayuda" uid="'+uid+'"><i class="fas fa-info-circle"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-atras" uid="'+uid+'"><i class="fas fa-backward"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-guardar" uid="'+uid+'"><i class="fas fa-check"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-cerrar" uid="'+uid+'"><i class="fas fa-times"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-agregar" uid="'+uid+'"><i class="fas fa-plus"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-listar" uid="'+uid+'"><i class="fas fa-th-list"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-imprimir" uid="'+uid+'"><i class="fas fa-print"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-descargar" uid="'+uid+'"><i class="fas fa-download"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-actualizar" uid="'+uid+'"><i class="fas fa-retweet"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-borrar" uid="'+uid+'"><i class="fas fa-trash"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-detalles" uid="'+uid+'"><i class="fas fa-window-restore"></i></button>',
+        '<button type="button" class="btn btn-secondary btn-terminar" uid="'+uid+'"><i class="fas fa-power-off"></i></button>'
+        ];
+    var losbotones = [], list ='';
+    if (boton!=null) {
+        boton = boton.split(',');
+        for(var i = 0; i<boton.length; i++){
+            pos = numbotones.indexOf(boton[i]);
+            if(pos >=0){
+                losbotones.push(botones[pos]);
+            }else{
+                return;
+            }            
+        }
+        for (var i = 0; i < losbotones.length; i++) {
+            list+=losbotones[i];
+        }
+        return list;
+    }else{
+        return;
+    }
 }
-function arixshell_mostrar_card_users(image, title, title_2, message, message_2, message_3, bnt_1, btn_2, uid){
-    var list = '<div class="col-xl-4 col-md-6" style="margin-top: 7px"> <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true"> <div class="toast-header"> <strong class="mr-auto">'
-            +title.substring(0,28)+'</strong> <small>'+title_2.substring(0,11)
-            +'</small> </div><div class="toast-body" style="padding-top: 2px"> <div class="row"> <div class="col-md-10" style="padding: 0px"> <dl class="dl-horizontal"> <dt class="col-sm-12">'
-            +message.substring(0,36)+'</dt> <dd class="col-sm-12">Acceso a: <span>'
-            +message_2.substring(0,28)+'</span></dd> <dd class="col-sm-12" style="margin-top: -9px"><small>'
-            +message_3.substring(0,49)+'</small></dd> </dl> </div><div class="col-md-2" style="padding:4px;">'
-            +'<img class="img-fluid" src="'+image+'" alt="'+title+'">'
-            +'</div><div class="col-md-12" style=""> <hr style="margin-top: -7px;"> <div class="text-right"> <div class="btn-group btn-group-sm" style="margin-top: -10px; margin-right: -8px">' 
-            +'<button type="button" class="btn btn-secondary btn-detalles"><i class="fas fa-window-restore"></i></button>'
-            +'<button type="button" class="btn btn-secondary btn-terminar"><i class="fas fa-power-off"></i></button>'
-            +'</div></div></div></div></div></div></div>';
+function arixshell_mostrar_card_users(image, titulo, msg_1, msg_2, msg_3, msg_4, fecha, btns='btn-detalles,btn-borrar', uid, estado = true){
+    var list = '<div class="card" style="max-width: 21.7rem; min-width: 21.5rem; margin: 0.75rem; margin-top: 3px"> <div class="card-header">'
+    +titulo.substring(0,34)+'</div><div class="card-body row"> <div class="col-md-3 text-center"> <img class="img-fluid" src="'+image+'" alt="..."> </div><div class="col-md-9" style="padding: 0px; margin-left: -2px; margin-top: -3px"> <dl class="dl-horizontal"> <dt class="col-sm-12">'
+    +msg_1.substring(0,29)+'</dt> <dd class="col-sm-12">'
+    +msg_2.substring(0,31)+'</dd> <dd class="col-sm-12" style="margin-top: -9px"><small>'
+    +msg_3.substring(0,39)+'</small></dd> <dd class="col-sm-12" style="margin-top: -9px"><small>'
+    +msg_4.substring(0,39)+'</small></dd> </dl> </div></div><div class="card-footer text-muted d-flex align-items-left justify-content-between" style="margin-top: -20px;"> <span class="text-info">'
+    +fecha+'</span> <span class="text-secondary">Activo</span> <div class="btn-group btn-group-sm" style="margin: -3px">'
+    +arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';
+    return list;
 
 }
 function arixshell_cargar_boton_buscar(placeholder = 'Buscar ...'){
@@ -225,6 +270,7 @@ $('nav #dropdown-item-u3').click(function(){
 });
 //Camputa el clic submenu
 $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno de los elementos del munu
+    $('#use-container-secondary').html('');//reestablce el primer contenedor
     var a = $(this).attr('controller'), b = $(this).text(), cant = $('#nav-idont-know .breadcrumb-item').length;
     arixshell_cargar_paginas('#use-container-primary', window.location.href+'/'+a);
     $('#sidenavAccordion').find('a').removeClass('active');

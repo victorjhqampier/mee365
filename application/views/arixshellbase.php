@@ -96,11 +96,12 @@
                                     </li>
                                 </ul>
                               </div>
-                            </div>                            
-                            <div class="row" id="use-container-primary">                            
                             </div>
                             <div class="row" id="use-container-secondary">                            
+                            </div>                           
+                            <div class="row" id="use-container-primary">                            
                             </div>
+                            
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

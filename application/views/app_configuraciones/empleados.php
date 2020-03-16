@@ -16,7 +16,7 @@
         </div>
         <div class="card-footer d-flex align-items-left justify-content-between">
             <div class="small text-white"><button class="btn btn-primary btn-sm">Ver detalles</button></div>
-            <button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-power-off"></i></button>  
+            <button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-trash"></i></button>  
         </div>
      </div>
 </div><div class="col-xl-4 col-md-6">
