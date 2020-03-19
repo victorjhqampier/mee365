@@ -13,7 +13,26 @@ class Arixkernel extends CI_Model{
 		parent::__construct();
 		date_default_timezone_set("America/Lima");
 		$this->load->database('pdoarixdatabase');
+		//$this->ci->load->library('session');
 	}
+	/*private function probar_acceso_user($dato = 'select'){
+		$dato = preg_replace('([^A-Za-z0-9])', '', $dato);
+        $binario = array('select' => '1000', 'insert' => '0100', 'update' => '0010', 'delete' => '0001');
+        $permiso = $this->ci->arixkernel->select_one_content('binario','config.v_cuenta_permiso', array('cuenta_id' => $this->ci->session->userdata('usuario')));
+        $permiso = $permiso->binario;
+        $result = false;
+        //usaremos compuerta logica AND
+        for ($i=0; $i < strlen($permiso); $i++) {
+            $r = (substr($permiso, $i,1) and substr($binario[$dato], $i,1));
+            if($r){
+                $result = $r;
+            }
+            else{
+                $r=false;
+            }
+        }
+        return $result;
+	}*/
 	/*----------------------valido desde aqui---------------------*/
 	public function select_all_content($tupla,$tabla, $cant_registros = 100){//selecciona N elementos de una tabla N>1
 		$this->db->select($tupla);

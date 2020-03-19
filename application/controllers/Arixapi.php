@@ -74,7 +74,7 @@ class Arixapi extends CI_Controller {
 		}
 	}
 	public function arixapi_mostrar_sucursales(){
-		if (/*$this->input->is_ajax_request() && */$this->serv_administracion_usuarios->probar_session()) {
+		if ($this->input->is_ajax_request() && $this->serv_administracion_usuarios->probar_session()) {
 			$sucursal = $this->serv_administracion_usuarios->cargar_sucursal();
 			if (!is_null($sucursal)) {
 				for ($i=0; $i < count($sucursal); $i++) { 
@@ -91,15 +91,6 @@ class Arixapi extends CI_Controller {
 		}
 	}
 	public function index(){
-		//print_r($this->serv_administracion_usuarios->abrir_sesion('victorjhampier@gmail.com','1234567'));
-		//print_r($this->serv_administracion_usuarios->pruebas());
-		//echo password_hash('9e794323b453885f5181f1b624',PASSWORD_DEFAULT,array('cost'=>12));
-		//echo json_encode($this->serv_administracion_usuarios->autocargar_sucursal_session());
-		//echo json_encode(array('status' => $this->serv_administracion_usuarios->autocargar_sucursal_session()));		
-		//echo "<br>";
-		//echo json_encode(array('status' => $this->serv_administracion_usuarios->pruebas()));
-		echo json_encode($this->serv_administracion_usuarios->cargar_detalles_usuario());
-		//echo json_encode($this->serv_administracion_usuarios->lista_menu_aplicaciones());
-		
+		echo json_encode($this->serv_administracion_usuarios->probar_permisos('update'));
 	}
 }

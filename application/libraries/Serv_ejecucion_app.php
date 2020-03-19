@@ -46,4 +46,7 @@ class Serv_ejecucion_app {
     public function subir_archivos(){
 
     }
+    public function cargar_botones(){
+
+    }
 }

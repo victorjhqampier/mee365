@@ -64,6 +64,25 @@ class Serv_administracion_usuarios {
         $this->ci->session->sess_destroy();
         return true;
     }
+    public function probar_permisos($dato = 'select'){//lectura va por defecto
+        $dato = preg_replace('([^A-Za-z0-9])', '', $dato);
+        $binario = array('select' => '1000', 'insert' => '0100', 'update' => '0010', 'delete' => '0001');
+        $permiso = $this->ci->arixkernel->select_one_content('binario','config.v_cuenta_permiso', array('cuenta_id' => $this->ci->session->userdata('usuario')));
+        $permiso = $permiso->binario;
+        $result = false;
+        //usaremos compuerta logica AND
+        for ($i=0; $i < strlen($permiso); $i++) {
+            $r = (substr($permiso, $i,1) and substr($binario[$dato], $i,1));
+            if($r){
+                $result = $r;
+            }
+            else{
+                $r=false;
+            }
+        }
+        return $result;
+    }
+    
     public function probar_session(){
         if ($this->ci->session->userdata('sesion')=='Ciy12Kjs2gyAvfrZMgqS2vm4uCuHHMN8tqKaKwumWEUvnWOeCQEx5Fxe2Ax'){
             return true;
