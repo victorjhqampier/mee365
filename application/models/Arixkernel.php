@@ -13,12 +13,14 @@ class Arixkernel extends CI_Model{
 		parent::__construct();
 		date_default_timezone_set("America/Lima");
 		$this->load->database('pdoarixdatabase');
-		//$this->ci->load->library('session');
+		
 	}
-	/*private function probar_acceso_user($dato = 'select'){
+	private function probar_permiso_user($dato = 'select'){// evalua si da permiso o no al usuario; resive como parametros CRUD
+		$this->load->library('session');
+		$this->db->select('binario');
+		$permiso = $this->db->get_where('config.v_cuenta_permiso', array('cuenta_id' => $this->session->userdata('usuario')))->row();
 		$dato = preg_replace('([^A-Za-z0-9])', '', $dato);
-        $binario = array('select' => '1000', 'insert' => '0100', 'update' => '0010', 'delete' => '0001');
-        $permiso = $this->ci->arixkernel->select_one_content('binario','config.v_cuenta_permiso', array('cuenta_id' => $this->ci->session->userdata('usuario')));
+        $binario = array('select' => '1000', 'insert' => '0100', 'update' => '0010', 'delete' => '0001');        
         $permiso = $permiso->binario;
         $result = false;
         //usaremos compuerta logica AND
@@ -28,11 +30,11 @@ class Arixkernel extends CI_Model{
                 $result = $r;
             }
             else{
-                $r=false;
+                $r=false;//sin sentido
             }
         }
         return $result;
-	}*/
+	}
 	/*----------------------valido desde aqui---------------------*/
 	public function select_all_content($tupla,$tabla, $cant_registros = 100){//selecciona N elementos de una tabla N>1
 		$this->db->select($tupla);
@@ -48,7 +50,10 @@ class Arixkernel extends CI_Model{
 		return $this->db->get_where($tabla,$condicion)->result();
 	}
 	public function select_one_content($tupla, $tabla, $condicion){//selecciona 1 elemento de un tabla
-		$this->db->select($tupla);
-		return $this->db->get_where($tabla, $condicion)->row();
+			$this->db->select($tupla);
+			return $this->db->get_where($tabla, $condicion)->row();		
+	}
+	public function pruebas_(){
+		return $this->probar_permiso_user();
 	}
 }

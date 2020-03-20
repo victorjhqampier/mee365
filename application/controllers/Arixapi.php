@@ -6,6 +6,7 @@ class Arixapi extends CI_Controller {
 		parent::__construct();
 		$this->load->library('serv_administracion_usuarios');
 		$this->load->library('serv_cifrado');
+		$this->load->library('serv_ejecucion_app');
 	}
 	public function arixapi_iniciar_sesion(){// ****** no requiere SESION pero si conexion POST y comporbar sesion ya abierta
 		if (!$this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request()) {
@@ -90,7 +91,16 @@ class Arixapi extends CI_Controller {
 			echo json_encode(array('status' => 403));//acceso denedo
 		}
 	}
+	public function arixapi_cargar_botones(){
+		$usuario_permiso = $this->serv_administracion_usuarios->mostrar_usuario_permiso();
+		$usuario_permiso = $usuario_permiso->binario;
+		$usuario_botones = $this->serv_ejecucion_app->cargar_botones();
+		for ($i=0; $i < count($usuario_botones); $i++) { //cargamos los botones autorizados
+			
+		}
+		print_r($usuario_permiso);
+	}
 	public function index(){
-		echo json_encode($this->serv_administracion_usuarios->probar_permisos('update'));
+		echo json_encode($this->serv_ejecucion_app->cargar_botones());
 	}
 }

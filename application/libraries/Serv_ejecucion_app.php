@@ -12,6 +12,7 @@ class Serv_ejecucion_app {
     function __construct(){
 		$this->ci =& get_instance();
         $this->ci->load->model('arixkernel');//agregamos el modelo
+        $this->ci->load->library('arixkernel');
 	}
     private function object_to_array($d) {//de STDclass a arrayPHP
         if (is_object($d)) {
@@ -25,7 +26,7 @@ class Serv_ejecucion_app {
     }
     public function cargar_js($jss = null){
        	if ($jss != null) {
-            $jss = preg_replace('([^A-Za-z0-9\,._-])', '', $jss);
+            $jss = preg_replace('([^A-Za-z0-9\,._-])', '', $jss);//eliminacaracter raros
             $jss = explode(",", $jss);
             $new_list = array();
             $temp = '';
@@ -46,7 +47,16 @@ class Serv_ejecucion_app {
     public function subir_archivos(){
 
     }
-    public function cargar_botones(){
-
+    public function cargar_botones($botones='btn-detalles, btn-ayuda, btn-borrar'){
+        $botones = preg_replace('([^A-Za-z0-9\,._-])', '', $botones);
+        $botones = explode(",", $botones);
+        $btn_con_persmiso = array();
+        for ($i=0; $i < count($botones); $i++) { 
+            $temp = $this->object_to_array($this->ci->arixkernel->select_one_content('permiso_id, boton, icono','config.botones', array('boton' => $botones[$i])));
+            if (!is_null($temp)) {
+                array_push($btn_con_persmiso, $temp);
+            }
+        }
+        return $btn_con_persmiso;
     }
 }
