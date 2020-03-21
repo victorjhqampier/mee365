@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Inicio de sesión</title>
+  <title>Inicio de sesión - Arix MEE</title>
   <link href="public/resources/css/login.boostrap4.min.css" rel="stylesheet" id="bootstrap-css">
 <script defer src="public/resources/js/login.boostrap4.min.js"></script>
 <!--<link rel="shortcut icon" href="<?php echo base_url('arixmee/img/arixmee.ico');?>">-->
@@ -63,8 +63,9 @@
          <div class="card-body">
             <div class="row">
                <div class="col-md-4">
+                  <h6 class="text-muted text-center">Arix&reg; Minimal ERP Edition</h6>                  
+                  <hr style="margin: 3px;">
                   <h6 class="text-muted text-center">MUNICIPALIDAD PROVINCIAL DE PUNO</h6>
-                  <hr>
                   <div class="row">
                         <div class="col-xs-6 col-sm-12 col-md-12 text-center">                          
                           <img class="img-thumbnail" src="public/images/puno.jpg" width="105px">

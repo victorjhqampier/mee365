@@ -1,5 +1,5 @@
 function arixshell_download_datos(urls){//Solicita datos a un determinado servidor
-	var a= null;
+	//var a= null;
     $.ajax({
      	type: 'POST',
         url: urls,
@@ -7,20 +7,36 @@ function arixshell_download_datos(urls){//Solicita datos a un determinado servid
         dataType: 'json',
         success: function (data){
 	        if (!$.isEmptyObject(data)){
-	            a = data;
+	            urls = data;
 	        }else{ 
-	            a = false;
+	            urls = false;
 	        }
         },
         error: function(e){
-            a = false;
+            urls = false;
         }
     });
-    return a; 
+    return urls; 
 }
-
-function arixshell_upload_datos(){
-
+function arixshell_upload_datos(urls, datas) { // si es uno solo archivo
+    $.ajax({
+        type: 'POST',
+        url: urls,
+        async: !1,
+        dataType: 'json',
+        data: datas,
+        success: function(data) {
+            if (!$.isEmptyObject(data)) {
+                urls = data;
+            } else {
+                urls = false;
+            }
+        },
+        error: function(e) {
+            urls = false;
+        }
+    });
+    return urls;
 }
 function arixshell_limpiar_string(s) {//elimina caracteres raros de un string *#$
     s = s.replace(/[^a-zA-Z0-9\_]/g,'');
@@ -135,55 +151,16 @@ function arixshell_cargar_paginas(lugar, url){
         }
     });
 }
-function arixshell_cargar_botones_menu(boton='btn-ayuda,btn-actualizar'){//carga botones en la barra de titulo
-   var numbotones = [
-        'btn-editar',
-        'btn-ayuda',
-        'btn-atras',
-        'btn-guardar',
-        'btn-cerrar',
-        'btn-agregar',
-        'btn-listar',
-        'btn-imprimir',
-        'btn-descargar',
-        'btn-actualizar',
-        'btn-borrar',
-        'btn-detalles',
-        'btn-terminar'
-        ];
-    var botones = [
-        '<button type="button" class="btn btn-secondary btn-editar"><i class="fas fa-pen"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-ayuda"><i class="fas fa-info-circle"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-atras"><i class="fas fa-backward"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-guardar"><i class="fas fa-check"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-cerrar"><i class="fas fa-times"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-agregar"><i class="fas fa-plus"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-listar"><i class="fas fa-th-list"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-imprimir"><i class="fas fa-print"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-descargar"><i class="fas fa-download"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-actualizar"><i class="fas fa-retweet"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-borrar"><i class="fas fa-trash"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-detalles"><i class="fas fa-window-restore"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-terminar"><i class="fas fa-power-off"></i></button>'
-        ];
-    var losbotones = [];
-    var elocation = 'main #nav-item-input-botones';
-    if (boton!=null) {
-        boton = boton.split(',');
-        for(var i = 0; i<boton.length; i++){
-            pos = numbotones.indexOf(boton[i]);
-            if(pos >=0){
-                losbotones.push(botones[pos]);
-            }else{
-                return;
-            }            
-        }
+function arixshell_cargar_botones_menu(botones='btn-detalles, btn-guardar, btn-actualizar, btn-borrar'){
+    botones = arixshell_upload_datos('arixapi/arixapi_cargar_botones', 'data='+botones+'&');
+    if (botones != false) {
+        var elocation = 'main #nav-item-input-botones';
         $(elocation).html('');//borras los registros actuales
-        for (var i = 0; i < losbotones.length; i++) {           
-            $(elocation).append(losbotones[i]);//agregas al final
+        for (var i = 0; i < botones.length; i++) {           
+            $(elocation).append('<button type="button" class="btn btn-secondary '+botones[i]['boton']+'"><i class="'+botones[i]['icono']+'"></i></button>');//agregas al final
         }
     }else{
-        return;
+        console.log('arixshell_cargar_botones_menu -> error');
     }
 }
 function arixshell_vaciar_menu(){
@@ -192,54 +169,16 @@ function arixshell_vaciar_menu(){
     $(elocation1).html('')
     $(elocation).html('');
 }
-function arixshell_cargar_boton_simple(boton='btn-detalles,btn-borrar', uid='error!'){//devuelve botones en bormato html
-    var numbotones = [
-        'btn-editar',
-        'btn-ayuda',
-        'btn-atras',
-        'btn-guardar',
-        'btn-cerrar',
-        'btn-agregar',
-        'btn-listar',
-        'btn-imprimir',
-        'btn-descargar',
-        'btn-actualizar',
-        'btn-borrar',
-        'btn-detalles',
-        'btn-terminar'
-        ];
-    var botones = [
-        '<button type="button" class="btn btn-secondary btn-editar" uid="'+uid+'"><i class="fas fa-pen"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-ayuda" uid="'+uid+'"><i class="fas fa-info-circle"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-atras" uid="'+uid+'"><i class="fas fa-backward"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-guardar" uid="'+uid+'"><i class="fas fa-check"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-cerrar" uid="'+uid+'"><i class="fas fa-times"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-agregar" uid="'+uid+'"><i class="fas fa-plus"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-listar" uid="'+uid+'"><i class="fas fa-th-list"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-imprimir" uid="'+uid+'"><i class="fas fa-print"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-descargar" uid="'+uid+'"><i class="fas fa-download"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-actualizar" uid="'+uid+'"><i class="fas fa-retweet"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-borrar" uid="'+uid+'"><i class="fas fa-trash"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-detalles" uid="'+uid+'"><i class="fas fa-window-restore"></i></button>',
-        '<button type="button" class="btn btn-secondary btn-terminar" uid="'+uid+'"><i class="fas fa-power-off"></i></button>'
-        ];
-    var losbotones = [], list ='';
-    if (boton!=null) {
-        boton = boton.split(',');
-        for(var i = 0; i<boton.length; i++){
-            pos = numbotones.indexOf(boton[i]);
-            if(pos >=0){
-                losbotones.push(botones[pos]);
-            }else{
-                return;
-            }            
-        }
-        for (var i = 0; i < losbotones.length; i++) {
-            list+=losbotones[i];
+function arixshell_cargar_boton_simple(botones='btn-detalles,btn-borrar', uid='error!'){//devuelve botones en bormato html
+    botones = arixshell_upload_datos('arixapi/arixapi_cargar_botones', 'data='+botones+'&');
+    if (botones != false) {
+        var list = '';
+        for (var i = 0; i < botones.length; i++) {
+            list+='<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" uid="'+uid+'"><i class="'+botones[i]['icono']+'"></i></button>';
         }
         return list;
     }else{
-        return;
+        console.log('arixshell_cargar_botones_menu -> error');
     }
 }
 function arixshell_mostrar_card_users(image, titulo, msg_1, msg_2, msg_3, msg_4, fecha, btns='btn-detalles,btn-borrar', uid, estado = true){

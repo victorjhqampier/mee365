@@ -91,16 +91,22 @@ class Arixapi extends CI_Controller {
 			echo json_encode(array('status' => 403));//acceso denedo
 		}
 	}
-	public function arixapi_cargar_botones(){
-		$usuario_permiso = $this->serv_administracion_usuarios->mostrar_usuario_permiso();
-		$usuario_permiso = $usuario_permiso->binario;
-		$usuario_botones = $this->serv_ejecucion_app->cargar_botones();
-		for ($i=0; $i < count($usuario_botones); $i++) { //cargamos los botones autorizados
-			
+	public function arixapi_cargar_botones($botones = 'btn-detalles, btn-guardar, btn-actualizar, btn-borrar'){
+		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('data')){
+			$botones = $this->input->post('data');
+			$usuario_permiso = $this->serv_administracion_usuarios->mostrar_usuario_permiso();
+			$usuario_permiso = $usuario_permiso->binario;
+			echo json_encode($this->serv_ejecucion_app->cargar_botones($usuario_permiso,$botones));
 		}
-		print_r($usuario_permiso);
+		else{
+			echo json_encode(array('status' => 403));
+		}
+	}
+	public function arixapi_cargar_lista_card(){
+		$lista = $this->serv_ejecucion_app->cargar_lista_targetas('documento, codigo, nombres, paterno, materno, fotografia, estado, fregistro', 'usuarios', 14);
+		echo json_encode($lista);
 	}
 	public function index(){
-		echo json_encode($this->serv_ejecucion_app->cargar_botones());
+		echo 'estoy aqui';
 	}
 }

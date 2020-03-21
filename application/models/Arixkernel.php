@@ -6,14 +6,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	2- select_one_content(string, string, array)
 	3- select_all_content_where(string, string, array, int)
 	4- select_all_content_where_group(string,string, array, array)
+	5- select_all_content_where_order($tupla,$tabla, $condicion [array], $order [array], $cant_registros = 100)
 */
 
 class Arixkernel extends CI_Model{	
 	function __construct(){
 		parent::__construct();
 		date_default_timezone_set("America/Lima");
-		$this->load->database('pdoarixdatabase');
-		
+		$this->load->database('pdoarixdatabase');		
 	}
 	private function probar_permiso_user($dato = 'select'){// evalua si da permiso o no al usuario; resive como parametros CRUD
 		$this->load->library('session');
@@ -24,7 +24,7 @@ class Arixkernel extends CI_Model{
         $permiso = $permiso->binario;
         $result = false;
         //usaremos compuerta logica AND
-        for ($i=0; $i < strlen($permiso); $i++) {
+        for ($i=0; $i < 4; $i++) {
             $r = (substr($permiso, $i,1) and substr($binario[$dato], $i,1));
             if($r){
                 $result = $r;
@@ -48,6 +48,11 @@ class Arixkernel extends CI_Model{
 		$this->db->select($tupla);		
 		$this->db->group_by($group);
 		return $this->db->get_where($tabla,$condicion)->result();
+	}
+	public function select_all_content_where_order($tupla,$tabla, $condicion, $order, $cant_registros = 100){
+		$this->db->select($tupla);		
+		$this->db->order_by($order[0], $order[1]);
+		return $this->db->get_where($tabla,$condicion,$cant_registros)->result();
 	}
 	public function select_one_content($tupla, $tabla, $condicion){//selecciona 1 elemento de un tabla
 			$this->db->select($tupla);
