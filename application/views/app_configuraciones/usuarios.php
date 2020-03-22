@@ -8,5 +8,9 @@ $(document).ready(function(){
         var a = $(this).attr('uid');
         alert(a);
     });
+    //cuando haces click en el boton + -- AGREGAR
+    $('main #nav-item-input-botones').on("click", ".btn-agregar", function() {
+    	arixshell_cargar_paginas(window.location.href+'/usuarios_nuevo');
+    });
 }); 
 </script>

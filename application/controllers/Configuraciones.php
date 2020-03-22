@@ -47,4 +47,12 @@ class Configuraciones extends CI_Controller {
 			show_404();
 		}
 	}
+	public function usuarios_nuevo(){
+		if ($this->input->is_ajax_request()) {
+			$this->load->view('app_configuraciones/usuarios_nuevo');
+		}
+		else{
+			show_404();
+		}
+	}
 }

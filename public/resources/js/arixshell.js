@@ -143,7 +143,21 @@ function arixshell_probar_url(){//Ocurre un error fatal cunado se añade un / al
         return;
     }
 }
-function arixshell_cargar_paginas(lugar, url){
+function arixshell_vaciar_botones_menu(){
+    var elocation1 = 'main #nav-item-input-buscar';
+    var elocation = 'main #nav-item-input-botones';
+    $(elocation1).html('')
+    $(elocation).html('');
+}
+function arixshell_vaciar_paginas(){
+    var elocation1 = 'main #use-container-secondary';
+    var elocation = 'main #use-container-primary';
+    $(elocation1).html('')
+    $(elocation).html('');
+}
+function arixshell_cargar_paginas(url,lugar = '#use-container-primary'){
+    arixshell_vaciar_paginas();
+    arixshell_vaciar_botones_menu();
     $(lugar).load(url, function(response, status, xhr) {
         if (status == "error") {
             var msg = "Arixcore encontró el siguiente error: ";//<h3>'+msg + ' - ' +xhr.status + " - " + xhr.statusText+'</h3>
@@ -162,12 +176,6 @@ function arixshell_cargar_botones_menu(botones='btn-detalles, btn-guardar, btn-a
     }else{
         console.log('arixshell_cargar_botones_menu -> error');
     }
-}
-function arixshell_vaciar_menu(){
-    var elocation1 = 'main #nav-item-input-buscar';
-    var elocation = 'main #nav-item-input-botones';
-    $(elocation1).html('')
-    $(elocation).html('');
 }
 function arixshell_cargar_boton_simple(botones='btn-detalles,btn-borrar', uid='error!'){//devuelve botones en bormato html
     botones = arixshell_upload_datos('arixapi/arixapi_cargar_botones', 'data='+botones+'&');
@@ -207,11 +215,11 @@ $('nav #dropdown-item-u3').click(function(){
         return;
     }
 });
-//Camputa el clic submenu
+//Cuando haces clin en algundo de los menus
 $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno de los elementos del munu
     $('#use-container-secondary').html('');//reestablce el primer contenedor
     var a = $(this).attr('controller'), b = $(this).text(), cant = $('#nav-idont-know .breadcrumb-item').length;
-    arixshell_cargar_paginas('#use-container-primary', window.location.href+'/'+a);
+    arixshell_cargar_paginas(window.location.href+'/'+a);
     $('#sidenavAccordion').find('a').removeClass('active');
     $(this).addClass('active');
     //console.log(cant);
