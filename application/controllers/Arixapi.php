@@ -103,8 +103,17 @@ class Arixapi extends CI_Controller {
 		}
 	}
 	public function arixapi_cargar_lista_card(){
-		$lista = $this->serv_ejecucion_app->cargar_lista_targetas('documento, codigo, nombres, paterno, materno, fotografia, estado, fregistro', 'usuarios', 14);
-		echo json_encode($lista);
+		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('data')){
+			$table = $this->input->post('data');
+			$cant = $this->input->post('cant');
+			$lista = $this->serv_ejecucion_app->cargar_lista_targetas($table,$cant);
+			for ($i=0; $i < count($lista); $i++) { 
+				$lista[$i]->uid = $this->serv_cifrado->cifrar_dato($lista[$i]->uid);
+			}
+			echo json_encode($lista);
+		}else{
+			echo json_encode(array('status' => 403));
+		}
 	}
 	public function index(){
 		echo 'estoy aqui';

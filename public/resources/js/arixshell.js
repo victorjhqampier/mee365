@@ -217,7 +217,19 @@ $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno d
     //console.log(cant);
     arixshell_cargar_titulo(b,cant); //submenu representa el segundo subtitulo cant = 2
 });
-
+function arixshell_cargar_lista_cards(tabla,btns='btn-detalles,btn-borrar',cant){
+    lista = arixshell_upload_datos('arixapi/arixapi_cargar_lista_card','data='+tabla+'&cant='+cant);
+    if (lista != false) {
+        var elocation = '#use-container-secondary';
+        $(elocation).html('');//borras los registros actuales
+        for (var i = 0; i < lista.length; i++) { 
+            temp = arixshell_mostrar_card_users(lista[i].fotografia,lista[i].nombres+', '+lista[i].paterno+' '+lista[i].materno, lista[i].documento+' - '+lista[i].codigo, lista[i].codigo, lista[i].fregistro,lista[i].fregistro, lista[i].fregistro, btns, lista[i].uid);         
+            $(elocation).append(temp);//agregas al final
+        }
+    }else{
+        console.log('arixshell_cargar_lista_cards -> error');
+    }
+}
 /*--------------------------MAIN----------------*/
 //arixshell_probar_url();
 arixshell_cargar_apps();
