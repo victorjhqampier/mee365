@@ -45,17 +45,26 @@ function arixshell_limpiar_string(s) {//elimina caracteres raros de un string *#
 function arixshell_cargar_titulo(title,next = 0){
     //title = arixshell_limpiar_string(title);
     ubicacion = '#layoutSidenav_content #user-title-breadcrumb';
-    if(next == 0){
+    if(next == 0){//limpia todo y agrega el priemer elemento
         $(ubicacion).html('<li class="breadcrumb-item">'+title+'</li>');
         $('title').text(title+" - Arix Shell v1.0");
     }
-    else if (next == 1){
-        $(ubicacion).append('<li class="breadcrumb-item">'+title+'</li>')
+    else if (next == 1){//agrega un elemeto al final
+        $(ubicacion).append('<li class="breadcrumb-item">'+title+'</li>');
     }
-    else{
+    else if (next == 2){//Reemplaza al último elemto
         $( "#user-title-breadcrumb li" ).last().remove();
-        $(ubicacion).append('<li class="breadcrumb-item">'+title+'</li>')
+        $(ubicacion).append('<li class="breadcrumb-item">'+title+'</li>');
     }
+    else{//Reemplaza a los dos ultimos elementos
+        $("#user-title-breadcrumb li" ).last().remove();
+        $("#user-title-breadcrumb li" ).last().replaceWith('<li class="breadcrumb-item">'+title+'</li>');
+        //$(ubicacion).append('<li class="breadcrumb-item">'+title+'</li>');
+    }
+}
+function arix_cargar_ultimo_titulo(titulo='Nuevo'){
+    cant = $('#nav-idont-know .breadcrumb-item').length;
+    arixshell_cargar_titulo(titulo,cant-1);
 }
 function arixshell_activeshadow_app(a,b){return b==a?"active":""}//dessaroolando su mejora
 function arixshell_desactivehref_app(r,a,e){return r==a?(arixshell_cargar_titulo(e,0),"javascript:;"):r}//desarrollando su mejora
