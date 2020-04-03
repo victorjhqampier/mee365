@@ -46,7 +46,7 @@ function arixshell_cargar_titulo(title,next = 0){
     //title = arixshell_limpiar_string(title);
     ubicacion = '#layoutSidenav_content #user-title-breadcrumb';
     if(next == 0){//limpia todo y agrega el priemer elemento
-        $(ubicacion).html('<li class="breadcrumb-item">'+title+'</li>');
+        $(ubicacion).html('<li class="breadcrumb-item active">'+title+'</li>');
         $('title').text(title+" - Arix Shell v1.0");
     }
     else if (next == 1){//agrega un elemeto al final
