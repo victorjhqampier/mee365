@@ -11,4 +11,7 @@ class Inicio extends CI_Controller {
 		$js = $this->serv_ejecucion_app->cargar_js('inicio-arixjs');
 		$this->load->view('arixshellbase',compact('js'));
 	}
+	public function notificaciones(){
+		$this->load->view('app_inicio/notificaciones');
+	}
 }
