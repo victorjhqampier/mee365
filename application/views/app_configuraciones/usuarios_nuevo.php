@@ -55,7 +55,7 @@
                     <div class="input-group input-group-sm mb-2">
                       <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <input type="checkbox" aria-label="Checkbox for following text input" checked disabled>
+                            <input type="checkbox" aria-label="Checkbox for following text input" checked>
                         </span>
                         <span class="input-group-text">BIBLIOTECA MUNICIPAL GAMALIEL CHURATA</span>
                       </div>
@@ -118,6 +118,14 @@
                 <small class="text-muted">Last updated 3 mins ago</small>
             </div>
         </div>
+    </div>
+</div>
+<div class="col-xl-12 col-md-12" style="padding-top: 1em;">
+    <div class="alert alert-dark" role="alert">
+        <code>
+            <samp>> Última visita: cracion de usuario Uanes@gmail.com</samp>
+            <p>> Por: Victor jhampier victorjhampier@gmail.com</p>
+        </code>
     </div>
 </div>
 <script type="text/javascript">

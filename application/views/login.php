@@ -63,12 +63,12 @@
          <div class="card-body">
             <div class="row">
                <div class="col-md-4">
-                  <h6 class="text-muted text-center">Arix&reg; Minimal ERP Edition</h6>                  
+                  <h6 class="text-muted text-center">SHOPDAY E.R.L</h6>                  
                   <hr style="margin: 3px;">
-                  <h6 class="text-muted text-center">MUNICIPALIDAD PROVINCIAL DE PUNO</h6>
+                  <h6 class="text-muted text-center">Arix&reg; Minimal ERP Edition</h6>
                   <div class="row">
                         <div class="col-xs-6 col-sm-12 col-md-12 text-center">                          
-                          <img class="img-thumbnail" src="public/images/puno.jpg" width="105px">
+                          <img class="img-thumbnail" src="public/images/images.jpeg" width="105px">
                         </div>
                   </div>
                   <hr>
@@ -91,35 +91,35 @@
                       <div class="carousel-item">
                         <img src="public/images/one.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
-                          <h5>Biblioteca Municipal Gamaliel Churata</h5>
+                          <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
                         </div>
                       </div>
                       <div class="carousel-item">
                         <img src="public/images/one.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
-                          <h5>Biblioteca Municipal Gamaliel Churata</h5>
+                          <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
                         </div>
                       </div>
                       <div class="carousel-item active">
                         <img src="public/images/two.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
-                          <h5>Biblioteca Municipal Gamaliel Churata</h5>
+                          <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
                         </div>
                       </div>
                       <div class="carousel-item">
                         <img src="public/images/three.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
-                          <h5>Biblioteca Municipal Gamaliel Churata</h5>
+                          <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
                         </div>
                       </div>
                       <div class="carousel-item">
                         <img src="public/images/four.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
-                          <h5>Biblioteca Municipal Gamaliel Churata</h5>
+                          <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
                         </div>
                       </div>
