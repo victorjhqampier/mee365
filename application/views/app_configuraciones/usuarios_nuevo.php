@@ -8,7 +8,7 @@
                     <div class="form-group">
                         <label for="input-user">Nombre del empleado</label>
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Nombre del empleado" aria-label="Recipient's username" aria-describedby="basic-addon2" id="input-user" name="txtUser">
+                            <input type="text" class="form-control" placeholder="Nombre del empleado" aria-label="Recipient's username" aria-describedby="basic-addon2" id="input-user" name="txtUser" readonly>
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button"><i class="fa fa-times"></i></button>
                                 <button class="btn btn-outline-secondary" type="button"><i class="fa fa-ellipsis-h"></i></button>
@@ -17,7 +17,7 @@
                     </div>
                     <div class="form-group">
                         <label for="user-id">Nombre del usuario</label>
-                        <input type="text" class="form-control form-control-sm" id="user-id" name="textId" placeholder="Correo del empleado">
+                        <input type="text" class="form-control form-control-sm" id="user-id" name="textId" placeholder="Correo del empleado" readonly>
                     </div>
                     <hr>
                     <div class="form-group input-group-sm">                        
@@ -120,7 +120,7 @@
         </div>
     </div>
 </div>
-<div class="col-xl-12 col-md-12" style="padding-top: 1em;">
+<div class="col-xl-12 col-md-12 mt-2">
     <div class="alert alert-dark" role="alert">
         <code>
             <samp>> Última visita: cracion de usuario Uanes@gmail.com</samp>

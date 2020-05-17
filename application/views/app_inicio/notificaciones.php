@@ -8,7 +8,8 @@
     </button>
   </div>
   <div class="toast-body">
-    A pesar de las circunstancias, estamos trabajando continumente. Sin embargo, Ud. puede probar y verficicar los avances.
+    Ésta es la versión beta, pruebe todas las funciones nuevas antes de ofrecerlas al público general.
+    <code>Avance estimado ... </code>
     <hr>
     <div class="progress">
   <div class="progress-bar" role="progressbar" style="width: 17%" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100"></div>
