@@ -174,6 +174,14 @@ function arixshell_cargar_paginas(url,lugar = '#use-container-primary'){
         }
     });
 }
+function arixshell_cargar_subpaginas(url,lugar){//carga paginas en un modal
+    $(lugar).load(url, function(response, status, xhr) {
+        if (status == "error") {
+            var msg = "Arixcore encontró el siguiente error: ";
+            $(lugar).html('<div class="col-xl-12 col-md-12"><div class="card bg-danger text-white mb-4"><div class="card-body">'+msg + xhr.status + " - " + xhr.statusText+' en '+url+'<div class="card-footer d-flex align-items-center justify-content-between"><a class="small text-white stretched-link" href="javascript:;"><strong>¡Lo siento! </strong>Ésta página no existe ...</a></div></div></div></div>');
+        }
+    });
+}
 function arixshell_cargar_botones_menu(botones='btn-detalles, btn-guardar, btn-actualizar, btn-borrar'){
     botones = arixshell_upload_datos('arixapi/arixapi_cargar_botones', 'data='+botones+'&');
     if (botones != false) {

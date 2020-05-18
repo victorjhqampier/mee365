@@ -61,9 +61,40 @@
         </div>
      </div>
 </div>
+
+<!-- Button to Open the Modal -->
+<button type="button" class="btn btn-primary" id="monalexmm">
+Open modal
+</button>
+<!-- The Modal -->
+<div class="modal fade" id="monal-for-newperson">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <!-- Modal Header -->
+         <div class="modal-header py-2">
+            <h6 class="modal-title">Agregar Nueva Persona</h6>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+         </div>
+         <!-- Modal body -->
+         <div class="modal-body">
+         </div>
+      </div>
+   </div>
+</div>
+
 <script type="text/javascript">
 $(document).ready(function(){
     arixshell_cargar_botones_menu();
+    $('#monalexmm').click(function(){         
+        arixshell_cargar_subpaginas(window.location.href+'/reportes', $('#monal-for-newperson .modal-body'));
+        $('#monal-for-newperson').modal('show');
+        //$('#monal-for-newperson').modal('handleUpdate');
+    })
+
+    $('.modal-footer').click(function(){
+        $('#monal-for-newperson').modal('hide');
+    })
+    //arixshell_cargar_paginas('configuraciones/usuario_nuevo',$('#monal-for-newperson').find('.row'));
     //arixshell_cargar_boton_buscar('Buscar por DNI');
 }); 
 </script>
