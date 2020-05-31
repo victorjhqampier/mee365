@@ -188,7 +188,7 @@ function arixshell_cargar_botones_menu(botones='btn-detalles, btn-guardar, btn-a
         var elocation = 'main #nav-item-input-botones';
         $(elocation).html('');//borras los registros actuales
         for (var i = 0; i < botones.length; i++) {           
-            $(elocation).append('<button type="button" class="btn btn-secondary '+botones[i]['boton']+'"><i class="'+botones[i]['icono']+'"></i></button>');//agregas al final
+            $(elocation).append('<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"><i class="'+botones[i]['icono']+'"></i></button>');//agregas al final
         }
     }else{
         console.log('arixshell_cargar_botones_menu -> error');
@@ -199,7 +199,7 @@ function arixshell_cargar_boton_simple(botones='btn-detalles,btn-borrar', uid='e
     if (botones != false) {
         var list = '';
         for (var i = 0; i < botones.length; i++) {
-            list+='<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" uid="'+uid+'"><i class="'+botones[i]['icono']+'"></i></button>';
+            list+='<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" uid="'+uid+'"><i class="'+botones[i]['icono']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"></i></button>';
         }
         return list;
     }else{

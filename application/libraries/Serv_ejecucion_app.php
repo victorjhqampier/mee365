@@ -55,7 +55,7 @@ class Serv_ejecucion_app {
         for ($i=0; $i < 4; $i++) { //recorremos la cantidad del binario PERMISOS,
             if (substr($usuario_permiso, $i,1) == 1) {//si tiene permiso entramos para buscar los botones
                 for ($j=0; $j < count($botones); $j++) { //buscamos los botones solicitados
-                    $temp = $this->object_to_array($this->ci->arixkernel->select_one_content('boton, icono','config.botones', array('boton' => $botones[$j], 'permiso'=>bindec($permisos_botones[$i]))));
+                    $temp = $this->object_to_array($this->ci->arixkernel->select_one_content('boton, icono, titulo','config.botones', array('boton' => $botones[$j], 'permiso'=>bindec($permisos_botones[$i]))));
                     if (!is_null($temp)) {
                         array_push($btns_autorizados, $temp);
                     }
