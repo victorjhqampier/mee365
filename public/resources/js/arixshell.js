@@ -218,6 +218,11 @@ function arixshell_mostrar_card_users(image, titulo, msg_1, msg_2, msg_3, msg_4,
     return list;
 
 }
+function arixshell_mostrar_targeta_imagetop_simple(image, titulo, subtitulo, fecha, btns='btn-detalles,btn-borrar', uid = '_error_de_cifrado_'){
+    return '<div class="card card-arix" style="font-size: 12px;"><img src="'+image+'" class="card-img-top img-fluid" alt="..."> <div class="card-body"><dl class="dl-horizontal"><dt>'+
+    titulo.substring(0,34)+'</dt><dd>'+subtitulo.substring(0,34)+'</dd></dl></div><div class="card-footer text-muted d-flex align-items-left justify-content-between" style="margin-top: -20px;"><span class="text-info">'+
+    fecha+'</span><div class="btn-group btn-group-sm" style="margin: -3px">'+arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';
+}
 function arixshell_cargar_boton_buscar(placeholder = 'Buscar ...'){
     var elocation = 'main #nav-item-input-buscar';
     $(elocation).html('')

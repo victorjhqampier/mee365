@@ -4337,6 +4337,12 @@ input[type=button].btn-block {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
+.card-arix {
+  max-width: 20.7rem; 
+  min-width: 20.6rem; 
+  margin: 0.75rem;
+  margin-top: 3px;
+}
 .card > hr {
   margin-right: 0;
   margin-left: 0;

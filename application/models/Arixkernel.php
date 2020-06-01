@@ -49,9 +49,16 @@ class Arixkernel extends CI_Model{
 		$this->db->group_by($group);
 		return $this->db->get_where($tabla,$condicion)->result();
 	}
-	public function select_all_content_where_order($tupla,$tabla, $condicion, $order, $cant_registros = 100){
+	public function select_all_content_order($tupla,$tabla, $orderby, $cant_registros = 100){
+		$orderby = explode(",", $orderby);
 		$this->db->select($tupla);		
-		$this->db->order_by($order[0], $order[1]);
+		$this->db->order_by($orderby[0], $orderby[1]);
+		return $this->db->get($tabla,$cant_registros)->result();
+	}
+	public function select_all_content_where_order($tupla,$tabla, $condicion, $orderby, $cant_registros = 100){
+		$order = explode(",", $orderby);
+		$this->db->select($tupla);		
+		$this->db->order_by($orderby[0], $orderby[1]);
 		return $this->db->get_where($tabla,$condicion,$cant_registros)->result();
 	}
 	public function select_one_content($tupla, $tabla, $condicion){//selecciona 1 elemento de un tabla
