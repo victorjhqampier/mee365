@@ -3,8 +3,8 @@
    <div class="card-header">VICTOR JHAMPIER
    </div>
    <div class="card-body row">
-      <div class="col-md-3 text-center"> <img class="img-fluid" src="'+image+'" alt="..."> </div>
-      <div class="col-md-9" style="padding: 0px; margin-left: -2px; margin-top: -3px">
+      <div class="col-md-2 text-center"> <img class="img-fluid" src="'+image+'" alt="..."> </div>
+      <div class="col-md-10">
          <dl class="dl-horizontal">
             <dt class="col-sm-12">VICTOR JHAMPIER CAXI MAQUERA
             </dt>

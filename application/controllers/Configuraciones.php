@@ -77,4 +77,16 @@ class Configuraciones extends CI_Controller {
 			echo json_encode(array('status' => 403));
 		}
 	}
+	public function axconfiguraciones_cargar_lista_usuarios(){
+		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('type')){
+			$tipo = $this->input->post('type'); // variable para cargar datos como iconos o lista datatables
+			$lista = $this->serv_ejecucion_app->cargar_lista_any_targetas('imagen, sucursal_id uid, nombre, direccion', 'config.sucusales', 'fregistro, ASC',20);
+			for ($i=0; $i < count($lista); $i++) { 
+				$lista[$i]->uid = $this->serv_cifrado->cifrar_dato($lista[$i]->uid);
+			}
+			echo json_encode($lista);
+		}else{
+			echo json_encode(array('status' => 403));
+		}
+	}
 }

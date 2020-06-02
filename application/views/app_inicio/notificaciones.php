@@ -9,7 +9,7 @@
   </div>
   <div class="toast-body">
     Ésta es la versión alfa, pruebe todas las funciones nuevas antes de ofrecerlas al público general.
-    <code>Avance estimado ... </code>
+    <code>Avance estimado ... trabando junto a Denis </code>
     <hr>
     <div class="progress">
   <div class="progress-bar" role="progressbar" style="width: 17%" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100"></div>
