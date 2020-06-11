@@ -64,13 +64,6 @@ class Serv_ejecucion_app {
         }
         return $btns_autorizados;
     }
-    public function cargar_lista_targetas($tabla, $cant){
-        $tablas = array('usuarios' => 'config.v_persona_empleado_cuenta', 'empleados'=>'config.v_persona_empleado');
-        $tuplas = array('usuarios' => 'cuenta_id uid, documento, codigo, nombres, paterno, materno, fotografia, estado, fregistro', 'usuarios', 'empleados'=>'empleado_id uid,');
-        $condiciones = array('usuarios' => 'jefe_id IS NOT NULL', 'empleados'=>'jefe_id IS NOT NULL');
-        $tablas = $this->ci->arixkernel->select_all_content_where_order($tuplas[$tabla],$tablas[$tabla], $condiciones[$tabla], 'fmodificacion, ASC', $cant);
-        return $tablas;
-    }
     public function cargar_lista_any_targetas($tuplas, $tabla, $orderby,$cant, $cond = null){
         if($cond == null){
             return $this->ci->arixkernel->select_all_content_order($tuplas, $tabla, $orderby, $cant);

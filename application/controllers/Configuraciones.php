@@ -68,7 +68,7 @@ class Configuraciones extends CI_Controller {
 	public function axconfiguraciones_cargar_lista_sucursales(){
 		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('type')){
 			$tipo = $this->input->post('type'); // variable para cargar datos como iconos o lista datatables
-			$lista = $this->serv_ejecucion_app->cargar_lista_any_targetas('imagen, sucursal_id uid, nombre, direccion', 'config.sucusales', 'fregistro, ASC',20);
+			$lista = $this->serv_ejecucion_app->cargar_lista_any_targetas('imagen, sucursal_id uid, nombre, direccion, fregistro', 'config.sucusales', 'fregistro, ASC',20);
 			for ($i=0; $i < count($lista); $i++) { 
 				$lista[$i]->uid = $this->serv_cifrado->cifrar_dato($lista[$i]->uid);
 			}
@@ -80,7 +80,7 @@ class Configuraciones extends CI_Controller {
 	public function axconfiguraciones_cargar_lista_usuarios(){
 		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('type')){
 			$tipo = $this->input->post('type'); // variable para cargar datos como iconos o lista datatables
-			$lista = $this->serv_ejecucion_app->cargar_lista_any_targetas('imagen, sucursal_id uid, nombre, direccion', 'config.sucusales', 'fregistro, ASC',20);
+			$lista = $this->serv_ejecucion_app->cargar_lista_any_targetas('fotografia, cuenta_id uid, nombres, paterno, materno, documento, codigo, fmodificacion, estado, correo', 'config.v_persona_empleado_cuenta', 'fmodificacion, ASC',20);
 			for ($i=0; $i < count($lista); $i++) { 
 				$lista[$i]->uid = $this->serv_cifrado->cifrar_dato($lista[$i]->uid);
 			}

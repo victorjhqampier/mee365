@@ -83,13 +83,12 @@
                                 <i class="fas fa-bars"></i>
                               </button>
                               <div class="collapse navbar-collapse" id="nav-idont-know">
-                                <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="font-size: 1rem;" id="user-title-breadcrumb">
+                                <ul class="navbar-nav mr-auto mt-0 mt-lg-0" style="font-size: 1.1rem;" id="user-title-breadcrumb">
                                     <li class="breadcrumb-item">Cargando ... </li>
                                     <li class="breadcrumb-item active">Buscando ...</li>
                                 </ul>
-                                <ul class="navbar-nav mt-2 mt-lg-0">                                    
-                                    <li class="nav-item" id="nav-item-input-buscar">
-                                        
+                                <ul class="navbar-nav mt-0 mt-lg-0">                             
+                                    <li class="nav-item" id="nav-item-input-buscar">                                        
                                     </li>
                                     <li class="nav-item">
                                         <div class="btn-group btn-group-sm" id="nav-item-input-botones"></div>

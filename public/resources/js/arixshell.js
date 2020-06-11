@@ -206,7 +206,7 @@ function arixshell_cargar_boton_simple(botones='btn-detalles,btn-borrar', uid='e
         console.log('arixshell_cargar_botones_menu -> error');
     }
 }
-function arixshell_mostrar_card_users(image, titulo, msg_1, msg_2, msg_3, msg_4, fecha, btns='btn-detalles,btn-borrar', uid, estado = true){
+/*function arixshell_mostrar_card_users(image, titulo, msg_1, msg_2, msg_3, msg_4, fecha, btns='btn-detalles,btn-borrar', uid, estado = true){
     var list = '<div class="card" style="max-width: 21.7rem; min-width: 21.5rem; margin: 0.75rem; margin-top: 3px"> <div class="card-header">'
     +titulo.substring(0,34)+'</div><div class="card-body row"> <div class="col-md-3 text-center"> <img class="img-fluid" src="'+image+'" alt="..."> </div><div class="col-md-9" style="padding: 0px; margin-left: -2px; margin-top: -3px"> <dl class="dl-horizontal"> <dt class="col-sm-12">'
     +msg_1.substring(0,29)+'</dt> <dd class="col-sm-12">'
@@ -217,11 +217,19 @@ function arixshell_mostrar_card_users(image, titulo, msg_1, msg_2, msg_3, msg_4,
     +arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';
     return list;
 
+}*/
+function arixshell_mostrar_targeta_borde_color(estado = true){
+    return estado==true?"border-success":"border-danger";
 }
 function arixshell_mostrar_targeta_imagetop_simple(image, titulo, subtitulo, fecha, btns='btn-detalles,btn-borrar', uid = '_error_de_cifrado_'){
     return '<div class="card card-arix" style="font-size: 12px;"><img src="'+image+'" class="card-img-top img-fluid" alt="..."> <div class="card-body"><dl class="dl-horizontal"><dt>'+
-    titulo.substring(0,34)+'</dt><dd>'+subtitulo.substring(0,34)+'</dd></dl></div><div class="card-footer text-muted d-flex align-items-left justify-content-between" style="margin-top: -20px;"><span class="text-info">'+
+    titulo.substring(0,34)+'</dt><dd>'+subtitulo.substring(0,34)+'</dd></dl></div><div class="card-footer text-muted d-flex align-items-left justify-content-between" style="margin-top: -20px;"><span class="text-info" style="margin-top: 4px">'+
     fecha+'</span><div class="btn-group btn-group-sm" style="margin: -3px">'+arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';
+}
+function arixshell_mostrar_targeta_imageleft_simple(image, titulo, subtitulo, subtitulo2, subtitulo3, fecha, estado = true, btns='btn-detalles,btn-borrar', uid = '_error_de_cifrado_'){
+    return '<div class="card card-arix '+arixshell_mostrar_targeta_borde_color(estado)+'" style="font-size: 12px;"> <div class="card-header">'+titulo+'</div><div class="row no-gutters"> <div class="col-md-2"> <img class="img-fluid" style="margin: 1px" src="'+
+    image+'" alt="..."> </div><div class="col-md-10"> <div class="card-body"> <ul class="list-unstyled" style="margin: 0px"><dt>'+subtitulo+'</dt><li>'+subtitulo2+'</li><li>'+subtitulo3+'</li></ul></div></div></div><div class="card-footer text-muted d-flex align-items-left justify-content-between"> <span class="text-info" style="margin-top: 4px">'+
+    fecha+'</span> <div class="btn-group btn-group-sm" style="margin: -3px">'+arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';    
 }
 function arixshell_cargar_boton_buscar(placeholder = 'Buscar ...'){
     var elocation = 'main #nav-item-input-buscar';
