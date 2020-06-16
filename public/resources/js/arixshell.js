@@ -164,7 +164,7 @@ function arixshell_vaciar_paginas(){
     $(elocation1).html('')
     $(elocation).html('');
 }
-function arixshell_cargar_paginas(url,lugar = '#use-container-primary'){
+function arixshell_cargar_paginas(url,lugar = '#use-container-primary'){//borra todo y carga una pagina
     arixshell_vaciar_paginas();
     arixshell_vaciar_botones_menu();
     $(lugar).load(url, function(response, status, xhr) {
@@ -178,7 +178,7 @@ function arixshell_cargar_subpaginas(url,lugar){//carga paginas en un modal
     $(lugar).load(url, function(response, status, xhr) {
         if (status == "error") {
             var msg = "Arixcore encontró el siguiente error: ";
-            $(lugar).html('<div class="col-xl-12 col-md-12"><div class="card bg-danger text-white mb-4"><div class="card-body">'+msg + xhr.status + " - " + xhr.statusText+' en '+url+'<div class="card-footer d-flex align-items-center justify-content-between"><a class="small text-white stretched-link" href="javascript:;"><strong>¡Lo siento! </strong>Ésta página no existe ...</a></div></div></div></div>');
+            $(lugar).html('<div class="col-xl-12 col-md-12"><div class="card bg-danger text-white mb-4"><div class="card-body">'+msg + xhr.status + " - " + xhr.statusText+' en '+url+'<div class="card-footer d-flex align-items-center justify-content-between"><a class="small text-white stretched-link" href="javascript:;"><strong>¡Lo siento! </strong>El servidor a denegado su petición ...</a></div></div></div></div>');
         }
     });
 }
@@ -222,12 +222,12 @@ function arixshell_mostrar_targeta_borde_color(estado = true){
     return estado==true?"border-success":"border-danger";
 }
 function arixshell_mostrar_targeta_imagetop_simple(image, titulo, subtitulo, fecha, btns='btn-detalles,btn-borrar', uid = '_error_de_cifrado_'){
-    return '<div class="card card-arix" style="font-size: 12px;"><img src="'+image+'" class="card-img-top img-fluid" alt="..."> <div class="card-body"><dl class="dl-horizontal"><dt>'+
+    return '<div class="card card-arix" style="font-size: 12px;"><img loading="lazy" src="'+image+'" class="card-img-top img-fluid" alt="..."> <div class="card-body"><dl class="dl-horizontal"><dt>'+
     titulo.substring(0,34)+'</dt><dd>'+subtitulo.substring(0,34)+'</dd></dl></div><div class="card-footer text-muted d-flex align-items-left justify-content-between" style="margin-top: -20px;"><span class="text-info" style="margin-top: 4px">'+
     fecha+'</span><div class="btn-group btn-group-sm" style="margin: -3px">'+arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';
 }
 function arixshell_mostrar_targeta_imageleft_simple(image, titulo, subtitulo, subtitulo2, subtitulo3, fecha, estado = true, btns='btn-detalles,btn-borrar', uid = '_error_de_cifrado_'){
-    return '<div class="card card-arix '+arixshell_mostrar_targeta_borde_color(estado)+'" style="font-size: 12px;"> <div class="card-header">'+titulo+'</div><div class="row no-gutters"> <div class="col-md-2"> <img class="img-fluid" style="margin: 1px" src="'+
+    return '<div class="card card-arix '+arixshell_mostrar_targeta_borde_color(estado)+'" style="font-size: 12px;"> <div class="card-header">'+titulo+'</div><div class="row no-gutters"> <div class="col-md-2"> <img loading="lazy" class="img-fluid" style="margin: 1px" src="'+
     image+'" alt="..."> </div><div class="col-md-10"> <div class="card-body"> <ul class="list-unstyled" style="margin: 0px"><dt>'+subtitulo+'</dt><li>'+subtitulo2+'</li><li>'+subtitulo3+'</li></ul></div></div></div><div class="card-footer text-muted d-flex align-items-left justify-content-between"> <span class="text-info" style="margin-top: 4px">'+
     fecha+'</span> <div class="btn-group btn-group-sm" style="margin: -3px">'+arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';    
 }

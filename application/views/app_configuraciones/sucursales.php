@@ -3,6 +3,9 @@
 $(document).ready(function(){
     arixshell_cargar_botones_menu('btn-agregar, btn-listar, btn-imprimir');
     //arixshell_cargar_boton_buscar('Buscar por DNI');
-    axconfiguraciones_mostrar_icono_sucursales('btn-detalles,btn-borrar');
+    axconfiguraciones_mostrar_icono_sucursales('btn-detalles,btn-terminar');
+    /*$('main #use-container-primary').on("click", ".btn-detalles", function() {
+    	arixshell_cargar_paginas(window.location.href+'/usuarios_nuevo');
+    });*/
 }); 
 </script>

@@ -89,35 +89,35 @@
                   <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item">
-                        <img src="public/images/one.jpg" alt="Primero">
+                        <img loading="lazy" src="public/images/one.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
                           <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
                         </div>
                       </div>
                       <div class="carousel-item">
-                        <img src="public/images/one.jpg" alt="Primero">
+                        <img loading="lazy" src="public/images/one.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
                           <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
                         </div>
                       </div>
                       <div class="carousel-item active">
-                        <img src="public/images/two.jpg" alt="Primero">
+                        <img loading="lazy" src="public/images/two.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
                           <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
                         </div>
                       </div>
                       <div class="carousel-item">
-                        <img src="public/images/three.jpg" alt="Primero">
+                        <img loading="lazy" src="public/images/three.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
                           <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
                         </div>
                       </div>
                       <div class="carousel-item">
-                        <img src="public/images/four.jpg" alt="Primero">
+                        <img loading="lazy" src="public/images/four.jpg" alt="Primero">
                         <div class="carousel-caption d-none d-md-block">
                           <h5>ShopDay, te ayudamos a elegir tu estilo</h5>
                           <p>Arix mee - Todos los derechos reservados</p>
