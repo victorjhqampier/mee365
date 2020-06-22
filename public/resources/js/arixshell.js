@@ -170,7 +170,7 @@ function arixshell_cargar_paginas(url,lugar = '#use-container-primary'){//borra 
     $(lugar).load(url, function(response, status, xhr) {
         if (status == "error") {
             var msg = "Arixcore encontró el siguiente error: ";//<h3>'+msg + ' - ' +xhr.status + " - " + xhr.statusText+'</h3>
-            $(lugar).html('<div class="col-xl-12 col-md-12"><div class="card bg-danger text-white mb-4"><div class="card-body">'+msg + xhr.status + " - " + xhr.statusText+' en '+url+'<div class="card-footer d-flex align-items-center justify-content-between"><a class="small text-white stretched-link" href="javascript:;"><strong>¡Lo siento! </strong>Ésta página no existe ...</a></div></div></div></div>');
+            $(lugar).html('<div class="row"><div class="col-xl-12 col-md-12"><div class="card bg-danger text-white mb-4"><div class="card-body">'+msg + xhr.status + " - " + xhr.statusText+' en '+url+'<div class="card-footer d-flex align-items-center justify-content-between"><a class="small text-white stretched-link" href="javascript:;"><strong>¡Lo siento! </strong>El servidor a denegado el acceso a la página ...</a></div></div></div></div></div>');
         }
     });
 }
@@ -182,28 +182,45 @@ function arixshell_cargar_subpaginas(url,lugar){//carga paginas en un modal
         }
     });
 }
-function arixshell_cargar_botones_menu(botones='btn-detalles, btn-guardar, btn-actualizar, btn-borrar'){
+function arixshell_cargar_idsec_unicos_byc(id1="#btn_error", id2="#con_error"){
+    var id1 = id1.replace(" ", "");
+        id1 = id1.replace("#", "");
+    var id2 = id2.replace(" ", "");
+        id2 = id2.replace("#", "");
+    //$('#nav-idont-know ul:last').attr('id', id1);
+    $('#nav-item-input-botones').html('<div class="btn-group btn-group-sm" id="'+id1+'"></div>');
+    $('#use-container-secondary').html('<div class="row" id="'+id2+'"></div>');
+}
+function arixshell_descargar_idsec_unicos_byc(one = 0){
+    li = ['#'+$('#nav-item-input-botones div:first').attr('id'), '#'+$('#use-container-secondary div:first').attr('id')];
+    if (one >= 0 && one < 2) {
+        return li[one]
+    }else{
+        return li;
+    }
+}
+function arixshell_cargar_botones_menu(botones='btn-actualizar'){
     botones = arixshell_upload_datos('arixapi/arixapi_cargar_botones', 'data='+botones+'&');
     if (botones != false) {
-        var elocation = 'main #nav-item-input-botones';
-        $(elocation).html('');//borras los registros actuales
+        //var elocation = 'main #nav-item-input-botones';
+        //$(elocation).html('');//borras los registros actuales
         for (var i = 0; i < botones.length; i++) {           
-            $(elocation).append('<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"><i class="'+botones[i]['icono']+'"></i></button>');//agregas al final
+            $(arixshell_descargar_idsec_unicos_byc(0)).append('<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"><i class="'+botones[i]['icono']+'"></i></button>');//agregas al final
         }
     }else{
         console.log('arixshell_cargar_botones_menu -> error');
     }
 }
-function arixshell_cargar_boton_simple(botones='btn-detalles,btn-borrar', uid='error!'){//devuelve botones en bormato html
+function arixshell_cargar_boton_simple(botones='btn-detalles,btn-borrar'){//devuelve botones en bormato html
     botones = arixshell_upload_datos('arixapi/arixapi_cargar_botones', 'data='+botones+'&');
     if (botones != false) {
         var list = '';
         for (var i = 0; i < botones.length; i++) {
-            list+='<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" uid="'+uid+'"><i class="'+botones[i]['icono']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"></i></button>';
+            list+='<button type="button" class="btn btn-secondary '+botones[i]['boton']+'"><i class="'+botones[i]['icono']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"></i></button>';
         }
         return list;
     }else{
-        console.log('arixshell_cargar_botones_menu -> error');
+        console.log('arixshell_cargar_boton_simple -> error');
     }
 }
 /*function arixshell_mostrar_card_users(image, titulo, msg_1, msg_2, msg_3, msg_4, fecha, btns='btn-detalles,btn-borrar', uid, estado = true){
@@ -218,19 +235,27 @@ function arixshell_cargar_boton_simple(botones='btn-detalles,btn-borrar', uid='e
     return list;
 
 }*/
+function arixshell_cargar_idcontenedor_en_secondary(id){
+    var id = id.replace(" ", "");
+        id = id.replace("#", "");
+    $('#nav-idont-know ul:last').attr('id', 'btn'+id);
+
+    $('#use-container-secondary').html('<div class="row" id="'+id+'"></div>');
+}
 function arixshell_mostrar_targeta_borde_color(estado = true){
     return estado==true?"border-success":"border-danger";
 }
 function arixshell_mostrar_targeta_imagetop_simple(image, titulo, subtitulo, fecha, btns='btn-detalles,btn-borrar', uid = '_error_de_cifrado_'){
     return '<div class="card card-arix" style="font-size: 12px;"><img loading="lazy" src="'+image+'" class="card-img-top img-fluid" alt="..."> <div class="card-body"><dl class="dl-horizontal"><dt>'+
     titulo.substring(0,34)+'</dt><dd>'+subtitulo.substring(0,34)+'</dd></dl></div><div class="card-footer text-muted d-flex align-items-left justify-content-between" style="margin-top: -20px;"><span class="text-info" style="margin-top: 4px">'+
-    fecha+'</span><div class="btn-group btn-group-sm" style="margin: -3px">'+arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';
+    fecha+'</span><div class="btn-group btn-group-sm" style="margin: -3px" id="'+uid+'">'+arixshell_cargar_boton_simple(btns)+'</div></div></div>';
 }
 function arixshell_mostrar_targeta_imageleft_simple(image, titulo, subtitulo, subtitulo2, subtitulo3, fecha, estado = true, btns='btn-detalles,btn-borrar', uid = '_error_de_cifrado_'){
     return '<div class="card card-arix '+arixshell_mostrar_targeta_borde_color(estado)+'" style="font-size: 12px;"> <div class="card-header">'+titulo+'</div><div class="row no-gutters"> <div class="col-md-2"> <img loading="lazy" class="img-fluid" style="margin: 1px" src="'+
     image+'" alt="..."> </div><div class="col-md-10"> <div class="card-body"> <ul class="list-unstyled" style="margin: 0px"><dt>'+subtitulo+'</dt><li>'+subtitulo2+'</li><li>'+subtitulo3+'</li></ul></div></div></div><div class="card-footer text-muted d-flex align-items-left justify-content-between"> <span class="text-info" style="margin-top: 4px">'+
-    fecha+'</span> <div class="btn-group btn-group-sm" style="margin: -3px">'+arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';    
+    fecha+'</span> <div class="btn-group btn-group-sm" style="margin: -3px" id="'+uid+'">'+arixshell_cargar_boton_simple(btns)+'</div></div></div>';    
 }
+//solucion
 function arixshell_cargar_boton_buscar(placeholder = 'Buscar ...'){
     var elocation = 'main #nav-item-input-buscar';
     $(elocation).html('')

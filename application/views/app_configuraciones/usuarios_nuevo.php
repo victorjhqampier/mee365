@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<div class="row">
 <div class="col-xl-12 col-md-12">
     <div class="card-group">
         <div class="card">
@@ -128,9 +129,11 @@
         </code>
     </div>
 </div>
+</div>
 <script type="text/javascript">
 $(document).ready(function(){
     arixshell_cargar_ultimo_titulo('Nuevo');
+    arixshell_cargar_idsec_unicos_byc("#btn_id_usuarios_nuevo","#con_id_usuarios_nuevo");
     arixshell_cargar_botones_menu('btn-guardar, btn-cerrar');
     //$('#form-usuario-sucursal #select-permiso').selectpicker();//inicializa la multiple seleccion
     $('.card').on("click", "#btn-probar-suc", function(){

@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<div class="row">
 <div class="col-xl-4 col-md-6">
     <div class="card bg-primary text-white mb-4">
         
@@ -61,7 +62,7 @@
         </div>
      </div>
 </div>
-
+</div>
 <!-- Button to Open the Modal -->
 <button type="button" class="btn btn-primary" id="monalexmm">
 Open modal
@@ -84,6 +85,7 @@ Open modal
 
 <script type="text/javascript">
 $(document).ready(function(){
+    arixshell_cargar_idsec_unicos_byc("#btn_id_empleados_1","#con_id_empleados_1");
     arixshell_cargar_botones_menu();
     $('#monalexmm').click(function(){         
         arixshell_cargar_subpaginas(window.location.href+'/reportes', $('#monal-for-newperson .modal-body'));

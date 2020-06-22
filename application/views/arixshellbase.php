@@ -78,29 +78,26 @@
                             <li class="breadcrumb-item">Cargando ... </li>
                             <li class="breadcrumb-item active">Buscando ...</li>
                         </ol>-->
-                            <div class="navbar navbar-expand-sm navbar-light" style="background-color: #e9ecef; margin: 0 0 11px 0">
-                              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-idont-know" aria-controls="nav-idont-know" aria-expanded="false" aria-label="Toggle navigation">
+                        <div class="navbar navbar-expand-sm navbar-light" style="background-color: #e9ecef; margin: 0 0 11px 0">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-idont-know" aria-controls="nav-idont-know" aria-expanded="false" aria-label="Toggle navigation">
                                 <i class="fas fa-bars"></i>
-                              </button>
-                              <div class="collapse navbar-collapse" id="nav-idont-know">
+                            </button>
+                            <div class="collapse navbar-collapse" id="nav-idont-know">
                                 <ul class="navbar-nav mr-auto mt-0 mt-lg-0" style="font-size: 1.1rem;" id="user-title-breadcrumb">
                                     <li class="breadcrumb-item">Cargando ... </li>
                                     <li class="breadcrumb-item active">Buscando ...</li>
                                 </ul>
-                                <ul class="navbar-nav mt-0 mt-lg-0">                             
+                                <ul class="navbar-nav mt-0 mt-lg-0">                           
                                     <li class="nav-item" id="nav-item-input-buscar">                                        
                                     </li>
-                                    <li class="nav-item">
-                                        <div class="btn-group btn-group-sm" id="nav-item-input-botones"></div>
+                                    <li class="nav-item" id="nav-item-input-botones">
+                                        <div class="btn-group btn-group-sm" id="xxx"></div>
                                     </li>
                                 </ul>
-                              </div>
                             </div>
-                            <div class="row" id="use-container-secondary">                            
-                            </div>                           
-                            <div class="row" id="use-container-primary">                            
-                            </div>
-                            
+                        </div>
+                        <div id="use-container-secondary"></div>                           
+                        <div id="use-container-primary"></div>                            
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
