@@ -63,8 +63,8 @@ class Arixapi extends CI_Controller {
 		if ($this->input->is_ajax_request() && $this->serv_administracion_usuarios->probar_session()) {
 			$sucursal = $this->serv_administracion_usuarios->cargar_sucursal_actual();
 			if (!is_null($sucursal)) {
-				$sucursal->sid = $this->serv_cifrado->cifrar_dato($sucursal->sid);
-				echo json_encode($sucursal);
+				//$sucursal->sid = $this->serv_cifrado->cifrar_dato($sucursal->sid);
+				echo json_encode($sucursal->nombre);
 			}
 			else{
 				echo json_encode(array('status' => 403));
@@ -79,7 +79,7 @@ class Arixapi extends CI_Controller {
 			$sucursal = $this->serv_administracion_usuarios->cargar_sucursal();
 			if (!is_null($sucursal)) {
 				for ($i=0; $i < count($sucursal); $i++) { 
-					$sucursal[$i]->sid = $this->serv_cifrado->cifrar_dato($sucursal[$i]->sid);
+					$sucursal[$i]->serial = $this->serv_cifrado->cifrar_dato($sucursal[$i]->serial);
 				}
 				echo json_encode($sucursal);
 			}
@@ -90,6 +90,10 @@ class Arixapi extends CI_Controller {
 		else{
 			echo json_encode(array('status' => 403));//acceso denedo
 		}
+	}
+	public function arixapi_change_sucursal(){		
+		$new = $this->input->post('data');
+		echo json_encode($this->serv_administracion_usuarios->cambiar_sucursal($new));
 	}
 	public function arixapi_cargar_botones($botones = 'btn-detalles, btn-guardar, btn-actualizar, btn-borrar'){
 		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('data')){

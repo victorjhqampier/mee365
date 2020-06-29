@@ -35,7 +35,7 @@
                     <div class="dropdown-menu dropdown-menu-right" id="sucursal-db-list" aria-labelledby="sucursal-db">
                         <a class="dropdown-item active" href="/docs/4.1/">Cargando ...</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="https://v4-alpha.getbootstrap.com/">Mas información</a>
+                        <a class="dropdown-item" href="https://v4-alpha.google.com/">Mas información</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

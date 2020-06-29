@@ -15,6 +15,7 @@ class Serv_administracion_usuarios {
 		$this->ci =& get_instance();// $this no funciona en las librerias
 		$this->ci->load->model('arixkernel');//agregamos el modelo
         $this->ci->load->library('session');
+        $this->ci->load->library('serv_cifrado');
 	}
     private function subapp_for_this_rol($rol,$app){//traduce de rol de usuario a rol de sub aplicacion
         if ($rol == 2) {//SuperUsuario
@@ -138,15 +139,38 @@ class Serv_administracion_usuarios {
         return $usuario;
     }
     public function cargar_sucursal_actual(){//solo recupera de la sesion
-        $sucursal_actual = $this->ci->session->userdata('sucursal');
-        $usuario = $this->ci->arixkernel->select_one_content('sucursal_id sid, nombre','config.sucusales', array('sucursal_id' => $sucursal_actual));
+        $sucursal_actual = $this->ci->session->userdata('sucursal');//sucursal_id sid
+        $usuario = $this->ci->arixkernel->select_one_content('nombre','config.sucusales', array('sucursal_id' => $sucursal_actual));
         return $usuario;
     }
     public function cargar_sucursal(){
-        $cuenta = $this->ci->session->userdata('usuario');
-        $sucursales = $this->ci->arixkernel->select_all_content_where('sucursal_id sid, nombre','config.v_cuenta_sucursal', array('cuenta_id' => $cuenta));
+        $cuenta = $this->ci->session->userdata('usuario'); 
+        $suc = $this->ci->session->userdata('sucursal');
+        $sucursales = $this->ci->arixkernel->select_all_content_where('sucursal_id serial, nombre','config.v_cuenta_sucursal', array('cuenta_id' => $cuenta, 'sucursal_id !=' => $suc));
         return $sucursales;
     }
+    public function probar_usuario_sucursal($newsucursal){//true = tiene acceso
+        $cuenta = $this->ci->session->userdata('usuario');
+        $cuenta = $this->ci->arixkernel->select_one_content('sucursal_id','config.v_cuenta_sucursal', array('cuenta_id' => $cuenta, 'sucursal_id'=>$newsucursal));
+        if (!is_null($cuenta)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function cambiar_sucursal($newsucursal){
+        $newsucursal = $this->ci->serv_cifrado->decifrar_dato($newsucursal);
+        if (is_numeric($newsucursal)) {
+            if ($this->probar_usuario_sucursal($newsucursal)){
+                $this->ci->session->set_userdata('sucursal', $newsucursal);
+                return true;
+            }else{
+                return false;
+            }            
+        }else{
+            return false;
+        }
+    }    
     public function mostrar_usuario_permiso(){
         $cuenta = $this->ci->session->userdata('usuario');
         $permiso = $this->ci->arixkernel->select_one_content('permiso_id permiso, binario','config.v_cuenta_permiso', array('cuenta_id' => $cuenta));

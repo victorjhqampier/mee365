@@ -42,6 +42,29 @@ function arixshell_limpiar_string(s) {//elimina caracteres raros de un string *#
     s = s.replace(/[^a-zA-Z0-9\_]/g,'');
     return s;
 }
+function arixshell_localdata_restarting(){
+    sessionStorage.setItem("last_page", null);
+    sessionStorage.setItem("last_location", null);
+    sessionStorage.setItem("current_page", null);
+    sessionStorage.setItem("current_location", null);
+    sessionStorage.setItem("last_serial", null);
+}
+function arixshell_cacheadd_page(location, url){
+    if (url != sessionStorage.getItem("current_page")){
+        sessionStorage.setItem("last_location",sessionStorage.getItem("current_location"));
+        sessionStorage.setItem("last_page", sessionStorage.getItem("current_page"));
+        sessionStorage.setItem("current_location", location);
+        sessionStorage.setItem("current_page", url);
+    }else{
+        return;
+    }
+}
+function arixshell_cacheadd_serial(serial = null){
+    sessionStorage.setItem("last_serial", serial);
+}
+function arixshell_cache_data(key = 'last_location'){
+    return sessionStorage.getItem(key);
+}
 function arixshell_cargar_titulo(title,next = 0){
     //title = arixshell_limpiar_string(title);
     ubicacion = '#layoutSidenav_content #user-title-breadcrumb';
@@ -116,12 +139,14 @@ function arixshell_cargar_usuario(){
 
 function arixshell_cargar_sucursal(){
     var sucursal = arixshell_download_datos('arixapi/arixapi_mostrar_sucursal_actual');
-    if (sucursal != null && sucursal != 403) {        
-        if (sucursal.nombre.length >= 20) {
+    if (sucursal != null && !$.isNumeric(sucursal)) {
+        $("nav").find('#sucursal-db small').text(sucursal.substring(0,20)+"...");
+        $('nav #sucursal-db-list').html('<a class="dropdown-item active" href="javascript:;" id="0xFF">Suc. '+sucursal+'</a>')       
+        /*if (sucursal.nombre.length >= 20) {
             $("nav").find('#sucursal-db small').text(sucursal.nombre.substring(0,20)+"...");
         }else{
             $("nav").find('#sucursal-db small').text(sucursal.nombre);
-        }
+        }*/
     }else{
         console.log('arixshell_cargar_usuario -> error');
     }
@@ -130,9 +155,9 @@ function arixshell_cargar_sucursal(){
 function arixshell_cargar_sucursal_lista(){
     var sucursal = arixshell_download_datos('arixapi/arixapi_mostrar_sucursales'), ubicacion = 'nav #sucursal-db-list';
     if (sucursal != null && sucursal != 403) {
-        $(ubicacion).html('');//limias todo
+        //$(ubicacion).html('');//limias todo
         for (var i = 0; i < sucursal.length; i++) {
-           $(ubicacion).append('<a class="dropdown-item" href="'+sucursal[i].sid+'">SUC. '+sucursal[i].nombre+'</a>');//agregas al final 
+           $(ubicacion).append('<a class="dropdown-item" href="javascript:;" id="'+sucursal[i].serial+'">Suc. '+sucursal[i].nombre+'</a>');//agregas al final 
         }
     }else{
         console.log('arixshell_cargar_sucursal_lista-> error');
@@ -167,6 +192,7 @@ function arixshell_vaciar_paginas(){
 function arixshell_cargar_paginas(url,lugar = '#use-container-primary'){//borra todo y carga una pagina
     arixshell_vaciar_paginas();
     arixshell_vaciar_botones_menu();
+    arixshell_cacheadd_page(lugar,url);
     $(lugar).load(url, function(response, status, xhr) {
         if (status == "error") {
             var msg = "Arixcore encontró el siguiente error: ";//<h3>'+msg + ' - ' +xhr.status + " - " + xhr.statusText+'</h3>
@@ -280,6 +306,30 @@ $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno d
     //console.log(cant);
     arixshell_cargar_titulo(b,cant); //submenu representa el segundo subtitulo cant = 2
 });
+function arixshell_pagina_atras(){
+    arixshell_cargar_paginas(arixshell_cache_data('last_page'), arixshell_cache_data('last_location'));
+}
+function arixshell_pagina_actual(){
+    arixshell_cargar_paginas(arixshell_cache_data('current_page'),arixshell_cache_data('current_location'));
+}
+function arixshell_actualizar_sucursal(a){
+    if (!$.isNumeric(a)) {
+        return arixshell_upload_datos('arixapi/arixapi_change_sucursal','data='+a);
+    }else{
+        return '_error_de_cifrado';
+    }
+}
+$('#sucursal-db-list').on("click", ".dropdown-item", function() { //Clic en alguno de los elementos del munu
+    var a = $(this).attr('id');
+    a = arixshell_actualizar_sucursal(a);
+    if(typeof(a)==='boolean') {
+        arixshell_cargar_sucursal();
+        arixshell_cargar_sucursal_lista();
+        arixshell_pagina_actual();
+    }else{
+        return;
+    }    
+});
 function arixshell_cargar_lista_cards(tabla,btns='btn-detalles,btn-borrar',cant){
     lista = arixshell_upload_datos('arixapi/arixapi_cargar_lista_card','data='+tabla+'&cant='+cant);
     if (lista != false) {
@@ -295,7 +345,8 @@ function arixshell_cargar_lista_cards(tabla,btns='btn-detalles,btn-borrar',cant)
 }
 /*--------------------------MAIN----------------*/
 //arixshell_probar_url();
-arixshell_cargar_apps();
+arixshell_localdata_restarting();
+arixshell_cargar_apps();    
 arixshell_cargar_menu();
 arixshell_cargar_usuario();
 arixshell_cargar_sucursal();

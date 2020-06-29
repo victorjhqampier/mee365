@@ -141,6 +141,13 @@ $(document).ready(function(){
         //alert('caca');
         //$("#carneViewModal #carneViewForm").serialize()
         console.log($('form').serialize());
-    });    
+    });
+    $(arixshell_descargar_idsec_unicos_byc(1)+' .card').on("click", "button", function() {//click unico en la página
+        var a = $(this).closest('div').attr('id');
+        alert('-> '+a);
+    });
+    $(arixshell_descargar_idsec_unicos_byc(0)).on("click", ".btn-cerrar", function() {
+        arixshell_pagina_atras();
+    });  
 }); 
 </script>
