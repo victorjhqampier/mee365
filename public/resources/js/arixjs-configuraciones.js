@@ -1,5 +1,5 @@
 /*----------------------------------------
-arixshell_descargar_idsec_unicos_byc(0-1-3)
+arixshell_cargar_llave_local(0-1-2)
 ----------------------------------------
 > 0 = cargar el id de los botones
 > 1 = cargar el id del contenido
@@ -10,7 +10,7 @@ function axconfiguraciones_mostrar_icono_sucursales(btns='btn-detalles,btn-borra
     if (lista != false) {
         for (var i = 0; i < lista.length; i++) { 
             temp = arixshell_mostrar_targeta_imagetop_simple('public/images/config/'+lista[i].imagen, lista[i].nombre, lista[i].direccion, lista[i].fregistro, btns, lista[i].uid);         
-            $(arixshell_descargar_idsec_unicos_byc(1)).append(temp);//agregas al final : 1 = para el contenido 0 = para los botones
+            $(arixshell_cargar_llave_local(1)).append(temp);//agregas al final : 1 = para el contenido 0 = para los botones
         }
     }else{
         console.log('axconfiguraciones_mostrar_lista_sucursales -> error');
@@ -21,7 +21,7 @@ function axconfiguraciones_mostrar_icono_usuarios(btns='btn-detalles,btn-borrar'
     if (lista != false) {
         for (var i = 0; i < lista.length; i++) { 
             temp = arixshell_mostrar_targeta_imageleft_simple(lista[i].fotografia, lista[i].nombres+' '+lista[i].paterno+' '+lista[i].materno, lista[i].documento+' - '+lista[i].codigo, 'INgeniero de sistemas', lista[i].correo, 'Actualizado el '+lista[i].fmodificacion, lista[i].estado, btns, lista[i].uid);         
-            $(arixshell_descargar_idsec_unicos_byc(1)).append(temp);
+            $(arixshell_cargar_llave_local(1)).append(temp);
         }
     }else{
         console.log('axconfiguraciones_mostrar_lista_sucursales -> error');

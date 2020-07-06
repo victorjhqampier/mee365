@@ -133,7 +133,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     arixshell_cargar_ultimo_titulo('Nuevo');
-    arixshell_cargar_idsec_unicos_byc("#btn_id_usuarios_nuevo","#con_id_usuarios_nuevo");
+    arixshell_iniciar_llaves_locales("#btn_id_usuarios_nuevo","#con_id_usuarios_nuevo");
     arixshell_cargar_botones_menu('btn-guardar, btn-cerrar');
     //$('#form-usuario-sucursal #select-permiso').selectpicker();//inicializa la multiple seleccion
     $('.card').on("click", "#btn-probar-suc", function(){
@@ -142,11 +142,11 @@ $(document).ready(function(){
         //$("#carneViewModal #carneViewForm").serialize()
         console.log($('form').serialize());
     });
-    $(arixshell_descargar_idsec_unicos_byc(1)+' .card').on("click", "button", function() {//click unico en la página
+    $(arixshell_cargar_llave_local(1)+' .card').on("click", "button", function() {//click unico en la página
         var a = $(this).closest('div').attr('id');
         alert('-> '+a);
     });
-    $(arixshell_descargar_idsec_unicos_byc(0)).on("click", ".btn-cerrar", function() {
+    $(arixshell_cargar_llave_local(0)).on("click", ".btn-cerrar", function() {
         arixshell_pagina_atras();
     });  
 }); 

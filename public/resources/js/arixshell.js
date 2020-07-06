@@ -208,7 +208,7 @@ function arixshell_cargar_subpaginas(url,lugar){//carga paginas en un modal
         }
     });
 }
-function arixshell_cargar_idsec_unicos_byc(id1="#btn_error", id2="#con_error"){
+function arixshell_iniciar_llaves_locales(id1="#btn_error", id2="#con_error"){
     var id1 = id1.replace(" ", "");
         id1 = id1.replace("#", "");
     var id2 = id2.replace(" ", "");
@@ -217,7 +217,7 @@ function arixshell_cargar_idsec_unicos_byc(id1="#btn_error", id2="#con_error"){
     $('#nav-item-input-botones').html('<div class="btn-group btn-group-sm" id="'+id1+'"></div>');
     $('#use-container-secondary').html('<div class="row" id="'+id2+'"></div>');
 }
-function arixshell_descargar_idsec_unicos_byc(one = 0){
+function arixshell_cargar_llave_local(one = 0){
     li = ['#'+$('#nav-item-input-botones div:first').attr('id'), '#'+$('#use-container-secondary div:first').attr('id')];
     if (one >= 0 && one < 2) {
         return li[one]
@@ -231,7 +231,7 @@ function arixshell_cargar_botones_menu(botones='btn-actualizar'){
         //var elocation = 'main #nav-item-input-botones';
         //$(elocation).html('');//borras los registros actuales
         for (var i = 0; i < botones.length; i++) {           
-            $(arixshell_descargar_idsec_unicos_byc(0)).append('<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"><i class="'+botones[i]['icono']+'"></i></button>');//agregas al final
+            $(arixshell_cargar_llave_local(0)).append('<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"><i class="'+botones[i]['icono']+'"></i></button>');//agregas al final
         }
     }else{
         console.log('arixshell_cargar_botones_menu -> error');
@@ -249,18 +249,6 @@ function arixshell_cargar_boton_simple(botones='btn-detalles,btn-borrar'){//devu
         console.log('arixshell_cargar_boton_simple -> error');
     }
 }
-/*function arixshell_mostrar_card_users(image, titulo, msg_1, msg_2, msg_3, msg_4, fecha, btns='btn-detalles,btn-borrar', uid, estado = true){
-    var list = '<div class="card" style="max-width: 21.7rem; min-width: 21.5rem; margin: 0.75rem; margin-top: 3px"> <div class="card-header">'
-    +titulo.substring(0,34)+'</div><div class="card-body row"> <div class="col-md-3 text-center"> <img class="img-fluid" src="'+image+'" alt="..."> </div><div class="col-md-9" style="padding: 0px; margin-left: -2px; margin-top: -3px"> <dl class="dl-horizontal"> <dt class="col-sm-12">'
-    +msg_1.substring(0,29)+'</dt> <dd class="col-sm-12">'
-    +msg_2.substring(0,31)+'</dd> <dd class="col-sm-12" style="margin-top: -9px"><small>'
-    +msg_3.substring(0,39)+'</small></dd> <dd class="col-sm-12" style="margin-top: -9px"><small>'
-    +msg_4.substring(0,39)+'</small></dd> </dl> </div></div><div class="card-footer text-muted d-flex align-items-left justify-content-between" style="margin-top: -20px;"> <span class="text-info">'
-    +fecha+'</span> <span class="text-secondary">Activo</span> <div class="btn-group btn-group-sm" style="margin: -3px">'
-    +arixshell_cargar_boton_simple(btns, uid)+'</div></div></div>';
-    return list;
-
-}*/
 function arixshell_cargar_idcontenedor_en_secondary(id){
     var id = id.replace(" ", "");
         id = id.replace("#", "");
