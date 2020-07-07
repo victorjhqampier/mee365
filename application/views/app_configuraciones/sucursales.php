@@ -11,7 +11,7 @@ $(document).ready(function(){
         alert(a);
     });
     $(arixshell_cargar_llave_local(0)).on("click", ".btn-agregar", function() {
-    	alert('estor ay');
+    	alert('estoy aqui;');
     });
 });
 </script>
