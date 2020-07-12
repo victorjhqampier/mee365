@@ -85,7 +85,7 @@ Open modal
 
 <script type="text/javascript">
 $(document).ready(function(){
-    arixshell_cargar_idsec_unicos_byc("#btn_id_empleados_1","#con_id_empleados_1");
+    arixshell_iniciar_llaves_locales("#btn_id_empleados_1","#con_id_empleados_1");
     arixshell_cargar_botones_menu();
     $('#monalexmm').click(function(){         
         arixshell_cargar_subpaginas(window.location.href+'/reportes', $('#monal-for-newperson .modal-body'));

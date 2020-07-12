@@ -49,15 +49,24 @@ function arixshell_localdata_restarting(){
     sessionStorage.setItem("current_location", null);
     sessionStorage.setItem("last_serial", null);
 }
+
 function arixshell_cacheadd_page(location, url){
     if (url != sessionStorage.getItem("current_page")){
         sessionStorage.setItem("last_location",sessionStorage.getItem("current_location"));
         sessionStorage.setItem("last_page", sessionStorage.getItem("current_page"));
         sessionStorage.setItem("current_location", location);
         sessionStorage.setItem("current_page", url);
+        //arixshell_cache_titlebar();
     }else{
         return;
     }
+}
+//esto estamos desarrollando
+function arixshell_hacer_pagina_atras(){
+    return;
+}
+function arixshell_hacer_pagina_reiniciar(){
+    return;
 }
 function arixshell_cacheadd_serial(serial = null){
     sessionStorage.setItem("last_serial", serial);
@@ -284,14 +293,13 @@ $('nav #dropdown-item-u3').click(function(){
         return;
     }
 });
-//Cuando haces clin en algundo de los menus
+//Cuando haces click en algundo de los menus
 $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno de los elementos del munu
     $('#use-container-secondary').html('');//reestablce el primer contenedor
     var a = $(this).attr('controller'), b = $(this).text(), cant = $('#nav-idont-know .breadcrumb-item').length;
     arixshell_cargar_paginas(window.location.href+'/'+a);
     $('#sidenavAccordion').find('a').removeClass('active');
     $(this).addClass('active');
-    //console.log(cant);
     arixshell_cargar_titulo(b,cant); //submenu representa el segundo subtitulo cant = 2
 });
 function arixshell_pagina_atras(){

@@ -39,7 +39,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-    arixshell_cargar_idsec_unicos_byc("#btn_id_areas_1","#con_id_areas_1");
+    arixshell_iniciar_llaves_locales("#btn_id_areas_1","#con_id_areas_1");
     arixshell_cargar_botones_menu();
     //arixshell_cargar_boton_buscar('Buscar por DNI');
 }); 
