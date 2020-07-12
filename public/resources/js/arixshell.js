@@ -56,7 +56,6 @@ function arixshell_cacheadd_page(location, url){
         sessionStorage.setItem("last_page", sessionStorage.getItem("current_page"));
         sessionStorage.setItem("current_location", location);
         sessionStorage.setItem("current_page", url);
-        //arixshell_cache_titlebar();
     }else{
         return;
     }
