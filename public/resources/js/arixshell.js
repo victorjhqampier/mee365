@@ -43,38 +43,24 @@ function arixshell_limpiar_string(s) {//elimina caracteres raros de un string *#
     return s;
 }
 function arixshell_localdata_restarting(){
-    sessionStorage.setItem("last_page", null);
-    sessionStorage.setItem("last_location", null);
-    sessionStorage.setItem("current_page", null);
-    sessionStorage.setItem("current_location", null);
+    sessionStorage.setItem("last_page", JSON.stringify([false,true]));
+    sessionStorage.setItem("current_page", JSON.stringify([false,true]));
     sessionStorage.setItem("last_serial", null);
 }
-
-function arixshell_cacheadd_page(location, url){
-    if (url != sessionStorage.getItem("current_page")){
-        sessionStorage.setItem("last_location",sessionStorage.getItem("current_location"));
-        sessionStorage.setItem("last_page", sessionStorage.getItem("current_page"));
-        sessionStorage.setItem("current_location", location);
-        sessionStorage.setItem("current_page", url);
-    }else{
+function arixshell_add_cache_page(location, url){
+    var current_page = sessionStorage.getItem('current_page');
+    current_page = JSON.parse(current_page);
+    if (url !=  current_page[1]) {
+        var last_page = [current_page[0],current_page[1]];
+        current_page = [location, url];
+        sessionStorage.setItem('current_page', JSON.stringify(current_page));
+        sessionStorage.setItem('last_page', JSON.stringify(last_page));
+    }
+    else{
         return;
     }
 }
-//esto estamos desarrollando
-function arixshell_hacer_pagina_atras(){
-    return;
-}
-function arixshell_hacer_pagina_reiniciar(){
-    return;
-}
-function arixshell_cacheadd_serial(serial = null){
-    sessionStorage.setItem("last_serial", serial);
-}
-function arixshell_cache_data(key = 'last_location'){
-    return sessionStorage.getItem(key);
-}
 function arixshell_cargar_titulo(title,next = 0){
-    //title = arixshell_limpiar_string(title);
     ubicacion = '#layoutSidenav_content #user-title-breadcrumb';
     if(next == 0){//limpia todo y agrega el priemer elemento
         $(ubicacion).html('<li class="breadcrumb-item" aria-current="page">'+title+'</li>');
@@ -149,12 +135,7 @@ function arixshell_cargar_sucursal(){
     var sucursal = arixshell_download_datos('arixapi/arixapi_mostrar_sucursal_actual');
     if (sucursal != null && !$.isNumeric(sucursal)) {
         $("nav").find('#sucursal-db small').text(sucursal.substring(0,20)+"...");
-        $('nav #sucursal-db-list').html('<a class="dropdown-item active" href="javascript:;" id="0xFF">Suc. '+sucursal+'</a>')       
-        /*if (sucursal.nombre.length >= 20) {
-            $("nav").find('#sucursal-db small').text(sucursal.nombre.substring(0,20)+"...");
-        }else{
-            $("nav").find('#sucursal-db small').text(sucursal.nombre);
-        }*/
+        $('nav #sucursal-db-list').html('<a class="dropdown-item active" href="javascript:;" id="0xFF">Suc. '+sucursal+'</a>');
     }else{
         console.log('arixshell_cargar_usuario -> error');
     }
@@ -200,7 +181,7 @@ function arixshell_vaciar_paginas(){
 function arixshell_cargar_paginas(url,lugar = '#use-container-primary'){//borra todo y carga una pagina
     arixshell_vaciar_paginas();
     arixshell_vaciar_botones_menu();
-    arixshell_cacheadd_page(lugar,url);
+    arixshell_add_cache_page(lugar,url);
     $(lugar).load(url, function(response, status, xhr) {
         if (status == "error") {
             var msg = "Arixcore encontró el siguiente error: ";//<h3>'+msg + ' - ' +xhr.status + " - " + xhr.statusText+'</h3>
@@ -236,8 +217,6 @@ function arixshell_cargar_llave_local(one = 0){
 function arixshell_cargar_botones_menu(botones='btn-actualizar'){
     botones = arixshell_upload_datos('arixapi/arixapi_cargar_botones', 'data='+botones+'&');
     if (botones != false) {
-        //var elocation = 'main #nav-item-input-botones';
-        //$(elocation).html('');//borras los registros actuales
         for (var i = 0; i < botones.length; i++) {           
             $(arixshell_cargar_llave_local(0)).append('<button type="button" class="btn btn-secondary '+botones[i]['boton']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"><i class="'+botones[i]['icono']+'"></i></button>');//agregas al final
         }
@@ -292,7 +271,7 @@ $('nav #dropdown-item-u3').click(function(){
         return;
     }
 });
-//Cuando haces click en algundo de los menus
+//Cuando haces click en algundo de los menus 
 $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno de los elementos del munu
     $('#use-container-secondary').html('');//reestablce el primer contenedor
     var a = $(this).attr('controller'), b = $(this).text(), cant = $('#nav-idont-know .breadcrumb-item').length;
@@ -301,11 +280,15 @@ $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno d
     $(this).addClass('active');
     arixshell_cargar_titulo(b,cant); //submenu representa el segundo subtitulo cant = 2
 });
-function arixshell_pagina_atras(){
-    arixshell_cargar_paginas(arixshell_cache_data('last_page'), arixshell_cache_data('last_location'));
+function arixshell_hacer_pagina_atras(){
+    var last_page = sessionStorage.getItem('last_page'), titulo = new Array(); 
+    last_page = JSON.parse(last_page);
+    $("#user-title-breadcrumb li").each(function(){titulo.push($(this).text());});
+    arixshell_cargar_titulo(titulo[titulo.length-2],titulo.length);
+    arixshell_cargar_paginas(last_page[1],last_page[0]);
 }
-function arixshell_pagina_actual(){
-    arixshell_cargar_paginas(arixshell_cache_data('current_page'),arixshell_cache_data('current_location'));
+function arixshell_hacer_pagina_reiniciar(){
+    $('#layoutSidenav_nav .active').click();
 }
 function arixshell_actualizar_sucursal(a){
     if (!$.isNumeric(a)) {
@@ -338,6 +321,9 @@ function arixshell_cargar_lista_cards(tabla,btns='btn-detalles,btn-borrar',cant)
         console.log('arixshell_cargar_lista_cards -> error');
     }
 }
+$(document).ready(function(){
+
+});
 /*--------------------------MAIN----------------*/
 //arixshell_probar_url();
 arixshell_localdata_restarting();

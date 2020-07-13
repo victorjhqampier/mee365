@@ -147,7 +147,8 @@ $(document).ready(function(){
         alert('-> '+a);
     });
     $(arixshell_cargar_llave_local(0)).on("click", ".btn-cerrar", function() {
-        arixshell_pagina_atras();
+        arixshell_hacer_pagina_atras();
+        //arixshell_hacer_pagina_reiniciar();
     });  
 }); 
 </script>
