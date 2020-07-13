@@ -2,7 +2,7 @@
 We are a small software company named Arix Corporation
 ######################################################
 
-Our organization was founded by Victor Jcaxi, an its developers
+Our organization was founded by Victor Jcaxi, and its developers
 are colleage from college.
 
 *******************
