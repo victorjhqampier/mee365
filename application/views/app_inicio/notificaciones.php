@@ -8,8 +8,8 @@
          </button>
       </div>
       <div class="toast-body">
-         Ésta es la versión alfa1, pruebe todas las funciones nuevas antes de ofrecerlas al público general.
-         <code>Avance estimado ... 35%</code>
+         Ésta es la versión Alfa, pruebe todas las funciones nuevas antes de ofrecerlas al público general.
+         <code>Avance estimado ... 39%</code>
          <hr>
          <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 17%" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100"></div>
