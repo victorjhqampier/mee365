@@ -60,6 +60,14 @@ function arixshell_add_cache_page(location, url){
         return;
     }
 }
+function arixshell_write_cache_serial(serial){
+    sessionStorage.setItem('last_serial', serial);
+}
+function arixshell_read_cache_serial(){
+    var temp = sessionStorage.getItem("last_serial");
+    sessionStorage.setItem('last_serial', null);
+    return temp;
+}
 function arixshell_cargar_titulo(title,next = 0){
     ubicacion = '#layoutSidenav_content #user-title-breadcrumb';
     if(next == 0){//limpia todo y agrega el priemer elemento

@@ -13,13 +13,20 @@ class Configuraciones extends CI_Controller {
 	}
 	public function index(){
 		//se cargan en ese orden
-		$js = $this->serv_ejecucion_app->cargar_js('jquery.dataTables, boostrap.dataTables, configuraciones-arixjs');
+		$js = $this->serv_ejecucion_app->cargar_js('configuraciones-arixjs, Chart');
 		$this->load->view('arixshellbase',compact('js'));
 	}
-
 	public function sucursales(){
 		if ($this->input->is_ajax_request()) {
 			$this->load->view('app_configuraciones/sucursales');
+		}
+		else{
+			show_404();
+		}
+	}
+	public function sucursales_detail(){
+		if ($this->input->is_ajax_request()) {
+			$this->load->view('app_configuraciones/sucursales_detalles');
 		}
 		else{
 			show_404();
