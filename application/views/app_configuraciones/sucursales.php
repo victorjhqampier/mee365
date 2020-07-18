@@ -1,4 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#glassAnimalsSong" data-song="Agnes">
+            <i class="fa fa-times"></i>
+          </button> 
 <script type="text/javascript">
 $(document).ready(function(){
 	//SUCURSALES cargar aqui solo las llamadas a las funciones 
@@ -16,6 +19,16 @@ $(document).ready(function(){
     
     $(arixshell_cargar_llave_local(0)).on("click", ".btn-agregar", function() {
     	alert('estoy aqui;');
-    });    
+    });
+
+    $('#glassAnimalsSong').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var song = button.data('song') 
+    // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this);
+    $('#song').text(song);
+  })
 });
 </script>
