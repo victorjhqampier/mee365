@@ -311,7 +311,7 @@ $('#sucursal-db-list').on("click", ".dropdown-item", function() { //Clic en algu
     if(typeof(a)==='boolean') {
         arixshell_cargar_sucursal();
         arixshell_cargar_sucursal_lista();
-        arixshell_pagina_actual();
+        arixshell_hacer_pagina_reiniciar();
     }else{
         return;
     }    
@@ -329,9 +329,7 @@ function arixshell_cargar_lista_cards(tabla,btns='btn-detalles,btn-borrar',cant)
         console.log('arixshell_cargar_lista_cards -> error');
     }
 }
-$(document).ready(function(){
 
-});
 /*--------------------------MAIN----------------*/
 //arixshell_probar_url();
 arixshell_localdata_restarting();

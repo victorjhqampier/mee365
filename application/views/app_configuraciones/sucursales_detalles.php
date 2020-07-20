@@ -1,8 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div class="row">
-	<div class="col-xl-8">
+	<div class="col-xl-9">
       <div class="card mb-4">
-         <div class="card-header">Datos generales de la sucursal</div>
          <div class="card-body">
          	<table class="table table-striped table-sm">
 			  <tbody>
@@ -13,7 +12,7 @@
 			      <td>Chothes and more S.A.C.</td>
 			    </tr>
 			    <tr>
-			      <th colspan="2" scope="row">Dirección Fiscal:</th>
+			      <th colspan="2" scope="row">Dirección Fiscal (Notificaciones):</th>
 			      <td colspan="2">Jr. Acora 123 LT 23 Puno Perú</td>
 			    </tr>
 			    <tr>
@@ -23,28 +22,30 @@
 			      <td>Venta en general de productos no perecibles</td>
 			    </tr>
 			    <tr>
-			      <th scope="row">Direccion: </th>
+			      <th scope="row">Direccion:</th>
 			      <td>Jr. Acora 123 LT 23</td>
 			      <th scope="row">Ubicación:</th>
 			      <td>PUNO - EL COLLAO - ILAVE</td>
 			    </tr>
 			    <tr>
-			      <th colspan="2" scope="row">Administrador:</th>
-			      <td colspan="2">Flavia Caxi Alvarado</td>
+			      <th scope="row">Licencia:</th>
+			      <td>0003764-MPCI</td>
+			      <th scope="row">Administrador:</th>
+			      <td>Flavia Caxi Alvarado</td>
 			    </tr>
 			    <tr>
-			      <th colspan="2" scope="row">Sitio Web:</th>
-			      <td colspan="2">https://es-la.facebook.com/</td>
+			      <th scope="row">Teléfono:</th>
+			      <td>968991714</td>
+			      <th scope="row">Sitio Web:</th>
+			      <td>https://es-la.facebook.com/</td>
 			    </tr>
 			  </tbody>
 			</table>		   
          </div>
-         <img loading="lazy" src="public/images/config/609f436c933f6813f16092f6ff87a1de.jpg" class="card-img-top img-fluid" alt="...">
       </div>
    </div>
-   <div class="col-xl-4">
+   <div class="col-xl-3">
       <div class="card mb-4">
-         <div class="card-header">Resumenes generales</div>
          <div class="card-body">
          	<ul class="list-group">
 		      <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -75,17 +76,13 @@
 		         </div>
 		         <span class="text-success">-S/ 5,000.00</span>
 		      </li>
-		      <li class="list-group-item d-flex justify-content-between">
-		         <span>Total (USD)</span>
-		         <strong>$20</strong>
-		      </li>
 		   </ul>
          </div>
       </div>
    </div>
    <div class="col-xl-6">
       <div class="card mb-4">
-         <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Ventas semanales</div>
+         <div class="card-header">Ventas semanales</div>
          <div class="card-body">
             <canvas id="myAreaChart" width="100%" height="40"></canvas>
          </div>
@@ -93,21 +90,33 @@
    </div>
    <div class="col-xl-6">
       <div class="card mb-4">
-         <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Ventas mensuales</div>
+         <div class="card-header">Ventas mensuales</div>
          <div class="card-body">
             <canvas id="myBarChart" width="100%" height="40"></canvas>
          </div>
       </div>
    </div>
-<div class="col-md-8 order-md-1">
-   <h4 class="mb-3">Billing address</h4>
-   
-</div>
-
-
-<div class="col-md-4 mb-4">
-   
-</div>
+   <div class="col-xl-3">
+      <div class="card mb-4">
+         <div class="card-header">Areas</div>
+         <div class="card-body">
+         </div>
+      </div>
+   </div>
+   <div class="col-xl-5">
+      <div class="card mb-4">
+         <div class="card-header">Empleados</div>
+         <div class="card-body">
+         </div>
+      </div>
+   </div>
+   <div class="col-xl-4">
+      <div class="card mb-4">
+         <div class="card-header">Ganancias</div>
+         <div class="card-body">
+         </div>
+      </div>
+   </div>
 </div>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="assets/demo/chart-area-demo.js"></script>-->

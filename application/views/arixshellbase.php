@@ -8,8 +8,10 @@
         <meta name="description" content="NuLL" />
         <meta name="author" content="Arix Company" />
         <title>Arix Shell V1.0</title>
-        <link href="<?php echo base_url('public/resources/css/styles.css');?>" rel="stylesheet" />
+        <link href="<?php echo base_url('public/resources/css/styles.css');?>" rel="stylesheet"/>
+        <link href="<?php echo base_url('public/resources/css/material-icons.css');?>" rel="stylesheet"/>
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+
         <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">-->
     </head>
     <body class="sb-nav-fixed">
@@ -116,24 +118,6 @@
                         </div>
                     </div>
                 </footer>
-            </div>
-        </div>
-        <div class="modal fade" id="glassAnimalsSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header border-bottom-0">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body text-center">
-                <h5>Are you sure you want to delete "<span id="song"></span>"?</h5>
-              </div>
-              <div class="modal-footer border-top-0 justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger">Yes</button>
-              </div>
-            </div>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
