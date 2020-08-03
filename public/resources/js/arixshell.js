@@ -43,8 +43,8 @@ function arixshell_limpiar_string(s) {//elimina caracteres raros de un string *#
     return s;
 }
 function arixshell_localdata_restarting(){
-    sessionStorage.setItem("last_page", JSON.stringify([false,true]));
-    sessionStorage.setItem("current_page", JSON.stringify([false,true]));
+    sessionStorage.setItem("last_page", false);
+    sessionStorage.setItem("current_page", false);
     sessionStorage.setItem("last_serial", null);
 }
 function arixshell_add_cache_page(location, url){

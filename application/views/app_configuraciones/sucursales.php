@@ -8,7 +8,7 @@ $(document).ready(function(){
 
     //lo siguiente muestra los detalles de una sucursal
    	axconfiguraciones_mostrar_icono_sucursales('btn-detalles,btn-terminar');
-   	$(arixshell_cargar_llave_local(1)+' .card').on("click", "button", function() {//este click solo funciona en esta página
+   	$(arixshell_cargar_llave_local(1)+' .card').on("click", ".btn-detalles", function() {//este click solo funciona en esta página
         var a = $(this).closest('div').attr('id');
         arixshell_write_cache_serial(a);
         arixshell_cargar_paginas(window.location.href+'/sucursales_detail');

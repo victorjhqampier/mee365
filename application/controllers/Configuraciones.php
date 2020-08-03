@@ -9,7 +9,7 @@ class Configuraciones extends CI_Controller {
 		$this->load->library('serv_ejecucion_app');
 		$this->load->library('serv_cifrado');
 		/*acceso denegado a ARIX CORE*/
-		if(!$this->serv_administracion_usuarios->cargar_app_session($controlador[3])){show_404();}//comprueba la sesion
+		if(!$this->serv_administracion_usuarios->cargar_app_session($controlador[3])){redirect(base_url());}//comprueba la sesion
 	}
 	public function index(){
 		//se cargan en ese orden
@@ -92,6 +92,17 @@ class Configuraciones extends CI_Controller {
 				$lista[$i]->uid = $this->serv_cifrado->cifrar_dato($lista[$i]->uid);
 			}
 			echo json_encode($lista);
+		}else{
+			echo json_encode(array('status' => 403));
+		}
+	}
+	public function axconfiguraciones_cargar_datos_sucursal(){
+		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('data')){
+			$dato = $this->input->post('data');
+			$dato = $this->serv_cifrado->decifrar_dato($dato);
+			return json_encode(array('neme'=>'nepe'));
+
+			
 		}else{
 			echo json_encode(array('status' => 403));
 		}

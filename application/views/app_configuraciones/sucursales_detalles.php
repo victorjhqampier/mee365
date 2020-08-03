@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div class="row">
 	<div class="col-xl-9">
-      <div class="card mb-4">
+      <div class="card border-light mb-4">
          <div class="card-body">
-         	<table class="table table-striped table-sm">
+         	<table class="table table-dark table-sm">
 			  <tbody>
 			    <tr>
 			      <th scope="row">RUC:</th>
@@ -45,92 +45,184 @@
       </div>
    </div>
    <div class="col-xl-3">
-      <div class="card mb-4">
+      <div class="card border-success mb-4">
          <div class="card-body">
          	<ul class="list-group">
 		      <li class="list-group-item d-flex justify-content-between lh-condensed">
 		         <div>
 		            <h6 class="my-0">Ventas</h6>
-		            <small class="text-muted">22 de enero 2021 (ayer)</small>
+		            <small class="text-muted">22 de enero 2021 (hoy)</small>
 		         </div>
 		         <span class="text-muted">S/ 160.00</span>
 		      </li>
 		      <li class="list-group-item d-flex justify-content-between lh-condensed">
 		         <div>
 		            <h6 class="my-0">Compras</h6>
-		            <small class="text-muted">22 de enero 2021 (ayer)</small>
+		            <small class="text-muted">22 de enero 2021 (hoy)</small>
 		         </div>
 		         <span class="text-muted">S/ 50.00</span>
 		      </li>
 		      <li class="list-group-item d-flex justify-content-between lh-condensed">
 		         <div>
 		            <h6 class="my-0">Ganancias</h6>
-		            <small class="text-muted">22 de enero 2021 (ayer)</small>
+		            <small class="text-muted">22 de enero 2021 (hoy)</small>
 		         </div>
 		         <span class="text-muted">S/ 90.00</span>
 		      </li>
 		      <li class="list-group-item d-flex justify-content-between bg-light">
 		         <div class="text-success">
-		            <h6 class="my-0">Deudas Iniciales</h6>
-		            <small>Alquileres y otros</small>
+		            <h6 class="my-0">Deudas Inversión</h6>
+		            <small>Inicial S/15,000.00</small>
 		         </div>
-		         <span class="text-success">-S/ 5,000.00</span>
+		         <span class="text-success">-S/15,000.00</span>
 		      </li>
 		   </ul>
          </div>
       </div>
    </div>
    <div class="col-xl-6">
-      <div class="card mb-4">
-         <div class="card-header">Ventas semanales</div>
+      <div class="card bg-light mb-4">
+         <div class="card-header">VENTAS SEMANALES</div>
          <div class="card-body">
             <canvas id="myAreaChart" width="100%" height="40"></canvas>
          </div>
       </div>
    </div>
    <div class="col-xl-6">
-      <div class="card mb-4">
-         <div class="card-header">Ventas mensuales</div>
+      <div class="card bg-light mb-4">
+         <div class="card-header">VENTAS MENSUALES</div>
          <div class="card-body">
             <canvas id="myBarChart" width="100%" height="40"></canvas>
          </div>
       </div>
    </div>
-   <div class="col-xl-3">
-      <div class="card mb-4">
-         <div class="card-header">Areas</div>
+   <div class="col-xl-12">
+      <div class="card text-white bg-primary mb-4">
+         <div class="card-header">GANACIAS ANTERIORES</div>
          <div class="card-body">
+         	<table class="table table-sm text-white">
+			  <thead>
+			     <tr>
+			      <th scope="col">Fecha</th>
+			      <th scope="col">Compras</th>
+			      <th scope="col">Ventas</th>
+			      <th scope="col">Ganancias</th>
+			      <th scope="col">Responsable</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">1</th>
+			      <td>Mark</td>
+			      <td>Otto</td>
+			      <td>@mdo</td>
+			      <td>@mdo</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">2</th>
+			      <td>Jacob</td>
+			      <td>Thornton</td>
+			      <td>@fat</td>
+			      <td>@mdo</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">3</th>
+			      <td colspan="2">Larry the Bird</td>
+			      <td>@twitter</td>
+			      <td>@mdo</td>			      
+			    </tr>
+			  </tbody>
+			</table>
          </div>
       </div>
    </div>
    <div class="col-xl-5">
-      <div class="card mb-4">
-         <div class="card-header">Empleados</div>
+      <div class="card text-white bg-success mb-4">
+         <div class="card-header">DEPARTAMENTOS (ÁREAS) DE LA SUCURSAL</div>
          <div class="card-body">
+         	<table class="table table-sm text-white">
+			  <thead>
+			    <tr>
+			      <th scope="col">Código</th>
+			      <th scope="col">Nombre</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">1</th>
+			      <td>Mark</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">2</th>
+			      <td>Jacob</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">3</th>
+			      <td colspan="2">Larry the Bird</td>
+			      
+			    </tr>
+			  </tbody>
+			</table>
          </div>
       </div>
    </div>
-   <div class="col-xl-4">
-      <div class="card mb-4">
-         <div class="card-header">Ganancias</div>
+   <div class="col-xl-7">
+      <div class="card text-white bg-info mb-4">
+         <div class="card-header">EMPLEADOS DE LA SUCURSAL</div>
          <div class="card-body">
+         	<table class="table table-sm text-white">
+			  <thead>
+			    <tr>
+			      <th scope="col">Código</th>
+			      <th scope="col">Nombres</th>
+			      <th scope="col">Apellidos</th>
+			      <th scope="col">Cargo</th>
+			      <th scope="col">Usuario</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">1</th>
+			      <td>Mark</td>
+			      <td>Otto</td>
+			      <td>@mdo</td>
+			      <td>@mdo</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">2</th>
+			      <td>Jacob</td>
+			      <td>Thornton</td>
+			      <td>@fat</td>
+			      <td>@mdo</td>
+			    </tr>
+			    <tr>
+			      <th scope="row">3</th>
+			      <td colspan="2">Larry the Bird</td>
+			      <td>@twitter</td>
+			      <td>@mdo</td>
+			    </tr>
+			  </tbody>
+			</table>
          </div>
       </div>
    </div>
 </div>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="assets/demo/chart-area-demo.js"></script>-->
-<script src="assets/demo/chart-bar-demo.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	var key = arixshell_read_cache_serial();
+	console.log(key);
 	arixshell_iniciar_llaves_locales("#btn_id_sucursales_1d","#con_id_sucursales_1d");
     arixshell_cargar_botones_menu('btn-atras, btn-editar');
     arixshell_cargar_ultimo_titulo('Una sucursal');
     $(arixshell_cargar_llave_local(0)).on("click", ".btn-atras", function() {
         arixshell_hacer_pagina_atras();
     });
+    //primer cuadro
+    var datos = arixshell_upload_datos('configuraciones/axconfiguraciones_cargar_datos_sucursal', 'data='+key+'&');
+    
+
     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#292b2c';
+	Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Bar Chart Example
 var ctx = document.getElementById("myBarChart");
