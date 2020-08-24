@@ -186,10 +186,11 @@ function arixshell_vaciar_paginas(){
     $(elocation1).html('')
     $(elocation).html('');
 }
+
 function arixshell_cargar_paginas(url,lugar = '#use-container-primary'){//borra todo y carga una pagina
     arixshell_vaciar_paginas();
     arixshell_vaciar_botones_menu();
-    arixshell_add_cache_page(lugar,url);
+    arixshell_add_cache_page(lugar,url);    
     $(lugar).load(url, function(response, status, xhr) {
         if (status == "error") {
             var msg = "Arixcore encontró el siguiente error: ";//<h3>'+msg + ' - ' +xhr.status + " - " + xhr.statusText+'</h3>

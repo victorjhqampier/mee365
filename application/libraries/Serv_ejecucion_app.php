@@ -12,7 +12,8 @@ class Serv_ejecucion_app {
     function __construct(){
 		$this->ci =& get_instance();
         $this->ci->load->model('arixkernel');//agregamos el modelo
-        $this->ci->load->library('arixkernel');
+        //$this->ci->load->library('arixkernel');
+        $this->ci->load->library('serv_cifrado');
 	}
     private function object_to_array($d) {//de STDclass a arrayPHP
         if (is_object($d)) {
@@ -24,7 +25,25 @@ class Serv_ejecucion_app {
             return $d;
         }
     }
-    public function cargar_js($jss = null){
+    private function exe_plural_to_singular($plural){
+        $plural = rtrim($plural, ' ');
+        $plural = explode(".", $plural);
+        $plural = $plural[count($plural)-1];
+        $j = array('s','es','ces');
+        $k = [];
+        for ($i=0; $i < 3; $i++) {
+            $ultimas = substr($plural,-1*($i+1));
+            array_push($k, $ultimas);            
+        }
+        $ultimas = 0;
+        for ($i=0; $i < 3; $i++) { 
+            if ($k[$i]==$j[$i]) {
+                $ultimas ++;
+            }
+        }
+        return $ultimas;
+    }
+    public function exe_cargar_js($jss = null){
        	if ($jss != null) {
             $jss = preg_replace('([^A-Za-z0-9\,._-])', '', $jss);//eliminacaracter raros
             $jss = explode(",", $jss);
@@ -41,13 +60,13 @@ class Serv_ejecucion_app {
             return false;
         }
     }
-    public function cargar_css(){
+    public function exe_cargar_css(){
 
     }
-    public function subir_archivos(){
+    public function exe_subir_archivos(){
 
     }
-    public function cargar_botones($usuario_permiso, $botones){
+    public function exe_optener_botones($usuario_permiso, $botones){
         $permisos_botones = ['1000','0100','0010','0001'];//LECTURA, ESCRITURA, ACTUALIZACION, BORRADO, un boton pertenese a un grupo
         $botones = preg_replace('([^A-Za-z0-9\,._-])', '', $botones);
         $botones = explode(",", $botones);
@@ -64,11 +83,18 @@ class Serv_ejecucion_app {
         }
         return $btns_autorizados;
     }
-    public function cargar_lista_any_targetas($tuplas, $tabla, $orderby,$cant, $cond = null){
+    public function exe_optener_lista_ordenado($tuplas, $tabla, $orderby,$cant = 10, $cond = null){
         if($cond == null){
             return $this->ci->arixkernel->select_all_content_order($tuplas, $tabla, $orderby, $cant);
         }else{
             return $this->ci->arixkernel->select_all_content_where_order($tuplas,$tabla, $cond, $orderby, $cant);
         }
-    } 
+    }
+    public function exe_optener_dato_unico($id, $tuplas, $tabla){
+        $data = $this->ci->serv_cifrado->cod_decifrar_cadena($newsucursal);
+        return $this->ci->arixkernel->select_one_content($tupla, $tabla, $condicion);
+    }
+    public function exe_pruebas($pal){
+        return $this->exe_plural_to_singular($pal);
+    }
 }

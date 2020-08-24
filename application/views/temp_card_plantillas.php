@@ -291,3 +291,42 @@
          </div>
       </div>
    </div>
+
+
+<div class="col-xl-12">
+      <div class="card border-success mb-4">
+         <div class="card-body">
+            <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+               <div>
+                  <h6 class="my-0">Ventas</h6>
+                  <small class="text-muted">22 de enero 2021 (hoy)</small>
+               </div>
+               <span class="text-muted">S/ 160.00</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+               <div>
+                  <h6 class="my-0">Compras</h6>
+                  <small class="text-muted">22 de enero 2021 (hoy)</small>
+               </div>
+               <span class="text-muted">S/ 50.00</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+               <div>
+                  <h6 class="my-0">Ganancias</h6>
+                  <small class="text-muted">22 de enero 2021 (hoy)</small>
+               </div>
+               <span class="text-muted">S/ 90.00</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+               <div class="text-success">
+                  <h6 class="my-0">Deudas Inversión</h6>
+                  <small>Inicial S/15,000.00</small>
+               </div>
+               <span class="text-success">-S/15,000.00</span>
+            </li>
+         </ul>
+         </div>
+      </div>
+   </div>
+   <div cl

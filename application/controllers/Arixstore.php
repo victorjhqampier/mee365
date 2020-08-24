@@ -8,7 +8,7 @@ class Arixstore extends CI_Controller {
 		$controlador=explode("/",$_SERVER['PHP_SELF']);$this->load->library('serv_administracion_usuarios');if(!$this->serv_administracion_usuarios->cargar_app_session($controlador[3])){show_404();}// cargas por defecto y manejar la secion
 	}
 	public function index(){
-		$js = $this->serv_ejecucion_app->cargar_js('arixstore-arixjs');
+		$js = $this->serv_ejecucion_app->exe_cargar_js('arixstore-arixjs');
 		$this->load->view('arixshellbase',compact('js'));
 	}
 }

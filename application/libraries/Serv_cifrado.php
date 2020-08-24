@@ -15,14 +15,14 @@ class Serv_cifrado {
         $this->ci->load->model('arixkernel');
 	}
 
-    public function cifrar_dato($data){
+    public function cod_cifrar_cadena($data){
         //$data = preg_replace('([^A-Za-z0-9])', '', $data);//borra caracteres raros (SOLO ALPHANUMERICOS)
         $key = $this->ci->arixkernel->select_one_content('sal, llave','private.traductores',array('traductor_id' => rand (1, 997)));
         $sal = $key->sal;
         $key = openssl_encrypt($data, "AES-256-CBC", $key->llave, 0, "0xE5e50a9b198741");
         return $sal.base64_encode($key);
     }
-    public function decifrar_dato($data){
+    public function cod_decifrar_cadena($data){
         $key = $this->ci->arixkernel->select_one_content('llave','private.traductores',array('sal' => substr($data,0, 13)));
         if (isset($key)){
             $key = openssl_decrypt(base64_decode(substr($data,13)), "AES-256-CBC", $key->llave, 0, "0xE5e50a9b198741");

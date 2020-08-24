@@ -63,7 +63,7 @@ class Arixapi extends CI_Controller {
 		if ($this->input->is_ajax_request() && $this->serv_administracion_usuarios->probar_session()) {
 			$sucursal = $this->serv_administracion_usuarios->cargar_sucursal_actual();
 			if (!is_null($sucursal)) {
-				//$sucursal->sid = $this->serv_cifrado->cifrar_dato($sucursal->sid);
+				//$sucursal->sid = $this->serv_cifrado->cod_cifrar_cadena($sucursal->sid);
 				echo json_encode($sucursal->nombre);
 			}
 			else{
@@ -79,7 +79,7 @@ class Arixapi extends CI_Controller {
 			$sucursal = $this->serv_administracion_usuarios->cargar_sucursal();
 			if (!is_null($sucursal)) {
 				for ($i=0; $i < count($sucursal); $i++) { 
-					$sucursal[$i]->serial = $this->serv_cifrado->cifrar_dato($sucursal[$i]->serial);
+					$sucursal[$i]->serial = $this->serv_cifrado->cod_cifrar_cadena($sucursal[$i]->serial);
 				}
 				echo json_encode($sucursal);
 			}
@@ -100,7 +100,7 @@ class Arixapi extends CI_Controller {
 			$botones = $this->input->post('data');
 			$usuario_permiso = $this->serv_administracion_usuarios->mostrar_usuario_permiso();
 			$usuario_permiso = $usuario_permiso->binario;
-			echo json_encode($this->serv_ejecucion_app->cargar_botones($usuario_permiso,$botones));
+			echo json_encode($this->serv_ejecucion_app->exe_optener_botones($usuario_permiso,$botones));
 		}
 		else{
 			echo json_encode(array('status' => 403));
@@ -112,7 +112,7 @@ class Arixapi extends CI_Controller {
 			$cant = $this->input->post('cant');
 			$lista = $this->serv_ejecucion_app->cargar_lista_targetas($table,$cant);
 			for ($i=0; $i < count($lista); $i++) { 
-				$lista[$i]->uid = $this->serv_cifrado->cifrar_dato($lista[$i]->uid);
+				$lista[$i]->uid = $this->serv_cifrado->cod_cifrar_cadena($lista[$i]->uid);
 			}
 			echo json_encode($lista);
 		}else{

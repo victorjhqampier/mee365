@@ -8,12 +8,15 @@ class Configuraciones extends CI_Controller {
 		$this->load->library('serv_administracion_usuarios');
 		$this->load->library('serv_ejecucion_app');
 		$this->load->library('serv_cifrado');
-		/*acceso denegado a ARIX CORE*/
-		if(!$this->serv_administracion_usuarios->cargar_app_session($controlador[3])){redirect(base_url());}//comprueba la sesion
+		/*se debe denegar el acceso a ARIX CORE desde aquí*/
+		//Controlador[3][2] depende de la carpeta en el que está
+		if(!$this->serv_administracion_usuarios->cargar_app_session($controlador[3])){redirect(base_url());}
+		//comprueba la sesion
+		//ademas puede trabajar con muchas ventanas a la vez, actualiza por cada consulta
 	}
 	public function index(){
 		//se cargan en ese orden
-		$js = $this->serv_ejecucion_app->cargar_js('configuraciones-arixjs, Chart');
+		$js = $this->serv_ejecucion_app->exe_cargar_js('configuraciones-arixjs, Chart');
 		$this->load->view('arixshellbase',compact('js'));
 	}
 	public function sucursales(){
@@ -73,11 +76,11 @@ class Configuraciones extends CI_Controller {
 		}
 	}
 	public function axconfiguraciones_cargar_lista_sucursales(){
-		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('type')){
+		if ($this->input->is_ajax_request() && $this->input->post('type')){
 			$tipo = $this->input->post('type'); // variable para cargar datos como iconos o lista datatables
-			$lista = $this->serv_ejecucion_app->cargar_lista_any_targetas('imagen, sucursal_id uid, nombre, direccion, fregistro', 'config.sucusales', 'fregistro, ASC',20);
+			$lista = $this->serv_ejecucion_app->exe_optener_lista_ordenado('imagen, sucursal_id uid, nombre, direccion, fregistro', 'config.sucusales', 'fregistro, ASC',20);
 			for ($i=0; $i < count($lista); $i++) { 
-				$lista[$i]->uid = $this->serv_cifrado->cifrar_dato($lista[$i]->uid);
+				$lista[$i]->uid = $this->serv_cifrado->cod_cifrar_cadena($lista[$i]->uid);
 			}
 			echo json_encode($lista);
 		}else{
@@ -85,11 +88,11 @@ class Configuraciones extends CI_Controller {
 		}
 	}
 	public function axconfiguraciones_cargar_lista_usuarios(){
-		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('type')){
+		if ($this->input->is_ajax_request() && $this->input->post('type')){
 			$tipo = $this->input->post('type'); // variable para cargar datos como iconos o lista datatables
-			$lista = $this->serv_ejecucion_app->cargar_lista_any_targetas('fotografia, cuenta_id uid, nombres, paterno, materno, documento, codigo, fmodificacion, estado, correo', 'config.v_persona_empleado_cuenta', 'fmodificacion, ASC',20);
+			$lista = $this->serv_ejecucion_app->exe_optener_lista_ordenado('fotografia, cuenta_id uid, nombres, paterno, materno, documento, codigo, fmodificacion, estado, correo', 'config.v_persona_empleado_cuenta', 'fmodificacion, ASC',20);
 			for ($i=0; $i < count($lista); $i++) { 
-				$lista[$i]->uid = $this->serv_cifrado->cifrar_dato($lista[$i]->uid);
+				$lista[$i]->uid = $this->serv_cifrado->cod_cifrar_cadena($lista[$i]->uid);
 			}
 			echo json_encode($lista);
 		}else{
@@ -97,14 +100,17 @@ class Configuraciones extends CI_Controller {
 		}
 	}
 	public function axconfiguraciones_cargar_datos_sucursal(){
-		if ($this->serv_administracion_usuarios->probar_session() && $this->input->is_ajax_request() && $this->input->post('data')){
-			$dato = $this->input->post('data');
-			$dato = $this->serv_cifrado->decifrar_dato($dato);
-			return json_encode(array('neme'=>'nepe'));
-
-			
+		if ($this->input->is_ajax_request() && $this->input->post('data')){			
+			$dato = $this->serv_ejecucion_app->exe_optener_dato_unico($this->input->post('data'),'nombre', 'config.sucusales');
+			return json_encode(array('neme'=>'error'));
 		}else{
 			echo json_encode(array('status' => 403));
 		}
+	}
+
+	public function axconfiguraciones_pruebas(){					
+			$dato = $this->serv_ejecucion_app->exe_pruebas('ca.sucursales');
+			print_r($dato);
+		
 	}
 }

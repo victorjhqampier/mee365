@@ -21,3 +21,38 @@
   -moz-font-feature-settings: 'liga';
   -moz-osx-font-smoothing: grayscale;
 }
+/*para el loder
+  <div id="loading-screen">
+   <img src="public/images/spinning-circles.svg">
+   </div>
+function arixshell_pantalla_cargando(pantalla){
+    $(document)
+        .ajaxStart(function () {
+            pantalla.fadeIn();
+        })
+        .ajaxStop(function () {
+            pantalla.fadeOut();
+        });
+}
+
+    arixshell_pantalla_cargando($('#loading-screen'));
+*/
+#loading-screen {
+  background-color: rgba(25,25,25,0.7);
+  height: 80%;
+  width: 80%;
+  position: fixed;
+  z-index: 9999;
+  margin-top: 4%;
+  top: 0;
+  text-align: center;
+  display: none;
+}
+#loading-screen img {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin-top: -50px;
+  margin-left: -50px;
+  top: 50%;
+}

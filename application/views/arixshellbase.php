@@ -73,7 +73,7 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid">
+                    <div class="container-fluid">                        
                         <!--<ol class="breadcrumb mb-2" id="user-title-breadcrumb">
                             <li class="breadcrumb-item">Cargando ... </li>
                             <li class="breadcrumb-item active">Buscando ...</li>

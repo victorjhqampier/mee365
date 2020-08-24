@@ -1,15 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-/*
-    Servicio de adminitracion de usuarios
-    1- abrir_sesion () / carga a la sesion los datos de cuenta id, y sucursal
-    2- cerrar_sesion()
-    3- 
-    
-*/
 
-class Serv_administracion_usuarios {
-	
+class Serv_administracion_usuarios {	
     protected $ci;
     function __construct(){
 		$this->ci =& get_instance();// $this no funciona en las librerias
@@ -77,7 +69,7 @@ class Serv_administracion_usuarios {
     }
     public function cargar_app_session($controlador){//requiere al usuario asi que tambien la sesion
         $controlador = $this->ci->arixkernel->select_one_content('app_id','config.v_cuenta_app_rol', array('controller' => $controlador,'cuenta_id' => $this->ci->session->userdata('usuario'),'rol_id !='=>1));// rol_id=1 => sin permiso
-        if (!is_null ($controlador)) {            
+        if ($this->probar_session() && !is_null($controlador)) {
             if ($this->ci->session->userdata('app') == $controlador->app_id) {//si la app ya esta cargado NO hagas nada
                 return true;
             }
@@ -159,7 +151,7 @@ class Serv_administracion_usuarios {
         }
     }
     public function cambiar_sucursal($newsucursal){
-        $newsucursal = $this->ci->serv_cifrado->decifrar_dato($newsucursal);
+        $newsucursal = $this->ci->serv_cifrado->cod_decifrar_cadena($newsucursal);
         if (is_numeric($newsucursal)) {
             if ($this->probar_usuario_sucursal($newsucursal)){
                 $this->ci->session->set_userdata('sucursal', $newsucursal);
