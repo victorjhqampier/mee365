@@ -100,7 +100,7 @@ class Arixapi extends CI_Controller {
 			$botones = $this->input->post('data');
 			$usuario_permiso = $this->serv_administracion_usuarios->mostrar_usuario_permiso();
 			$usuario_permiso = $usuario_permiso->binario;
-			echo json_encode($this->serv_ejecucion_app->exe_optener_botones($usuario_permiso,$botones));
+			echo json_encode($this->serv_ejecucion_app->exe_obtener_botones($usuario_permiso,$botones));
 		}
 		else{
 			echo json_encode(array('status' => 403));

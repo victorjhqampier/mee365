@@ -66,7 +66,7 @@ class Serv_ejecucion_app {
     public function exe_subir_archivos(){
 
     }
-    public function exe_optener_botones($usuario_permiso, $botones){
+    public function exe_obtener_botones($usuario_permiso, $botones){
         $permisos_botones = ['1000','0100','0010','0001'];//LECTURA, ESCRITURA, ACTUALIZACION, BORRADO, un boton pertenese a un grupo
         $botones = preg_replace('([^A-Za-z0-9\,._-])', '', $botones);
         $botones = explode(",", $botones);
@@ -83,14 +83,14 @@ class Serv_ejecucion_app {
         }
         return $btns_autorizados;
     }
-    public function exe_optener_lista_ordenado($tuplas, $tabla, $orderby,$cant = 10, $cond = null){
+    public function exe_obtener_lista_ordenado($tuplas, $tabla, $orderby,$cant = 10, $cond = null){
         if($cond == null){
             return $this->ci->arixkernel->select_all_content_order($tuplas, $tabla, $orderby, $cant);
         }else{
             return $this->ci->arixkernel->select_all_content_where_order($tuplas,$tabla, $cond, $orderby, $cant);
         }
     }
-    public function exe_optener_dato_unico($id, $tuplas, $tabla){
+    public function exe_obtener_dato_unico($id, $tuplas, $tabla){
         $data = $this->ci->serv_cifrado->cod_decifrar_cadena($newsucursal);
         return $this->ci->arixkernel->select_one_content($tupla, $tabla, $condicion);
     }
