@@ -30,18 +30,17 @@ class Serv_ejecucion_app {
         $plural = explode(".", $plural);
         $plural = $plural[count($plural)-1];
         $j = array('s','es','ces');
-        $k = [];
+        $k = null;
         for ($i=0; $i < 3; $i++) {
             $ultimas = substr($plural,-1*($i+1));
-            array_push($k, $ultimas);            
+            if($ultimas==$j[$i]){
+                $k = $ultimas; 
+            }else break;                       
         }
-        $ultimas = 0;
-        for ($i=0; $i < 3; $i++) { 
-            if ($k[$i]==$j[$i]) {
-                $ultimas ++;
-            }
-        }
-        return $ultimas;
+        $j = strlen($plural);
+        $k = strlen($k);
+        $plural = substr($plural, 0, $j-$k);
+        return ($k==3)?$plural."z":$plural;
     }
     public function exe_cargar_js($jss = null){
        	if ($jss != null) {
@@ -91,10 +90,11 @@ class Serv_ejecucion_app {
         }
     }
     public function exe_obtener_dato_unico($id, $tuplas, $tabla){
-        $data = $this->ci->serv_cifrado->cod_decifrar_cadena($newsucursal);
-        return $this->ci->arixkernel->select_one_content($tupla, $tabla, $condicion);
+        $id = $this->ci->serv_cifrado->cod_decifrar_cadena($id);
+        return $this->ci->arixkernel->select_one_content($tuplas, $tabla, array($this->exe_plural_to_singular($tabla)."_id"=>$id));
     }
-    public function exe_pruebas($pal){
-        return $this->exe_plural_to_singular($pal);
+    public function exe_pruebas($pal=0){
+        //return $this->exe_plural_to_singular($pal);
+        return $this->ci->session->userdata();
     }
 }

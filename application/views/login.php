@@ -165,7 +165,7 @@ $("#btnformuserloginarixmee").click(function () {
     success: function (a) {
     	if (a.status == true) {
     		$("#formuserloginarixmee")[0].reset();
-    		window.location.replace('inicio');
+        window.location.replace('inicio');
     	}else{
     		$("#formuserloginarixmee")[0].reset(), $(".alert-danger").html('El servidor a rechazado su petición').fadeIn().delay(4e3).fadeOut("slow");
     	}

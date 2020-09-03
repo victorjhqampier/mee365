@@ -78,7 +78,7 @@ class Configuraciones extends CI_Controller {
 	public function axconfiguraciones_cargar_lista_sucursales(){
 		if ($this->input->is_ajax_request() && $this->input->post('type')){
 			$tipo = $this->input->post('type'); // variable para cargar datos como iconos o lista datatables
-			$lista = $this->serv_ejecucion_app->exe_obtener_lista_ordenado('imagen, sucursal_id uid, nombre, direccion, fregistro', 'config.sucusales', 'fregistro, ASC',20);
+			$lista = $this->serv_ejecucion_app->exe_obtener_lista_ordenado('imagen, sucursal_id uid, nombre, direccion, fregistro', 'config.sucursales', 'fregistro, ASC',20);
 			for ($i=0; $i < count($lista); $i++) { 
 				$lista[$i]->uid = $this->serv_cifrado->cod_cifrar_cadena($lista[$i]->uid);
 			}
@@ -101,7 +101,7 @@ class Configuraciones extends CI_Controller {
 	}
 	public function axconfiguraciones_cargar_datos_sucursal(){
 		if ($this->input->is_ajax_request() && $this->input->post('data')){			
-			$dato = $this->serv_ejecucion_app->exe_obtener_dato_unico($this->input->post('data'),'nombre', 'config.sucusales');
+			$dato = $this->serv_ejecucion_app->exe_obtener_dato_unico($this->input->post('data'),'nombre', 'config.sucursales');
 			return json_encode(array('neme'=>'error'));
 		}else{
 			echo json_encode(array('status' => 403));
@@ -109,8 +109,8 @@ class Configuraciones extends CI_Controller {
 	}
 
 	public function axconfiguraciones_pruebas(){					
-			$dato = $this->serv_ejecucion_app->exe_pruebas('ca.sucursales');
-			print_r($dato);
+		$dato = $this->serv_ejecucion_app->exe_obtener_dato_unico('D4865D5453070TjlOa2FDSS9JdnNaRzNNZEZFMlBpUT09','*','config.sucursales');
+		print_r($dato);
 		
 	}
 }

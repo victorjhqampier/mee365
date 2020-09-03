@@ -32,7 +32,10 @@ class Serv_administracion_usuarios {
         } else {
             return $d;
         }
-    } 
+    }
+    public function use_crear_password_no_return($pass){
+        return password_hash($pass,PASSWORD_DEFAULT,array("cost"=>12));
+    }
     public function abrir_session($correo, $pass){
         $correo = $this->ci->arixkernel->select_one_content('cuenta_id cuenta, correo, pass','config.cuentas', array('correo' => $correo,'estado' => true));
         if(!empty($correo)){
@@ -89,8 +92,7 @@ class Serv_administracion_usuarios {
             return true;
         }else{
             return false;
-        }
-        
+        }        
     }
     public function cargar_sucursal_session($sucursal){
         $sucursal = $this->ci->arixkernel->select_one_content('sucursal_id','config.cuentasucursal', array('cuenta_id' => $this->ci->session->userdata('usuario'), 'sucursal_id' => $sucursal));
@@ -132,7 +134,7 @@ class Serv_administracion_usuarios {
     }
     public function cargar_sucursal_actual(){//solo recupera de la sesion
         $sucursal_actual = $this->ci->session->userdata('sucursal');//sucursal_id sid
-        $usuario = $this->ci->arixkernel->select_one_content('nombre','config.sucusales', array('sucursal_id' => $sucursal_actual));
+        $usuario = $this->ci->arixkernel->select_one_content('nombre','config.sucursales', array('sucursal_id' => $sucursal_actual));
         return $usuario;
     }
     public function cargar_sucursal(){
