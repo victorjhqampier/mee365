@@ -14,6 +14,7 @@ class Serv_ejecucion_app {
         $this->ci->load->model('arixkernel');//agregamos el modelo
         //$this->ci->load->library('arixkernel');
         $this->ci->load->library('serv_cifrado');
+        $this->ci->load->library('serv_administracion_usuarios');
 	}
     private function object_to_array($d) {//de STDclass a arrayPHP
         if (is_object($d)) {
@@ -42,6 +43,7 @@ class Serv_ejecucion_app {
         $plural = substr($plural, 0, $j-$k);
         return ($k==3)?$plural."z":$plural;
     }
+/*FUNCIOMES RESERVADAS PARA EL SISTEMA*/
     public function exe_cargar_js($jss = null){
        	if ($jss != null) {
             $jss = preg_replace('([^A-Za-z0-9\,._-])', '', $jss);//eliminacaracter raros
@@ -88,6 +90,50 @@ class Serv_ejecucion_app {
         }else{
             return $this->ci->arixkernel->select_all_content_where_order($tuplas,$tabla, $cond, $orderby, $cant);
         }
+    }
+/*FUNCIONES GENERALES ACCEDIDOS DESDE OTRAS APLICACIONES*/
+    //TODAS ESTAS FUNCIONES SE USA PARA TRES ESTADOS 1-ACTUAL, 2-UNICO, 3-TODOS
+    //todos los _id deben ir cifrados, solo algunas tuplas pueden ser leidas
+    public function exe_obtener_dato_sucursales($id=true, $tuplas="*"){
+        switch (gettype($id)) {
+            case 'boolean':
+                $id = $this->ci->serv_administracion_usuarios->use_obtener_dato_session('sucursal');
+                return $this->ci->arixkernel->select_one_content($tuplas,'config.sucursales', array('sucursal_id'=>$id));
+                break;
+            case 'string':
+                $id = $this->ci->serv_cifrado->cod_decifrar_cadena($id);
+                return $this->ci->arixkernel->select_one_content($tuplas,'config.sucursales', array('sucursal_id'=>$id));
+                break;
+            case 'integer':
+                return $this->ci->arixkernel->select_all_content_order($tuplas,'config.sucursales', 'fregistro, DESC', $id);
+                break;
+            default:
+                return array('result'=>'error!');
+        }
+    }
+    public function exe_obtener_dato_areas(){
+        return;
+    }
+    public function exe_obtener_dato_empleados(){
+        return;
+    }
+    public function exe_obtener_dato_empcategorias(){
+        return;
+    }
+    public function exe_obtener_dato_profesiones(){
+        return;
+    }
+    public function exe_obtener_dato_apps(){
+        return;
+    }
+    public function exe_obtener_dato_departamentos(){
+        return;
+    }
+    public function exe_obtener_dato_provincias(){
+        return;
+    }
+    public function exe_obtener_dato_distritos(){
+        return;
     }
     public function exe_obtener_dato_unico($id, $tuplas, $tabla){
         $id = $this->ci->serv_cifrado->cod_decifrar_cadena($id);

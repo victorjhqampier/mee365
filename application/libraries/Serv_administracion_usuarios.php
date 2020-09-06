@@ -170,4 +170,7 @@ class Serv_administracion_usuarios {
         $permiso = $this->ci->arixkernel->select_one_content('permiso_id permiso, binario','config.v_cuenta_permiso', array('cuenta_id' => $cuenta));
         return $permiso;
     }
+    public function use_obtener_dato_session($data){
+        return $this->ci->session->userdata($data);
+    }
 }
