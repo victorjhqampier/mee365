@@ -43,6 +43,10 @@ class Serv_ejecucion_app {
         $plural = substr($plural, 0, $j-$k);
         return ($k==3)?$plural."z":$plural;
     }
+    private function exe_verificar_tabla_tupla($tabla, $tupla, $rpt = false){
+
+    }
+    
 /*FUNCIOMES RESERVADAS PARA EL SISTEMA*/
     public function exe_cargar_js($jss = null){
        	if ($jss != null) {
@@ -98,14 +102,14 @@ class Serv_ejecucion_app {
         switch (gettype($id)) {
             case 'boolean':
                 $id = $this->ci->serv_administracion_usuarios->use_obtener_dato_session('sucursal');
-                return $this->ci->arixkernel->select_one_content($tuplas,'config.sucursales', array('sucursal_id'=>$id));
+                return $this->ci->arixkernel->select_one_content($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
                 break;
             case 'string':
                 $id = $this->ci->serv_cifrado->cod_decifrar_cadena($id);
-                return $this->ci->arixkernel->select_one_content($tuplas,'config.sucursales', array('sucursal_id'=>$id));
+                return $this->ci->arixkernel->select_one_content($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
                 break;
             case 'integer':
-                return $this->ci->arixkernel->select_all_content_order($tuplas,'config.sucursales', 'fregistro, DESC', $id);
+                return $this->ci->arixkernel->select_all_content_order($tuplas,'config.v_sucursal_administradores', 'fregistro, DESC', $id);
                 break;
             default:
                 return array('result'=>'error!');

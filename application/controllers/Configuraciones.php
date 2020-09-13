@@ -110,7 +110,7 @@ class Configuraciones extends CI_Controller {
 
 	public function axconfiguraciones_pruebas(){				
 		/*$dato = $this->serv_ejecucion_app->exe_obtener_dato_unico('D4865D5453070TjlOa2FDSS9JdnNaRzNNZEZFMlBpUT09','*','config.sucursales');*/
-		$dato = $this->serv_ejecucion_app->exe_obtener_dato_sucursales(20);
+		$dato = $this->serv_ejecucion_app->exe_obtener_dato_sucursales('D4865D5453070TjlOa2FDSS9JdnNaRzNNZEZFMlBpUT09');
 		print_r($dato);
 		
 	}

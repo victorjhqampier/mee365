@@ -31,4 +31,7 @@ class Serv_cifrado {
             return false;
         }        
     }
+    private function cod_cifrar_buscar_cadenas($array){//array
+        return;
+    }
 }
