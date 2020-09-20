@@ -1,0 +1,11 @@
+Teindas---
+	1 Una empresa tiene muchas tiendas
+	2 Una tienda además de los datos obvios, tiene un número único el cual evita consufiones al usuario
+	3 Una tienda puede estar suspendia de sus actividades -> ningun usuario puede tocar los recursos de éste
+	4 una tienda tiene muchos departamentos (areas) -> independientes del resto de las tiendas
+	5 Una tienda tiene sus propios empleados	
+	6 Un mismo departamento principal puede estar en muchas tiendas
+	7 Un empleado puede ser usuario del sistema, no al contrario
+	8 Un usuario puede administrar a muchas tiendas
+	9 Solo el usuario administrador puede crear, eliminar y suspender tiendas
+	10 Un empleado puede asumir diferentes puestos de trabajo
