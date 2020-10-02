@@ -68,6 +68,34 @@ function arixshell_read_cache_serial(){
     sessionStorage.setItem('last_serial', null);
     return temp;
 }
+function arixshell_cargar_auto_subtitulos(){
+    number = $('#sucursal-db-list').first().text();number = number.split(',');
+    $('#user-title-breadcrumb').html('<li class="breadcrumb-item active" aria-current="page">'+number[0]+'</li>');
+    $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+$("#navbarNav li.active" ).text()+'</li>');
+}
+function arixshell_cargar_subtitulos(title,next = 0){
+    //Se carga apartir del tercer
+    ubicacion = '#layoutSidenav_content #user-title-breadcrumb';
+    switch (next) {
+      case 0:
+        console.log('El kilogramo de naranjas cuesta $0.59.');
+        break;
+      case 1:
+        console.log('El kilogramo de manzanas cuesta $0.32.');
+        break;
+      case 2:
+        console.log('El kilogramo de platanos cuesta $0.48.');
+        break;
+      case 3:
+        console.log('El kilogramo de cerezas cuesta $3.00.');
+        break;
+      case 4:
+        console.log('El kilogramo de cerezas cuesta $3.00.');
+        break;
+      default:
+        console.log('arixshell_cargar_subtitulos -> error');
+    }
+}
 function arixshell_cargar_titulo(title,next = 0){
     ubicacion = '#layoutSidenav_content #user-title-breadcrumb';
     if(next == 0){//limpia todo y agrega el priemer elemento
@@ -91,8 +119,14 @@ function arixshell_cargar_ultimo_titulo(titulo='Nuevo'){
     cant = $('#nav-idont-know .breadcrumb-item').length;
     arixshell_cargar_titulo(titulo,cant-1);
 }
+function arixshell_cargar_titulo_page(){
+    title = $("#navbarNav li.active" ).text();
+    //$('#layoutSidenav_content #user-title-breadcrumb').html('<li class="breadcrumb-item" aria-current="page">'+title+'</li>');
+    $('title').text(title+" - Arix Shell v1.0");
+    //console.log(data);
+}
 function arixshell_activeshadow_app(a,b){return b==a?"active":""}//dessaroolando su mejora
-function arixshell_desactivehref_app(r,a,e){return r==a?(arixshell_cargar_titulo(e,0),"javascript:;"):r}//desarrollando su mejora
+function arixshell_desactivehref_app(r,a){return r==a?("javascript:;"):r}//para desactivar url
 function arixshell_cargar_apps() {//esta funcion es estatica -> siempre cargará en el mismo lugar
 	var apps = arixshell_download_datos('arixapi/arixapi_mostrar_apps_usuario');
     if (apps!= false) {
@@ -102,7 +136,7 @@ function arixshell_cargar_apps() {//esta funcion es estatica -> siempre cargará
         var list = '', elocation = '#navbarNav .navbar-nav';        
         $(elocation).html(list);//borras los registros actuales
         for (var i = 0; i < apps.length; i++) {
-            list ='<li class="nav-item"><a class="nav-link '+arixshell_activeshadow_app(apps[i].controller,control)+'" href="'+arixshell_desactivehref_app(apps[i].controller,control,apps[i].app)+'">'+apps[i].app+'</a></li>';
+            list ='<li class="nav-item '+arixshell_activeshadow_app(apps[i].controller,control)+'"><a class="nav-link" href="'+arixshell_desactivehref_app(apps[i].controller,control,apps[i].app)+'">'+apps[i].app+'</a></li>';
             $(elocation).append(list);//agregas al final
         }
         list = ''; //limpias la memoria
@@ -141,9 +175,9 @@ function arixshell_cargar_usuario(){
 
 function arixshell_cargar_sucursal(){
     var sucursal = arixshell_download_datos('arixapi/arixapi_mostrar_sucursal_actual');
-    if (sucursal != null && !$.isNumeric(sucursal)) {
-        $("nav").find('#sucursal-db small').text(sucursal.substring(0,20)+"...");
-        $('nav #sucursal-db-list').html('<a class="dropdown-item active" href="javascript:;" id="0xFF">Suc. '+sucursal+'</a>');
+    if (sucursal != null && !$.isNumeric(sucursal.nombre)) {
+        $("nav").find('#sucursal-db small').text(sucursal.nombre.substring(0,20)+"...");
+        $('nav #sucursal-db-list').html('<a class="dropdown-item active" href="javascript:;" id="0xFF">N'+sucursal.numero+', '+sucursal.nombre+'</a>');
     }else{
         console.log('arixshell_cargar_usuario -> error');
     }
@@ -154,7 +188,7 @@ function arixshell_cargar_sucursal_lista(){
     if (sucursal != null && sucursal != 403) {
         //$(ubicacion).html('');//limias todo
         for (var i = 0; i < sucursal.length; i++) {
-           $(ubicacion).append('<a class="dropdown-item" href="javascript:;" id="'+sucursal[i].serial+'">Suc. '+sucursal[i].nombre+'</a>');//agregas al final 
+           $(ubicacion).append('<a class="dropdown-item" href="javascript:;" id="'+sucursal[i].serial+'">N'+sucursal[i].numero+', '+sucursal[i].nombre+'</a>');//agregas al final 
         }
     }else{
         console.log('arixshell_cargar_sucursal_lista-> error');
@@ -249,7 +283,6 @@ function arixshell_cargar_idcontenedor_en_secondary(id){
     var id = id.replace(" ", "");
         id = id.replace("#", "");
     $('#nav-idont-know ul:last').attr('id', 'btn'+id);
-
     $('#use-container-secondary').html('<div class="row" id="'+id+'"></div>');
 }
 function arixshell_mostrar_targeta_borde_color(estado = true){
@@ -287,8 +320,9 @@ $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno d
     arixshell_cargar_paginas(window.location.href+'/'+a);
     $('#sidenavAccordion').find('a').removeClass('active');
     $(this).addClass('active');
-    arixshell_cargar_titulo(b,cant); //submenu representa el segundo subtitulo cant = 2
+    //arixshell_cargar_titulo(b,cant); //submenu representa el segundo subtitulo cant = 2
 });
+//AQUI AFECTA
 function arixshell_hacer_pagina_atras(){
     var last_page = sessionStorage.getItem('last_page'), titulo = new Array(); 
     last_page = JSON.parse(last_page);
@@ -311,9 +345,13 @@ $('#sucursal-db-list').on("click", ".dropdown-item", function() { //Clic en algu
     a = arixshell_actualizar_sucursal(a);
     if(typeof(a)==='boolean') {
         arixshell_cargar_sucursal();
-        arixshell_cargar_sucursal_lista();
+        arixshell_cargar_sucursal_lista();        
         arixshell_hacer_pagina_reiniciar();
+        number = $('#sucursal-db-list').first().text();number = number.split(',');
+        $('#user-title-breadcrumb li').first().text(number[0]);//actualiza el numero de la sucursal
     }else{
+        //location.reload();
+        //puede que haya cambiado los permisos
         return;
     }    
 });
@@ -330,13 +368,18 @@ function arixshell_cargar_lista_cards(tabla,btns='btn-detalles,btn-borrar',cant)
         console.log('arixshell_cargar_lista_cards -> error');
     }
 }
+/*----------------REDESARROLLAR MODULO DE TITULOS---------*/
 
 /*--------------------------MAIN----------------*/
 //arixshell_probar_url();
 arixshell_localdata_restarting();
-arixshell_cargar_apps();    
+arixshell_cargar_apps();
+arixshell_cargar_titulo_page();  
 arixshell_cargar_menu();
 arixshell_cargar_usuario();
 arixshell_cargar_sucursal();
 arixshell_cargar_sucursal_lista();
+arixshell_cargar_auto_subtitulos();
+
+
 
