@@ -44,7 +44,7 @@ class Arixapi extends CI_Controller {
 	}
 	public function arixapi_mostrar_menu_aplicaciones(){
 		if ($this->input->is_ajax_request() && $this->serv_administracion_usuarios->use_probar_session()) {
-			$lista_menu = $this->serv_administracion_usuarios->lista_menu_aplicaciones();
+			$lista_menu = $this->serv_administracion_usuarios->use_lista_menu_aplicaciones();
 			echo json_encode($lista_menu);
 		}else{
 			echo json_encode(array('status' => 403));//acceso denedo

@@ -42,11 +42,13 @@ function arixshell_limpiar_string(s) {//elimina caracteres raros de un string *#
     s = s.replace(/[^a-zA-Z0-9\_]/g,'');
     return s;
 }
+//FUNCION OBSOLETA
 function arixshell_localdata_restarting(){
     sessionStorage.setItem("last_page", false);
     sessionStorage.setItem("current_page", false);
     sessionStorage.setItem("last_serial", null);
 }
+//FUNCION OBSOLETA
 function arixshell_add_cache_page(location, url){
     var current_page = sessionStorage.getItem('current_page');
     current_page = JSON.parse(current_page);
@@ -60,9 +62,11 @@ function arixshell_add_cache_page(location, url){
         return;
     }
 }
+//FUNCION OBSOLETA
 function arixshell_write_cache_serial(serial){
     sessionStorage.setItem('last_serial', serial);
 }
+//FUNCION OBSOLETA
 function arixshell_read_cache_serial(){
     var temp = sessionStorage.getItem("last_serial");
     sessionStorage.setItem('last_serial', null);
@@ -73,48 +77,32 @@ function arixshell_cargar_auto_subtitulos(){
     $('#user-title-breadcrumb').html('<li class="breadcrumb-item active" aria-current="page">'+number[0]+'</li>');
     $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+$("#navbarNav li.active" ).text()+'</li>');
 }
-function arixshell_cargar_subtitulos(title,next = 0){
-    //Se carga apartir del tercer
-    ubicacion = '#layoutSidenav_content #user-title-breadcrumb';
-    switch (next) {
-      case 0:
-        console.log('El kilogramo de naranjas cuesta $0.59.');
-        break;
-      case 1:
-        console.log('El kilogramo de manzanas cuesta $0.32.');
-        break;
-      case 2:
-        console.log('El kilogramo de platanos cuesta $0.48.');
-        break;
-      case 3:
-        console.log('El kilogramo de cerezas cuesta $3.00.');
-        break;
-      case 4:
-        console.log('El kilogramo de cerezas cuesta $3.00.');
-        break;
-      default:
-        console.log('arixshell_cargar_subtitulos -> error');
+//AGREHAR FUNCION DE REINICIAR CACHÉ
+function arixshell_cargar_third_subtitulo(title){
+    if (2 == $('#nav-idont-know .breadcrumb-item').length) {
+        $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+title+'</li>');
+        //CACHÉ
+    }else{
+        $( "#user-title-breadcrumb li:eq( 1 )" ).nextAll().remove();
+        $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+title+'</li>');
     }
 }
-function arixshell_cargar_titulo(title,next = 0){
-    ubicacion = '#layoutSidenav_content #user-title-breadcrumb';
-    if(next == 0){//limpia todo y agrega el priemer elemento
-        $(ubicacion).html('<li class="breadcrumb-item" aria-current="page">'+title+'</li>');
-        $('title').text(title+" - Arix Shell v1.0");
+//FUNCION OBSOLETA
+function arixshell_agregar_subtitulo(title,position = 4){
+    a = $('#nav-idont-know .breadcrumb-item').length;
+    if (a >= position - 1 && position > 3){
+        if (a== position-1) {
+            $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+title+'</li>');
+        }else{
+            $( "#user-title-breadcrumb li:eq("+(position - 2)+")" ).nextAll().remove();
+            $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+title+'</li>');
+        }
     }
-    else if (next == 1){//agrega un elemeto al final
-        $(ubicacion).append('<li class="breadcrumb-item">'+title+'</li>');
-    }
-    else if (next == 2){//Reemplaza al último elemto
-        $( "#user-title-breadcrumb li" ).last().remove();
-        $(ubicacion).append('<li class="breadcrumb-item">'+title+'</li>');
-    }
-    else{//Reemplaza a los dos ultimos elementos
-        $("#user-title-breadcrumb li" ).last().remove();
-        $("#user-title-breadcrumb li" ).last().replaceWith('<li class="breadcrumb-item">'+title+'</li>');
-        //$(ubicacion).append('<li class="breadcrumb-item">'+title+'</li>');
+    else{
+        return;
     }
 }
+//FUNCION OBSOLETA
 function arixshell_cargar_ultimo_titulo(titulo='Nuevo'){
     cant = $('#nav-idont-know .breadcrumb-item').length;
     arixshell_cargar_titulo(titulo,cant-1);
@@ -144,7 +132,6 @@ function arixshell_cargar_apps() {//esta funcion es estatica -> siempre cargará
         console.log('arixshell_cargar_apps -> error');
     }
 }
-
 function arixshell_cargar_menu(){
     var menu = arixshell_download_datos('arixapi/arixapi_mostrar_menu_aplicaciones');
     var list = '', elocation = '#sidenavAccordion .nav';
@@ -209,22 +196,17 @@ function arixshell_probar_url(){//Ocurre un error fatal cunado se añade un / al
     }
 }
 function arixshell_vaciar_botones_menu(){
-    var elocation1 = 'main #nav-item-input-buscar';
-    var elocation = 'main #nav-item-input-botones';
-    $(elocation1).html('')
-    $(elocation).html('');
+    $('main #nav-item-input-buscar').html('')
+    $('main #nav-item-input-botones').html('');
 }
 function arixshell_vaciar_paginas(){
-    var elocation1 = 'main #use-container-secondary';
-    var elocation = 'main #use-container-primary';
-    $(elocation1).html('')
-    $(elocation).html('');
+    $('main #use-container-secondary').html('')
+    $('main #use-container-primary').html('');
 }
-
 function arixshell_cargar_paginas(url,lugar = '#use-container-primary'){//borra todo y carga una pagina
     arixshell_vaciar_paginas();
     arixshell_vaciar_botones_menu();
-    arixshell_add_cache_page(lugar,url);    
+    //arixshell_add_cache_page(lugar,url);    
     $(lugar).load(url, function(response, status, xhr) {
         if (status == "error") {
             var msg = "Arixcore encontró el siguiente error: ";//<h3>'+msg + ' - ' +xhr.status + " - " + xhr.statusText+'</h3>
@@ -239,6 +221,25 @@ function arixshell_cargar_subpaginas(url,lugar){//carga paginas en un modal
             $(lugar).html('<div class="col-xl-12 col-md-12"><div class="card bg-danger text-white mb-4"><div class="card-body">'+msg + xhr.status + " - " + xhr.statusText+' en '+url+'<div class="card-footer d-flex align-items-center justify-content-between"><a class="small text-white stretched-link" href="javascript:;"><strong>¡Lo siento! </strong>El servidor a denegado su petición ...</a></div></div></div></div>');
         }
     });
+}
+
+//aqui trabajo, falta agregar funcionalidad de caché
+function arixshell_cargar_contenido(url,titulo = false, position = 4){//esta es una funcion muy especifica para llenar subtitulos y paginas(caches)
+    a = $('#nav-idont-know .breadcrumb-item').length;
+    console.log(a +' '+position+' '+titulo);
+    if (a >= position - 1 && position > 3){
+        arixshell_cargar_paginas(url,'#use-container-primary');
+        if (a== position-1) {
+            $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+titulo+'</li>');
+            //CACHÉ
+        }else{
+            $( "#user-title-breadcrumb li:eq("+(position - 2)+")" ).nextAll().remove();
+            $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+titulo+'</li>');
+        }
+    }
+    else{
+        return;
+    }
 }
 function arixshell_iniciar_llaves_locales(id1="#btn_error", id2="#con_error"){
     var id1 = id1.replace(" ", "");
@@ -316,19 +317,39 @@ $('nav #dropdown-item-u3').click(function(){
 //Cuando haces click en algundo de los menus 
 $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno de los elementos del munu
     $('#use-container-secondary').html('');//reestablce el primer contenedor
-    var a = $(this).attr('controller'), b = $(this).text(), cant = $('#nav-idont-know .breadcrumb-item').length;
+    var a = $(this).attr('controller'), b = $(this).text();//titulo
     arixshell_cargar_paginas(window.location.href+'/'+a);
     $('#sidenavAccordion').find('a').removeClass('active');
     $(this).addClass('active');
-    //arixshell_cargar_titulo(b,cant); //submenu representa el segundo subtitulo cant = 2
+    arixshell_cargar_third_subtitulo(b);//esto debe ser generalizado (titulo,url,position)
 });
 //AQUI AFECTA
-function arixshell_hacer_pagina_atras(){
+//no usa pila, registra las ultimas paginas visitadas
+//FUNCION OBSOLETA
+function arixshell_hacer_pagina_rollback(){
     var last_page = sessionStorage.getItem('last_page'), titulo = new Array(); 
     last_page = JSON.parse(last_page);
     $("#user-title-breadcrumb li").each(function(){titulo.push($(this).text());});
-    arixshell_cargar_titulo(titulo[titulo.length-2],titulo.length);
+    //arixshell_cargar_titulo(titulo[titulo.length-2],titulo.length);
     arixshell_cargar_paginas(last_page[1],last_page[0]);
+    console.log(last_page);
+}
+// EN DESARROLLO
+function arixshell_crear_cache(){
+    sessionStorage.setItem("pages", false);
+
+    //para leer
+    leer = sessionStorage.getItem('pages');
+    leer = JSON.parse(leer); //esto es un array
+    //para escribir
+    escribir = ["Manzana", "Banana"];
+    sessionStorage.setItem('pages', JSON.stringify(escribir));
+
+
+}
+//usa pila, ultimo en entrar ultimo en salir 
+function arixshell_hacer_pagina_atras(){
+
 }
 function arixshell_hacer_pagina_reiniciar(){
     $('#layoutSidenav_nav .active').click();
@@ -372,14 +393,11 @@ function arixshell_cargar_lista_cards(tabla,btns='btn-detalles,btn-borrar',cant)
 
 /*--------------------------MAIN----------------*/
 //arixshell_probar_url();
-arixshell_localdata_restarting();
+//arixshell_localdata_restarting();
 arixshell_cargar_apps();
-arixshell_cargar_titulo_page();  
+arixshell_cargar_titulo_page();
+arixshell_cargar_sucursal();
+arixshell_cargar_auto_subtitulos();
 arixshell_cargar_menu();
 arixshell_cargar_usuario();
-arixshell_cargar_sucursal();
 arixshell_cargar_sucursal_lista();
-arixshell_cargar_auto_subtitulos();
-
-
-

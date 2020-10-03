@@ -15,7 +15,8 @@ $(document).ready(function(){
     });
     
     $(arixshell_cargar_llave_local(0)).on("click", ".btn-agregar", function() {
-    	alert('estoy aqui;');
+    	//alert('estoy aqui;');
+        arixshell_cargar_contenido(window.location.href+'/sucursales_sub1','sub_1');
     });
 });
 </script>

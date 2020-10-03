@@ -114,4 +114,28 @@ class Configuraciones extends CI_Controller {
 		print_r($dato);
 		
 	}
+	public function sucursales_sub1(){
+		if ($this->input->is_ajax_request()) {
+			$this->load->view('app_configuraciones/sucursales_sub1');
+		}
+		else{
+			show_404();
+		}
+	}
+	public function sucursales_sub2(){
+		if ($this->input->is_ajax_request()) {
+			$this->load->view('app_configuraciones/sucursales_sub2');
+		}
+		else{
+			show_404();
+		}
+	}
+	public function sucursales_sub3(){
+		if ($this->input->is_ajax_request()) {
+			$this->load->view('app_configuraciones/sucursales_sub3');
+		}
+		else{
+			show_404();
+		}
+	}
 }

@@ -121,7 +121,7 @@ class Serv_administracion_usuarios {
             return false;
         }
     }
-    public function lista_menu_aplicaciones(){
+    public function use_lista_menu_aplicaciones(){
         $cuenta = $this->ci->session->userdata('usuario');
         $app = $this->ci->session->userdata('app');
         $rol = $this->ci->arixkernel->select_one_content('rol_id, rol','config.v_cuenta_app_rol', array('cuenta_id' => $cuenta, 'app_id' => $app));

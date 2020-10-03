@@ -178,7 +178,8 @@ $(document).ready(function(){
 	console.log(key);
 	arixshell_iniciar_llaves_locales("#btn_id_sucursales_1d","#con_id_sucursales_1d");
     arixshell_cargar_botones_menu('btn-atras, btn-editar');
-    arixshell_cargar_ultimo_titulo('Una sucursal');
+    //arixshell_cargar_ultimo_titulo('Una sucursal');
+    arixshell_agregar_subtitulo('Una sucursal');
     $(arixshell_cargar_llave_local(0)).on("click", ".btn-atras", function() {
         arixshell_hacer_pagina_atras();
     });

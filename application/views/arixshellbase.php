@@ -59,10 +59,6 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
                                 Cargando ...
                             </a>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-angle-right"></i></div>
-                                Contactos
-                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -85,7 +81,6 @@
                             <div class="collapse navbar-collapse" id="nav-idont-know">
                                 <ul class="navbar-nav mr-auto mt-0 mt-lg-0" style="font-size: 1.1rem;" id="user-title-breadcrumb">
                                     <li class="breadcrumb-item active">Cargando ... </li>
-                                    <li class="breadcrumb-item">Buscando ...</li>
                                 </ul>
                                 <ul class="navbar-nav mt-0 mt-lg-0">                           
                                     <li class="nav-item" id="nav-item-input-buscar">                                        
