@@ -9,6 +9,6 @@
         alert('-> '+a);
     });
     $(arixshell_cargar_llave_local(0)).on("click", ".btn-agregar", function() {
-    	arixshell_cargar_paginas(window.location.href+'/usuarios_nuevo');
+    	arixshell_cargar_contenido(window.location.href+'/usuarios_nuevo','Usuario Nuevo');
     });
 </script>

@@ -6,6 +6,6 @@
 	arixshell_iniciar_llaves_locales("#btn_id_sucursales_sub3","#con_id_sucursales_sub3");
 	arixshell_cargar_botones_menu('btn-atras');
     $(arixshell_cargar_llave_local(0)).on("click", ".btn-atras", function() {
-        arixshell_hacer_pagina_rollback();
+        arixshell_hacer_pagina_atras();
     });
 </script>

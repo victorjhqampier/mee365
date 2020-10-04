@@ -62,11 +62,9 @@ function arixshell_add_cache_page(location, url){
         return;
     }
 }
-//FUNCION OBSOLETA
 function arixshell_write_cache_serial(serial){
     sessionStorage.setItem('last_serial', serial);
 }
-//FUNCION OBSOLETA
 function arixshell_read_cache_serial(){
     var temp = sessionStorage.getItem("last_serial");
     sessionStorage.setItem('last_serial', null);
@@ -77,11 +75,12 @@ function arixshell_cargar_auto_subtitulos(){
     $('#user-title-breadcrumb').html('<li class="breadcrumb-item active" aria-current="page">'+number[0]+'</li>');
     $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+$("#navbarNav li.active" ).text()+'</li>');
 }
-//AGREHAR FUNCION DE REINICIAR CACHÉ
 function arixshell_cargar_third_subtitulo(title){
+    var data = window.location.href+'/'+$('#sidenavAccordion .nav').find('.active').attr('controller');
+    sessionStorage.setItem("pages", JSON.stringify([data]));//renicia los valores del caché
+    //console.log($('#sidenavAccordion .nav').find('.active').attr('controller'));
     if (2 == $('#nav-idont-know .breadcrumb-item').length) {
         $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+title+'</li>');
-        //CACHÉ
     }else{
         $( "#user-title-breadcrumb li:eq( 1 )" ).nextAll().remove();
         $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+title+'</li>');
@@ -89,10 +88,12 @@ function arixshell_cargar_third_subtitulo(title){
 }
 //FUNCION OBSOLETA
 function arixshell_agregar_subtitulo(title,position = 4){
-    a = $('#nav-idont-know .breadcrumb-item').length;
+    a = $('#nav-idont-know .breadcrumb-item').length;    
     if (a >= position - 1 && position > 3){
         if (a== position-1) {
             $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+title+'</li>');
+            a = [title];
+            //sessionStorage.setItem('pages', JSON.stringify(a));//agregar simplemente position[]
         }else{
             $( "#user-title-breadcrumb li:eq("+(position - 2)+")" ).nextAll().remove();
             $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+title+'</li>');
@@ -102,16 +103,9 @@ function arixshell_agregar_subtitulo(title,position = 4){
         return;
     }
 }
-//FUNCION OBSOLETA
-function arixshell_cargar_ultimo_titulo(titulo='Nuevo'){
-    cant = $('#nav-idont-know .breadcrumb-item').length;
-    arixshell_cargar_titulo(titulo,cant-1);
-}
 function arixshell_cargar_titulo_page(){
     title = $("#navbarNav li.active" ).text();
-    //$('#layoutSidenav_content #user-title-breadcrumb').html('<li class="breadcrumb-item" aria-current="page">'+title+'</li>');
     $('title').text(title+" - Arix Shell v1.0");
-    //console.log(data);
 }
 function arixshell_activeshadow_app(a,b){return b==a?"active":""}//dessaroolando su mejora
 function arixshell_desactivehref_app(r,a){return r==a?("javascript:;"):r}//para desactivar url
@@ -164,7 +158,7 @@ function arixshell_cargar_sucursal(){
     var sucursal = arixshell_download_datos('arixapi/arixapi_mostrar_sucursal_actual');
     if (sucursal != null && !$.isNumeric(sucursal.nombre)) {
         $("nav").find('#sucursal-db small').text(sucursal.nombre.substring(0,20)+"...");
-        $('nav #sucursal-db-list').html('<a class="dropdown-item active" href="javascript:;" id="0xFF">N'+sucursal.numero+', '+sucursal.nombre+'</a>');
+        $('nav #sucursal-db-list').html('<a class="dropdown-item active" href="javascript:;" id="0xFF">Tienda '+sucursal.numero+', '+sucursal.nombre+'</a>');
     }else{
         console.log('arixshell_cargar_usuario -> error');
     }
@@ -175,7 +169,7 @@ function arixshell_cargar_sucursal_lista(){
     if (sucursal != null && sucursal != 403) {
         //$(ubicacion).html('');//limias todo
         for (var i = 0; i < sucursal.length; i++) {
-           $(ubicacion).append('<a class="dropdown-item" href="javascript:;" id="'+sucursal[i].serial+'">N'+sucursal[i].numero+', '+sucursal[i].nombre+'</a>');//agregas al final 
+           $(ubicacion).append('<a class="dropdown-item" href="javascript:;" id="'+sucursal[i].serial+'">Tienda '+sucursal[i].numero+', '+sucursal[i].nombre+'</a>');//agregas al final 
         }
     }else{
         console.log('arixshell_cargar_sucursal_lista-> error');
@@ -224,17 +218,25 @@ function arixshell_cargar_subpaginas(url,lugar){//carga paginas en un modal
 }
 
 //aqui trabajo, falta agregar funcionalidad de caché
-function arixshell_cargar_contenido(url,titulo = false, position = 4){//esta es una funcion muy especifica para llenar subtitulos y paginas(caches)
+function arixshell_cargar_contenido(url,titulo = 'Sin Subtitulo', position = 4){//esta es una funcion muy especifica para llenar subtitulos y paginas(caches)
     a = $('#nav-idont-know .breadcrumb-item').length;
-    console.log(a +' '+position+' '+titulo);
     if (a >= position - 1 && position > 3){
         arixshell_cargar_paginas(url,'#use-container-primary');
         if (a== position-1) {
             $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+titulo+'</li>');
-            //CACHÉ
+            leer = JSON.parse(sessionStorage.getItem('pages'));//el primer registro
+            leer.push(url);//agregas el nuevo
+            sessionStorage.setItem('pages', JSON.stringify(leer));//lo guardas
+            //sessionStorage.setItem('pages', JSON.stringify([url]));//agregar simplemente position[0]
         }else{
             $( "#user-title-breadcrumb li:eq("+(position - 2)+")" ).nextAll().remove();
             $('#user-title-breadcrumb').append('<li class="breadcrumb-item active">'+titulo+'</li>');
+            leer = JSON.parse(sessionStorage.getItem('pages'));
+            for (var i = 1; i < leer.length; i++) {//no toues el el registro 0
+                leer.pop();
+            }
+            leer.push(url);
+            sessionStorage.setItem('pages', JSON.stringify(leer));//actualizas el dato
         }
     }
     else{
@@ -323,33 +325,17 @@ $('#layoutSidenav_nav').on("click", ".nav-link", function() { //Clic en alguno d
     $(this).addClass('active');
     arixshell_cargar_third_subtitulo(b);//esto debe ser generalizado (titulo,url,position)
 });
-//AQUI AFECTA
-//no usa pila, registra las ultimas paginas visitadas
-//FUNCION OBSOLETA
-function arixshell_hacer_pagina_rollback(){
-    var last_page = sessionStorage.getItem('last_page'), titulo = new Array(); 
-    last_page = JSON.parse(last_page);
-    $("#user-title-breadcrumb li").each(function(){titulo.push($(this).text());});
-    //arixshell_cargar_titulo(titulo[titulo.length-2],titulo.length);
-    arixshell_cargar_paginas(last_page[1],last_page[0]);
-    console.log(last_page);
-}
-// EN DESARROLLO
-function arixshell_crear_cache(){
-    sessionStorage.setItem("pages", false);
-
-    //para leer
-    leer = sessionStorage.getItem('pages');
-    leer = JSON.parse(leer); //esto es un array
-    //para escribir
-    escribir = ["Manzana", "Banana"];
-    sessionStorage.setItem('pages', JSON.stringify(escribir));
-
-
-}
 //usa pila, ultimo en entrar ultimo en salir 
 function arixshell_hacer_pagina_atras(){
-
+    leer = JSON.parse(sessionStorage.getItem('pages'));
+    if (leer.length > 1) {
+        $('#user-title-breadcrumb li').last().remove();//eliminar el ultimo subtitulo        
+        leer.pop();//eliminar la url del ultimo subtitulo        
+        sessionStorage.setItem('pages', JSON.stringify(leer));
+        arixshell_cargar_paginas(leer[leer.length -1]);        
+    }else{
+        return;
+    }
 }
 function arixshell_hacer_pagina_reiniciar(){
     $('#layoutSidenav_nav .active').click();
@@ -361,7 +347,7 @@ function arixshell_actualizar_sucursal(a){
         return '_error_de_cifrado';
     }
 }
-$('#sucursal-db-list').on("click", ".dropdown-item", function() { //Clic en alguno de los elementos del munu
+$('#sucursal-db-list').on("click", ".dropdown-item", function() { //Clic en alguno de los elementos sucursal
     var a = $(this).attr('id');
     a = arixshell_actualizar_sucursal(a);
     if(typeof(a)==='boolean') {

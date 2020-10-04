@@ -115,7 +115,7 @@ class Serv_ejecucion_app {
                 return array('result'=>'error!');
         }
     }
-    public function exe_obtener_dato_areas(){
+    public function exe_obtener_dato_usuarios(){
         return;
     }
     public function exe_obtener_dato_empleados(){

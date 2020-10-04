@@ -63,7 +63,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Supported by</div>
-                        &reg;Arix Company 
+                        &reg;Arix Corporation
                     </div>
                 </nav>
             </div>

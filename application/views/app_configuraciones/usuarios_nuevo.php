@@ -132,7 +132,6 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-    arixshell_cargar_ultimo_titulo('Nuevo');
     arixshell_iniciar_llaves_locales("#btn_id_usuarios_nuevo","#con_id_usuarios_nuevo");
     arixshell_cargar_botones_menu('btn-guardar, btn-cerrar');
     //$('#form-usuario-sucursal #select-permiso').selectpicker();//inicializa la multiple seleccion
