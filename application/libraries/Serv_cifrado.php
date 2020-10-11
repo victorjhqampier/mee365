@@ -14,7 +14,16 @@ class Serv_cifrado {
 		$this->ci =& get_instance();
         $this->ci->load->model('arixkernel');
 	}
-
+    public function cod_object_to_array($d) {//de STDclass a arrayPHP
+        if (is_object($d)) {
+            $d = get_object_vars($d);
+        }
+        if (is_array($d)) {
+            return array_map(array($this, 'cod_object_to_array'), $d);
+        } else {
+            return $d;
+        }
+    }
     public function cod_cifrar_cadena($data){
         //$data = preg_replace('([^A-Za-z0-9])', '', $data);//borra caracteres raros (SOLO ALPHANUMERICOS)
         $key = $this->ci->arixkernel->select_one_content('sal, llave','private.traductores',array('traductor_id' => rand (1, 997)));
@@ -31,7 +40,26 @@ class Serv_cifrado {
             return false;
         }        
     }
-    private function cod_cifrar_buscar_cadenas($array){//array
-        return;
+    public function cod_cifrar_matriz($base, $reemplazo){//ambos son arrays;
+        for ($i = 0; $i < count($reemplazo); $i++) {
+            $base[$i] = $this->cod_cifrar_cadena($base[$i]);
+        }
+    }
+    public function cod_cifrar_matrices($array){//Trabajar en su optimizacion
+        //$array = $this->object_to_array($array);
+        $data = is_array(array_pop($array));//averigua si es multidemencional
+        if($data == true){
+            $data = array_keys(array_pop($array));//obtiene las llaves de los arrays
+            $data = preg_grep('/(_id)/', $data);//selecciona las llaves que terminan en _id
+            $data = array_values ($data);//formatea las llaves
+            for ($i=0; $i < count($array) ; $i++) {                
+                for ($j=0; $j < count($data); $j++) { 
+                    $array[$i][$data[$j]] = $this->cod_cifrar_cadena($array[$i][$data[$j]]);
+                }
+            }
+            return $array;
+        }else{
+            return false;
+        }
     }
 }

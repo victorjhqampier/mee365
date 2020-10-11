@@ -16,16 +16,6 @@ class Serv_ejecucion_app {
         $this->ci->load->library('serv_cifrado');
         $this->ci->load->library('serv_administracion_usuarios');
 	}
-    private function object_to_array($d) {//de STDclass a arrayPHP
-        if (is_object($d)) {
-            $d = get_object_vars($d);
-        }
-        if (is_array($d)) {
-            return array_map(array($this, 'object_to_array'), $d);
-        } else {
-            return $d;
-        }
-    }
     private function exe_plural_to_singular($plural){
         $plural = rtrim($plural, ' ');
         $plural = explode(".", $plural);
@@ -115,8 +105,22 @@ class Serv_ejecucion_app {
                 return array('result'=>'error!');
         }
     }
-    public function exe_obtener_dato_usuarios(){
-        return;
+    public function exe_obtener_datos_usuario($id = true, $tuplas = '*'){
+        switch (gettype($id)) {
+            case 'boolean':
+                $id = $this->ci->serv_administracion_usuarios->use_obtener_dato_session('sucursal');
+                return $this->ci->arixkernel->select_one_content($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
+                break;
+            case 'string':
+                $id = $this->ci->serv_cifrado->cod_decifrar_cadena($id);
+                return $this->ci->arixkernel->select_one_content($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
+                break;
+            case 'integer':
+                return $this->ci->arixkernel->select_all_content_order($tuplas,'config.v_sucursal_administradores', 'fregistro, DESC', $id);
+                break;
+            default:
+                return array('result'=>'error!');
+        }
     }
     public function exe_obtener_dato_empleados(){
         return;
