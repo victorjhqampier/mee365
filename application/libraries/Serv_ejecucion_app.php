@@ -36,7 +36,7 @@ class Serv_ejecucion_app {
     private function exe_verificar_tabla_tupla($tabla, $tupla, $rpt = false){
 
     }
-    
+
 /*FUNCIOMES RESERVADAS PARA EL SISTEMA*/
     public function exe_cargar_js($jss = null){
        	if ($jss != null) {
@@ -45,7 +45,7 @@ class Serv_ejecucion_app {
             $new_list = array();
             $temp = '';
             for ($i=0; $i < count($jss); $i++) { 
-                $temp = $this->object_to_array($this->ci->arixkernel->select_one_content('direction','config.recursos', array('recurso' => $jss[$i],'tipo' => 1)));                
+                $temp = $this->ci->serv_cifrado->cod_object_to_array($this->ci->arixkernel->select_one_content('direction','config.recursos', array('recurso' => $jss[$i],'tipo' => 1)));                
                 if (!is_null($temp)) {
                     array_push($new_list, $temp['direction']);
                 }
@@ -69,7 +69,7 @@ class Serv_ejecucion_app {
         for ($i=0; $i < 4; $i++) { //recorremos la cantidad del binario PERMISOS,
             if (substr($usuario_permiso, $i,1) == 1) {//si tiene permiso entramos para buscar los botones
                 for ($j=0; $j < count($botones); $j++) { //buscamos los botones solicitados
-                    $temp = $this->object_to_array($this->ci->arixkernel->select_one_content('boton, icono, titulo','config.botones', array('boton' => $botones[$j], 'permiso'=>bindec($permisos_botones[$i]))));
+                    $temp = $this->ci->serv_cifrado->cod_object_to_array($this->ci->arixkernel->select_one_content('boton, icono, titulo','config.botones', array('boton' => $botones[$j], 'permiso'=>bindec($permisos_botones[$i]))));
                     if (!is_null($temp)) {
                         array_push($btns_autorizados, $temp);
                     }

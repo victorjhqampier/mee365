@@ -112,14 +112,7 @@ class Configuraciones extends CI_Controller {
 		/*$dato = $this->serv_ejecucion_app->exe_obtener_dato_unico('D4865D5453070TjlOa2FDSS9JdnNaRzNNZEZFMlBpUT09','*','config.sucursales');*/
 		//$dato = $this->serv_ejecucion_app->exe_obtener_dato_sucursales('D4865D5453070TjlOa2FDSS9JdnNaRzNNZEZFMlBpUT09');
 		//print_r($dato);
-		$values = array(
-		    'Article'=>'24497',
-		    'Type'=>'LED',
-		    'Socket'=>'E27',
-		    'Dimmable'=>'',
-		    'Wattage'=>'10W'
-		);
-
+		
 		/*$keys = array_fill_keys(array('Article','Wattage','Dimmable'), ''); // wanted array with empty value
 		print_r($keys);
 
@@ -144,13 +137,12 @@ print_r($notempty);*/
 		//agarro el primer elemto del arrary
 		//compruevo si esrray
 		$lista = $this->serv_ejecucion_app->exe_obtener_lista_ordenado('*', 'config.sucursales', 'fregistro, ASC',20);
-		//$lista = $this->object_to_array($lista);
-		
-		$lista = $this->serv_cifrado->cod_object_to_array($lista);
-		print_r(count($lista));
-
-		//$uid = $this->serv_cifrado->cod_cifrar_matrices($lista);
-		//print_r($uid);
+		//print_r($lista);
+		//$lista = $this->object_to_array($lista);		
+		//$lista = $this->serv_cifrado->cod_object_to_array($lista);
+		//print_r(count($lista));
+		$lista = $this->serv_cifrado->cod_cifrar_ids_matrices($lista);
+		print_r($lista);
 		
 	}
 	public function sucursales_sub1(){
