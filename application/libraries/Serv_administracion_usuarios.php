@@ -23,18 +23,6 @@ class Serv_administracion_usuarios {
             default:
                return false;
         }
-        /*if ($rol == 1) {//SuperUsuario
-            return 'app_id = '.$app.' AND rol >= 4';
-        }
-        elseif ($rol == 2) {//Administrador
-            return 'app_id = '.$app.' AND rol >= 6';
-        }
-        elseif ($rol == 3) {//Asistente
-            return 'app_id = '.$app.' AND (rol = 5 OR rol = 7)';
-        }
-        else{
-            return false;
-        }*/
     }
     private function object_to_array($d) {//de STDclass a arrayPHP
         if (is_object($d)) {

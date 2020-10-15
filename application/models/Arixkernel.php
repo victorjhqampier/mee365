@@ -65,7 +65,19 @@ class Arixkernel extends CI_Model{
 			$this->db->select($tupla);
 			return $this->db->get_where($tabla, $condicion)->row();		
 	}
-	public function pruebas_(){
-		return $this->probar_permiso_user();
+
+	/*REESCRITURA DE LAS FUNCIONES*/
+	//select_all_content
+	public function arixkernel_obtener_datos($tupla, $tabla, $limit = 100, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
+		$array_condition = (null == $array_condition) ? array() : $array_condition; 
+		$this->db->select($tupla);
+		$this->db->group_by($array_groupby);
+		$this->db->order_by($string_orderby);
+		return $this->db->get_where($tabla, $array_condition, $limit, $offset)->result();
 	}
+	public function arixkernel_obtener_id_dato($tupla, $tabla, $array_condicion){
+		$this->db->select($tupla);
+		return $this->db->get_where($tabla, $array_condicion)->row();	
+	}
+
 }

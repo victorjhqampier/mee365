@@ -75,6 +75,8 @@ class Configuraciones extends CI_Controller {
 			show_404();
 		}
 	}
+
+	#REHACER TODO DESQUE AQUI CON EL NUEVO KERNEL Y SERVICIO DE EJECUCIÓN
 	public function axconfiguraciones_cargar_lista_sucursales(){
 		if ($this->input->is_ajax_request() && $this->input->post('type')){
 			$tipo = $this->input->post('type'); // variable para cargar datos como iconos o lista datatables
@@ -109,7 +111,8 @@ class Configuraciones extends CI_Controller {
 	}
 
 	public function axconfiguraciones_pruebas(){		
-		$lista = $this->serv_ejecucion_app->exe_obtener_lista_ordenado('*', 'config.cuentas', 'fregistro, ASC',20);
+		//$lista = $this->serv_ejecucion_app->exe_obtener_lista_ordenado('*', 'private.traductores', 'sal, ASC',20);
+		$lista = $this->serv_ejecucion_app->arixkernel_obtener_datos('submenu_id, submenu', 'config.v_menu_subapp', 100, 0,'app_id = 1002 AND rol >= 4','',array('submenu_id','submenu'));
 		$lista = $this->serv_cifrado->cod_cifrar_ids_matrices($lista);
 		print_r($lista);		
 	}

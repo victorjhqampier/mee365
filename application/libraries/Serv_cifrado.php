@@ -33,11 +33,6 @@ class Serv_cifrado {
             return $indice.base64_encode($data);
         }
     }
-    private function cod_cifrar_matriz($base, $reemplazo){//ambos son arrays;
-        for ($i = 0; $i < count($reemplazo); $i++) {
-            $base[$i] = $this->cod_cifrar_cadena($base[$i]);
-        }
-    }
     public function cod_cifrar_cadena($data){
         //$data = preg_replace('([^A-Za-z0-9])', '', $data);//borra caracteres raros (SOLO ALPHANUMERICOS)
         $key = $this->ci->arixkernel->select_one_content('sal, llave','private.traductores',array('traductor_id' => rand (1, 997)));
@@ -79,7 +74,7 @@ class Serv_cifrado {
                 for ($j = 0; $j < count($key); $j++) {
                     $array[$key[$j]] = $this->cod_cifrar_cadena_llave($array[$key[$j]], $llaves->llave, $llaves->indice);
                 } 
-                unset($key, $llaves);       
+                unset($key, $llaves);
                 return $array;
             }else{
                 return $array;

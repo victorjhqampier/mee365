@@ -45,7 +45,7 @@ class Serv_ejecucion_app {
             $new_list = array();
             $temp = '';
             for ($i=0; $i < count($jss); $i++) { 
-                $temp = $this->ci->serv_cifrado->cod_object_to_array($this->ci->arixkernel->select_one_content('direction','config.recursos', array('recurso' => $jss[$i],'tipo' => 1)));                
+                $temp = $this->ci->serv_cifrado->cod_object_to_array($this->ci->arixkernel->arixkernel_obtener_id_dato('direction','config.recursos', array('recurso' => $jss[$i],'tipo' => 1)));                
                 if (!is_null($temp)) {
                     array_push($new_list, $temp['direction']);
                 }
@@ -69,7 +69,7 @@ class Serv_ejecucion_app {
         for ($i=0; $i < 4; $i++) { //recorremos la cantidad del binario PERMISOS,
             if (substr($usuario_permiso, $i,1) == 1) {//si tiene permiso entramos para buscar los botones
                 for ($j=0; $j < count($botones); $j++) { //buscamos los botones solicitados
-                    $temp = $this->ci->serv_cifrado->cod_object_to_array($this->ci->arixkernel->select_one_content('boton, icono, titulo','config.botones', array('boton' => $botones[$j], 'permiso'=>bindec($permisos_botones[$i]))));
+                    $temp = $this->ci->serv_cifrado->cod_object_to_array($this->ci->arixkernel->arixkernel_obtener_id_dato('boton, icono, titulo','config.botones', array('boton' => $botones[$j], 'permiso'=>bindec($permisos_botones[$i]))));
                     if (!is_null($temp)) {
                         array_push($btns_autorizados, $temp);
                     }
@@ -78,12 +78,25 @@ class Serv_ejecucion_app {
         }
         return $btns_autorizados;
     }
+
+
+#REAHCER TODO DESDE AQUI
+
     public function exe_obtener_lista_ordenado($tuplas, $tabla, $orderby,$cant = 10, $cond = null){
         if($cond == null){
             return $this->ci->arixkernel->select_all_content_order($tuplas, $tabla, $orderby, $cant);
         }else{
             return $this->ci->arixkernel->select_all_content_where_order($tuplas,$tabla, $cond, $orderby, $cant);
         }
+    }
+    public function arixkernel_obtener_datos($tupla, $tabla, $limit = 100, $offset = 1, $array_condition ='', $string_orderby = '', $array_groupby = ''){
+       return $this->ci->arixkernel->arixkernel_obtener_datos($tupla, $tabla, $limit, $offset, $array_condition, $string_orderby, $array_groupby);
+    }
+
+
+    public function exe_obtener_dato_tablas_publicas($tupla, $tabla, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
+        return 0;
+
     }
 /*FUNCIONES GENERALES ACCEDIDOS DESDE OTRAS APLICACIONES*/
     //TODAS ESTAS FUNCIONES SE USA PARA TRES ESTADOS 1-ACTUAL, 2-UNICO, 3-TODOS
@@ -92,11 +105,11 @@ class Serv_ejecucion_app {
         switch (gettype($id)) {
             case 'boolean':
                 $id = $this->ci->serv_administracion_usuarios->use_obtener_dato_session('sucursal');
-                return $this->ci->arixkernel->select_one_content($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
+                return $this->ci->arixkernel->arixkernel_obtener_id_dato($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
                 break;
             case 'string':
                 $id = $this->ci->serv_cifrado->cod_decifrar_cadena($id);
-                return $this->ci->arixkernel->select_one_content($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
+                return $this->ci->arixkernel->arixkernel_obtener_id_dato($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
                 break;
             case 'integer':
                 return $this->ci->arixkernel->select_all_content_order($tuplas,'config.v_sucursal_administradores', 'fregistro, DESC', $id);
@@ -109,11 +122,11 @@ class Serv_ejecucion_app {
         switch (gettype($id)) {
             case 'boolean':
                 $id = $this->ci->serv_administracion_usuarios->use_obtener_dato_session('sucursal');
-                return $this->ci->arixkernel->select_one_content($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
+                return $this->ci->arixkernel->arixkernel_obtener_id_dato($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
                 break;
             case 'string':
                 $id = $this->ci->serv_cifrado->cod_decifrar_cadena($id);
-                return $this->ci->arixkernel->select_one_content($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
+                return $this->ci->arixkernel->arixkernel_obtener_id_dato($tuplas,'config.v_sucursal_administradores', array('sucursal_id'=>$id));
                 break;
             case 'integer':
                 return $this->ci->arixkernel->select_all_content_order($tuplas,'config.v_sucursal_administradores', 'fregistro, DESC', $id);
@@ -145,7 +158,7 @@ class Serv_ejecucion_app {
     }
     public function exe_obtener_dato_unico($id, $tuplas, $tabla){
         $id = $this->ci->serv_cifrado->cod_decifrar_cadena($id);
-        return $this->ci->arixkernel->select_one_content($tuplas, $tabla, array($this->exe_plural_to_singular($tabla)."_id"=>$id));
+        return $this->ci->arixkernel->arixkernel_obtener_id_dato($tuplas, $tabla, array($this->exe_plural_to_singular($tabla)."_id"=>$id));
     }
     public function exe_pruebas($pal=0){
         //return $this->exe_plural_to_singular($pal);
