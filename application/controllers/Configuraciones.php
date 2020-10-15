@@ -108,42 +108,10 @@ class Configuraciones extends CI_Controller {
 		}
 	}
 
-	public function axconfiguraciones_pruebas(){				
-		/*$dato = $this->serv_ejecucion_app->exe_obtener_dato_unico('D4865D5453070TjlOa2FDSS9JdnNaRzNNZEZFMlBpUT09','*','config.sucursales');*/
-		//$dato = $this->serv_ejecucion_app->exe_obtener_dato_sucursales('D4865D5453070TjlOa2FDSS9JdnNaRzNNZEZFMlBpUT09');
-		//print_r($dato);
-		
-		/*$keys = array_fill_keys(array('Article','Wattage','Dimmable'), ''); // wanted array with empty value
-		print_r($keys);
-
-		$allkeys = array_replace($keys, array_intersect_key($values, $keys));    // replace only the wanted keys
-
-		$notempty = array_filter($allkeys, 'strlen'); // strlen used as the callback-function with 0==false
-
-		print '<pre>';
-		print_r($allkeys);
-print_r($notempty);*/
-		/*$input = [
-		  "Red" =>0,
-		  "_idPinkid"=>1,
-		  "Green"=>2,
-		  "Blue_id"=>3,
-		  "Purple"=>4,
-		  "data_id"=> array('nepe'=>5)
-		];
-		$input = array_keys($input);
-		$result = preg_grep('/(_id)/', $input);
-		print_r($result);*/
-		//agarro el primer elemto del arrary
-		//compruevo si esrray
-		$lista = $this->serv_ejecucion_app->exe_obtener_lista_ordenado('*', 'config.sucursales', 'fregistro, ASC',20);
-		//print_r($lista);
-		//$lista = $this->object_to_array($lista);		
-		//$lista = $this->serv_cifrado->cod_object_to_array($lista);
-		//print_r(count($lista));
+	public function axconfiguraciones_pruebas(){		
+		$lista = $this->serv_ejecucion_app->exe_obtener_lista_ordenado('*', 'config.cuentas', 'fregistro, ASC',20);
 		$lista = $this->serv_cifrado->cod_cifrar_ids_matrices($lista);
-		print_r($lista);
-		
+		print_r($lista);		
 	}
 	public function sucursales_sub1(){
 		if ($this->input->is_ajax_request()) {

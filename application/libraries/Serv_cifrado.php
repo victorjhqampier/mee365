@@ -24,13 +24,18 @@ class Serv_cifrado {
             return $d;
         }
     }
-    private function cod_cifrar_cadena_llave($data = 0, $llave=0, $indice = '03446434C89C4'){
-        if ($data == 0) {
+    private function cod_cifrar_cadena_llave($data = true, $llave=0, $indice = '03446434C89C4'){
+        if (is_bool($data)) {
             $data = $this->ci->arixkernel->select_one_content('sal indice, llave','private.traductores',array('traductor_id' => rand (1, 997)));
-            return $this->cod_object_to_array($data);
+            return $data;
         }else{
             $data = openssl_encrypt($data, "AES-256-CBC", $llave, 0, "0xE5e50a9b198741");
             return $indice.base64_encode($data);
+        }
+    }
+    private function cod_cifrar_matriz($base, $reemplazo){//ambos son arrays;
+        for ($i = 0; $i < count($reemplazo); $i++) {
+            $base[$i] = $this->cod_cifrar_cadena($base[$i]);
         }
     }
     public function cod_cifrar_cadena($data){
@@ -48,42 +53,37 @@ class Serv_cifrado {
         }else{
             return false;
         }        
-    }
-    public function cod_cifrar_matriz($base, $reemplazo){//ambos son arrays;
-        for ($i = 0; $i < count($reemplazo); $i++) {
-            $base[$i] = $this->cod_cifrar_cadena($base[$i]);
-        }
-    }
-    /*public function cod_cifrar_matrices($array){//Trabajar en su optimizacion
-        //$array = $this->object_to_array($array);
-        $data = is_array(array_pop($array));//averigua si es multidemencional
-        if($data == true){
-            $data = array_keys(array_pop($array));//obtiene las llaves de los arrays
-            $data = preg_grep('/(_id)/', $data);//selecciona las llaves que terminan en _id
-            $data = elements($data,$array);
-            $data = array_values ($data);//formatea las llaves
-            for ($i=0; $i < count($array) ; $i++) {                
-                for ($j=0; $j < count($data); $j++) { 
-                    $array[$i][$data[$j]] = $this->cod_cifrar_cadena($array[$i][$data[$j]]);
-                }
-            }
-            return $array;
-        }else{
-            return false;
-        }
-    }*/
+    }    
     public function cod_cifrar_ids_matrices($array){
-        $array = $this->cod_object_to_array($array);
-        $llaves = $this->cod_cifrar_cadena_llave();
-        $keys = array_keys(reset($array));
-        //$keys = preg_grep('/(_id)/', reset($array));
-        if (count(preg_grep('/(_id)/', reset($array))) != 0) {
-            return $keys;
-        }else if (count()){
-
-        }
-        else{
-            return $array;
+        $array = $this->cod_object_to_array($array);        
+        if (is_array(reset($array))) {
+            $key = array_keys(reset($array)); //guarda las llaves del array
+            $key = array_values(preg_grep('/(_id)/', $key));//busca el patron y formatela las llaves del array
+            if (count($key) > 0) {
+                $llaves = $this->cod_cifrar_cadena_llave();
+                for ($i = 0; $i < count($array); $i++) { 
+                    for ($j = 0; $j < count($key); $j++) {
+                        $array[$i][$key[$j]] = $this->cod_cifrar_cadena_llave($array[$i][$key[$j]], $llaves->llave, $llaves->indice);
+                    }
+                }
+                unset($key, $llaves);
+                return $array;
+            }else{
+                return $array;
+            }
+        }else{
+            $key = array_keys($array);
+            $key = array_values(preg_grep('/(_id)/', $key));        
+            if (count($key) > 0) { 
+                $llaves = $this->cod_cifrar_cadena_llave();
+                for ($j = 0; $j < count($key); $j++) {
+                    $array[$key[$j]] = $this->cod_cifrar_cadena_llave($array[$key[$j]], $llaves->llave, $llaves->indice);
+                } 
+                unset($key, $llaves);       
+                return $array;
+            }else{
+                return $array;
+            }
         }
     }
 }
