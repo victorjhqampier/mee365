@@ -94,7 +94,7 @@ class Serv_ejecucion_app {
     }
 
 
-    public function exe_obtener_dato_tablas_publicas($tupla, $tabla, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
+    public function exe_obtener_dato_tablas_publicas($tupla, $array_tablas, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
         return 0;
 
     }
