@@ -93,10 +93,14 @@ class Serv_ejecucion_app {
        return $this->ci->arixkernel->arixkernel_obtener_datos($tupla, $tabla, $limit, $offset, $array_condition, $string_orderby, $array_groupby);
     }
 
-
-    public function exe_obtener_dato_tablas_publicas($tupla, $array_tablas, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
-        return 0;
-
+    //array(''),array('config.sucursales', 'config.empsubcategorias','')
+    public function exe_obtener_dato_tablas_publicas($array_tupla =0, $array_tablas=0, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
+        $this->ci->db->select('*');
+        $this->ci->db->from('config.sucursales a');
+        $this->ci->db->join('config.subcategorias b', 'a.subcategoria_id = b.subcategoria_id','inner');
+        $this->ci->db->join('config.categorias c', 'b.categoria_id = c.categoria_id','inner');
+        $this->ci->db->join('private.distritos d', 'a.distrito_id = d.distrito_id');
+        return $this->ci->db->get()->result();
     }
 /*FUNCIONES GENERALES ACCEDIDOS DESDE OTRAS APLICACIONES*/
     //TODAS ESTAS FUNCIONES SE USA PARA TRES ESTADOS 1-ACTUAL, 2-UNICO, 3-TODOS
