@@ -78,6 +78,9 @@ class Serv_ejecucion_app {
         }
         return $btns_autorizados;
     }
+    public function exe_probar_acceso_tabla(){
+
+    }
 
 
 #REAHCER TODO DESDE AQUI
@@ -93,15 +96,33 @@ class Serv_ejecucion_app {
        return $this->ci->arixkernel->arixkernel_obtener_datos($tupla, $tabla, $limit, $offset, $array_condition, $string_orderby, $array_groupby);
     }
 
-    //array(''),array('config.sucursales', 'config.empsubcategorias','')
+    #array('tabla_0'=>'tuplas','tabla_1'=>'tuplas','tabla_2'=>'tuplas');
+        # verificar si se pueden acceder a las tablas
+            #renombrar las tablas dinamicamente
+            # verificar si se puede acceder a las tuplas de las tablas        
+        # Si el tamaño de array es mayor que 2
+            #from('table_0');
+            #recorrer array
+                #si existe table_i.id_table_i+1 = table_i+1.id_table_i+1
+                    #entonces join('table_i.id_table_i+1 = table_i+1.id_table_i+1','inner');
+                #si no, terminar recorrido
+
+
     public function exe_obtener_dato_tablas_publicas($array_tupla =0, $array_tablas=0, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
-        $this->ci->db->select('*');
+        $this->ci->db->select('a.*');
         $this->ci->db->from('config.sucursales a');
         $this->ci->db->join('config.subcategorias b', 'a.subcategoria_id = b.subcategoria_id','inner');
         $this->ci->db->join('config.categorias c', 'b.categoria_id = c.categoria_id','inner');
         $this->ci->db->join('private.distritos d', 'a.distrito_id = d.distrito_id');
+        $this->ci->db->join('private.provincias e', 'd.provincia_id = e.provincia_id');
+        $this->ci->db->join('private.departamentos f', 'e.departamento_id = f.departamento_id');
         return $this->ci->db->get()->result();
     }
+    function exe_obtener_dato($array_tupla =0, $array_tablas=0){
+
+        return 0;
+    }
+   # exe_obtener_dato('*', array('config.sucursales', 'config.subcategorias', 'config.categorias', 1=>'private.distritos'));
 /*FUNCIONES GENERALES ACCEDIDOS DESDE OTRAS APLICACIONES*/
     //TODAS ESTAS FUNCIONES SE USA PARA TRES ESTADOS 1-ACTUAL, 2-UNICO, 3-TODOS
     //todos los _id deben ir cifrados, solo algunas tuplas pueden ser leidas
