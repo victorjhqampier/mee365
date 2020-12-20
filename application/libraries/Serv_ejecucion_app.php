@@ -108,7 +108,7 @@ class Serv_ejecucion_app {
                 #si no, terminar recorrido
 
 
-    public function exe_obtener_dato_tablas_publicas($array_tupla =0, $array_tablas=0, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
+    public function rexe_obtener_dato_tablas_publicas($array_tabla_tupla =0, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
         $this->ci->db->select('a.*');
         $this->ci->db->from('config.sucursales a');
         $this->ci->db->join('config.subcategorias b', 'a.subcategoria_id = b.subcategoria_id','inner');
@@ -118,6 +118,36 @@ class Serv_ejecucion_app {
         $this->ci->db->join('private.departamentos f', 'e.departamento_id = f.departamento_id');
         return $this->ci->db->get()->result();
     }
+    private function exe_renombrar_cadena($array_tabla_tupla){// debe solucionarse con TABLAS HASH
+        $table = array_keys ($array_tabla_tupla);
+        $tupla = array_values ($array_tabla_tupla);
+        for ($i=0; $i < count($table) ; $i++) {
+            $temp = explode(".",$table[$i]);
+            $temp = substr($temp[1], 0, 3);//hace el renamed
+            $table[$i] = $table[$i].' '.$temp;
+            $temp2 = explode(",",$tupla[$i]);
+            for ($j=0; $j < count($temp2); $j++) { 
+                $temp2[$j] = $temp.'.'.$temp2[$j];
+            }
+            $tupla[$i] = implode(", ", $temp2);
+        }
+        $array_tabla_tupla = array();
+        array_push($array_tabla_tupla, $table, $tupla);
+        return $array_tabla_tupla;
+    }
+    public function exe_obtener_dato_tablas_publicas($array_tabla_tupla =0, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
+        $table = $this->exe_renombrar_cadena($array_tabla_tupla);
+        $this->ci->db->select(implode(",", $table[1]));
+        $this->ci->db->from($table[0][0]);
+        for ($i = 1; $i < count($table); $i++) { //ESTOY AQUI
+            $this->ci->db->join($table[0][$i], 'a.subcategoria_id = b.subcategoria_id','inner');
+        }
+        //$this->ci->db->join('config.subcategorias b', 'a.subcategoria_id = b.subcategoria_id','inner');
+        //return $this->ci->db->get()->result();
+        return  $table[0][0];
+    }
+
+
     function exe_obtener_dato($array_tupla =0, $array_tablas=0){
 
         return 0;
