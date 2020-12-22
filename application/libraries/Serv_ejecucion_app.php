@@ -33,8 +33,24 @@ class Serv_ejecucion_app {
         $plural = substr($plural, 0, $j-$k);
         return ($k==3)?$plural."z":$plural;
     }
-    private function exe_verificar_tabla_tupla($tabla, $tupla, $rpt = false){
-
+    private function exe_crear_join($array_table, $array_runlebel = array(1,0,0,0,0,0)){
+        $renamed_table = array();
+        $table_id = array();
+        for ($i=0; $i < count($array_table); $i++) {
+            $tempf = explode(" ",$array_table[$i]);
+             array_push($renamed_table, $tempf[1]);
+             array_push($table_id, $this->exe_plural_to_singular($tempf[0]).'_id');
+        }
+        $array_table=array('NULL');
+        for ($i=1; $i < count($renamed_table); $i++) {
+            if ($array_runlebel[$i]==0) {
+                $array_table[$i] = $renamed_table[$i-1].'.'.$table_id[$i].' = '.$renamed_table[$i].'.'.$table_id[$i];
+            }else{
+                $array_table[$i] = $renamed_table[0].'.'.$table_id[$i].' = '.$renamed_table[$i].'.'.$table_id[$i];
+            }
+            
+        }
+        return $array_table;
     }
 
 /*FUNCIOMES RESERVADAS PARA EL SISTEMA*/
@@ -81,7 +97,37 @@ class Serv_ejecucion_app {
     public function exe_probar_acceso_tabla(){
 
     }
-
+# FUNCIONES DISPONIBLES PARA EL USUARIO
+    public function exe_contruir_consulta($array_tabla_tupla, $array_runlebel = array(1,0,0,0,0,0)){// CORREGIR con TABLAS HASH
+        $table = array_keys ($array_tabla_tupla); //captura el nombre de la tabla
+        $tupla = array_values ($array_tabla_tupla); //Captura las tuplas de la tabla
+        $renamed_table = array(); //guarda los nuevos nombresde las tablas
+        $table_id = array(); // guarda los id de las tablas
+        for ($i=0; $i < count($table) ; $i++) {
+            $temp = explode(".", $table[$i]); //separa nombre de esquema [0] y nombre de tabla [1]
+            $temp = substr($temp[1], 0, 3);// almacena el nuevo nombre de la tabla
+            array_push($renamed_table, $temp); //agrega renombre de la tabla
+            array_push($table_id, $this->exe_plural_to_singular($table[$i]).'_id');
+            $table[$i] = $table[$i].' '.$temp;
+            $tupla[$i] = str_replace(' ', '', $tupla[$i]);
+            $temp2 = explode(",",$tupla[$i]);
+            for ($j=0; $j < count($temp2); $j++) { 
+                $temp2[$j] = $temp.'.'.$temp2[$j];
+            }
+            $tupla[$i] = implode(",", $temp2);
+        }
+        $array_table=array('NULL');
+        for ($i=1; $i < count($renamed_table); $i++) {
+            if ($array_runlebel[$i]==0) {
+                $array_table[$i] = $renamed_table[$i-1].'.'.$table_id[$i].' = '.$renamed_table[$i].'.'.$table_id[$i];
+            }else{
+                $array_table[$i] = $renamed_table[0].'.'.$table_id[$i].' = '.$renamed_table[$i].'.'.$table_id[$i];
+            }            
+        }
+        $array_tabla_tupla = array();
+        array_push($array_tabla_tupla, $tupla, $table, $array_table);
+        return $array_tabla_tupla;
+    }
 
 #REAHCER TODO DESDE AQUI
 
@@ -118,35 +164,25 @@ class Serv_ejecucion_app {
         $this->ci->db->join('private.departamentos f', 'e.departamento_id = f.departamento_id');
         return $this->ci->db->get()->result();
     }
-    private function exe_renombrar_cadena($array_tabla_tupla){// debe solucionarse con TABLAS HASH
-        $table = array_keys ($array_tabla_tupla);
-        $tupla = array_values ($array_tabla_tupla);
-        for ($i=0; $i < count($table) ; $i++) {
-            $temp = explode(".",$table[$i]);
-            $temp = substr($temp[1], 0, 3);//hace el renamed
-            $table[$i] = $table[$i].' '.$temp;
-            $temp2 = explode(",",$tupla[$i]);
-            for ($j=0; $j < count($temp2); $j++) { 
-                $temp2[$j] = $temp.'.'.$temp2[$j];
-            }
-            $tupla[$i] = implode(", ", $temp2);
-        }
-        $array_tabla_tupla = array();
-        array_push($array_tabla_tupla, $table, $tupla);
-        return $array_tabla_tupla;
-    }
-    public function exe_obtener_dato_tablas_publicas($array_tabla_tupla =0, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
-        $table = $this->exe_renombrar_cadena($array_tabla_tupla);
-        $this->ci->db->select(implode(",", $table[1]));
-        $this->ci->db->from($table[0][0]);
-        for ($i = 1; $i < count($table); $i++) { //ESTOY AQUI
-            $this->ci->db->join($table[0][$i], 'a.subcategoria_id = b.subcategoria_id','inner');
-        }
-        //$this->ci->db->join('config.subcategorias b', 'a.subcategoria_id = b.subcategoria_id','inner');
-        //return $this->ci->db->get()->result();
-        return  $table[0][0];
-    }
 
+    public function arixkernel_obtener_datos_sueltos($array_tabla_tupla=0, $offset = 0, $array_condition = array('estado'=>true, 'sucursal_id' => 1), $string_orderby = '', $array_groupby = ''){
+        $array_tabla_tupla = $this->exe_contruir_consulta(array(
+            'config.sucursales'=>'*',
+            'config.subcategorias'=>'subcategoria',
+            'config.categorias'=>'categoria, categoria_id',
+            'private.distritos'=>'distrito_id, distrito',
+            'private.provincias'=>'provincia_id, provincia',
+            'private.departamentos'=>'departamento_id, departamento'
+        ), array(1,0,0,1,0,0));
+        $array_condition = array('config.sucursales'=>'estado = 1');
+        $this->ci->db->select(implode(",", $array_tabla_tupla[0]));
+        $this->ci->db->from($array_tabla_tupla[1][0]);
+        for ($i=1; $i < count($array_tabla_tupla[1]); $i++) { 
+            $this->ci->db->join($array_tabla_tupla[1][$i], $array_tabla_tupla[2][$i],'inner');
+        }
+        $this->ci->db->where('estado', false);
+        return $this->ci->db->get()->result();
+    }
 
     function exe_obtener_dato($array_tupla =0, $array_tablas=0){
 

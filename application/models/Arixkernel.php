@@ -79,5 +79,13 @@ class Arixkernel extends CI_Model{
 		$this->db->select($tupla);
 		return $this->db->get_where($tabla, $array_condicion)->row();	
 	}
-
+	public function arixkernel_obtener_datos_join($array_tabla_tupla=0, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
+        $this->ci->db->select(implode(",", $array_tabla_tupla[0]));
+        $this->ci->db->from($array_tabla_tupla[1][0]);
+        for ($i=1; $i < count($array_tabla_tupla[1]); $i++) { 
+            $this->ci->db->join($array_tabla_tupla[1][$i], $array_tabla_tupla[2][$i],'inner');
+        }
+        $this->ci->db->where('estado', true);//EN CONSTRUCCION
+        return $this->ci->db->get()->result();
+    }
 }
