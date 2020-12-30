@@ -15,6 +15,24 @@ class Arixkernel extends CI_Model{
 		date_default_timezone_set("America/Lima");
 		$this->load->database('pdoarixdatabase');		
 	}
+	 private function arixkernel_table_to_id($plural){
+        $plural = rtrim($plural, ' ');
+        $plural = explode(".", $plural);
+        $plural = $plural[count($plural)-1];
+        $j = array('s','es','ces');
+        $k = null;
+        for ($i=0; $i < 3; $i++) {
+            $ultimas = substr($plural,-1*($i+1));
+            if($ultimas==$j[$i]){
+                $k = $ultimas; 
+            }else break;                       
+        }
+        $j = strlen($plural);
+        $k = strlen($k);
+        $plural = substr($plural, 0, $j-$k);
+        return ($k==3)?$plural."z":$plural;
+    }
+
 	private function probar_permiso_user($dato = 'select'){// evalua si da permiso o no al usuario; resive como parametros CRUD
 		$this->load->library('session');
 		$this->db->select('binario');
@@ -35,7 +53,8 @@ class Arixkernel extends CI_Model{
         }
         return $result;
 	}
-	/*----------------------valido desde aqui---------------------*/
+	
+	/*----------------------algoritmos obsoletos--- aun en uso-----------------*/
 	public function select_all_content($tupla,$tabla, $cant_registros = 100){//selecciona N elementos de una tabla N>1
 		$this->db->select($tupla);
 		return $this->db->get($tabla,$cant_registros)->result();
@@ -66,26 +85,56 @@ class Arixkernel extends CI_Model{
 			return $this->db->get_where($tabla, $condicion)->row();		
 	}
 
+/*----------------------algoritmos funcionales---------------------*/
 	/*REESCRITURA DE LAS FUNCIONES*/
-	//select_all_content
-	public function arixkernel_obtener_datos($tupla, $tabla, $limit = 100, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
-		$array_condition = (null == $array_condition) ? array() : $array_condition; 
+
+	//public function arixkernel_obtener_datos($tupla, $tabla, $limit = 100, $offset = 0, $array_condition = '', $array_orderby = '', $array_groupby = ''){
+
+	//1: arixkernel_obtener_simple_data('submenu_id, submenu', 'config.v_menu_subapp', 0, 'app_id = 1003 AND rol >= 4', array('submenu_id','ASC'),array('submenu_id','submenu')
+	public function arixkernel_obtener_simple_data($tupla, $tabla, $offset = 0, $array_condition = '', $array_orderby = '', $array_groupby = ''){//PENDIENTE REVISAR SI TIENE ACCESO A TABLA 
+		$array_condition = (null == $array_condition) ? array() : $array_condition;
+		$array_orderby = (null == $array_orderby) ? array('','') : $array_orderby;
 		$this->db->select($tupla);
 		$this->db->group_by($array_groupby);
-		$this->db->order_by($string_orderby);
-		return $this->db->get_where($tabla, $array_condition, $limit, $offset)->result();
+		$this->db->order_by($array_orderby[0],$array_orderby[1]);
+		return $this->db->get_where($tabla, $array_condition, 100, $offset)->result();
 	}
-	public function arixkernel_obtener_id_dato($tupla, $tabla, $array_condicion){
+
+	//public function arixkernel_obtener_id_dato($tupla, $tabla, $array_condicion){
+
+	//1: arixkernel_obtener_data_by_id('*', 'private.personas', 2, array('documento'=>'70240254')
+	//2: arixkernel_obtener_data_by_id('*', 'private.personas', false, array('documento'=>'70240254')
+	public function arixkernel_obtener_data_by_id($tupla, $tabla, $compare_auto_id, $array_sec_condicion = ''){
+		$array_sec_condicion = (null == $array_sec_condicion) ? array() : $array_sec_condicion;
 		$this->db->select($tupla);
-		return $this->db->get_where($tabla, $array_condicion)->row();	
+		if ($compare_auto_id==false) {			
+			return $this->db->get_where($tabla, $array_sec_condicion)->row();
+		}else{
+			$table_id = $this->arixkernel_table_to_id($tabla).'_id';
+			$this->db->where($table_id,$compare_auto_id);
+			return $this->db->get_where($tabla, $array_sec_condicion)->row();
+		}			
 	}
-	public function arixkernel_obtener_datos_join($array_tabla_tupla=0, $offset = 0, $array_condition = '', $string_orderby = '', $array_groupby = ''){
-        $this->ci->db->select(implode(",", $array_tabla_tupla[0]));
-        $this->ci->db->from($array_tabla_tupla[1][0]);
+	//1: arixkernel_obtener_complex_data(exe_contruir_consulta(array()), 0, array('sucursal_id >'=>0), array('sucursal_id','DESC'));
+	public function arixkernel_obtener_complex_data($array_tabla_tupla, $offset = 0, $array_condition = '', $array_orderby = ''){
+		$array_orderby = (null == $array_orderby) ? array('','') : $array_orderby;//PENDIENTE--- SOLO ACCESO A TABLAS PERMITIDAS
+        $this->db->select(implode(",", $array_tabla_tupla[0]));
+        $this->db->from($array_tabla_tupla[1][0]);
         for ($i=1; $i < count($array_tabla_tupla[1]); $i++) { 
-            $this->ci->db->join($array_tabla_tupla[1][$i], $array_tabla_tupla[2][$i],'inner');
+            $this->db->join($array_tabla_tupla[1][$i], $array_tabla_tupla[2][$i],'inner');
         }
-        $this->ci->db->where('estado', true);//EN CONSTRUCCION
-        return $this->ci->db->get()->result();
+        $this->db->order_by($array_orderby[0], $array_orderby[1]);
+        $this->db->limit(100, $offset);
+        if($array_condition!=null){
+        	$clave = array_keys ($array_condition);
+        	$valor = array_values ($array_condition);
+        	for ($i=0; $i < count($array_condition); $i++) {
+            	$this->db->where($clave[$i], $valor[$i]);
+        	}
+        	return $this->db->get()->result();
+        }
+        else{
+        	return $this->db->get()->result();
+        }        
     }
 }

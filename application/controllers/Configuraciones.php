@@ -114,7 +114,7 @@ class Configuraciones extends CI_Controller {
 		//$lista = $this->serv_ejecucion_app->exe_obtener_lista_ordenado('*', 'private.traductores', 'sal, ASC',20);
 		/*$this->serv_ejecucion_app->arixkernel_obtener_datos('submenu_id, submenu', 'config.v_menu_subapp', 100, 0,'app_id = 1002 AND rol >= 4','',array('submenu_id','submenu'));
 		$lista = $this->serv_cifrado->cod_cifrar_ids_matrices($lista);*/
-		$lista = $this->serv_ejecucion_app->arixkernel_obtener_datos_sueltos();
+		$lista = $this->serv_ejecucion_app->arixkernel_obtener_datos_xxx3();
 		print_r($lista);		
 	}
 	public function sucursales_sub1(){

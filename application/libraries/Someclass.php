@@ -9,6 +9,6 @@ class Someclass {
 		}
         public function some_method()
         {
-        	echo "Peme";
+        	echo "dessme";
         }
 }
