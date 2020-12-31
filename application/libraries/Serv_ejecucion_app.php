@@ -61,7 +61,7 @@ class Serv_ejecucion_app {
             $new_list = array();
             $temp = '';
             for ($i=0; $i < count($jss); $i++) { 
-                $temp = $this->ci->serv_cifrado->cod_object_to_array($this->ci->arixkernel->arixkernel_obtener_data_by_id('direction','config.recursos', array('recurso' => $jss[$i],'tipo' => 1)));                
+                $temp = $this->ci->serv_cifrado->cod_object_to_array($this->ci->arixkernel->arixkernel_obtener_data_by_id('direction','config.recursos',false,array('recurso' => $jss[$i],'tipo' => 1)));                
                 if (!is_null($temp)) {
                     array_push($new_list, $temp['direction']);
                 }
@@ -135,6 +135,14 @@ class Serv_ejecucion_app {
             0 = une la tabla a su continuacion (tabla)
             1 = une la tabla a la tabla base es decir a la primera tabla (sucursal)
         */
+    }
+    //funcion para recuperar datos complejos con uniones --- 
+    //[$tree_arrray] = esta funcion es resuelta por [exe_contruir_consulta]
+    // $array_condition = array(clave => valor)
+    // $array_orderby = array(valor, valor)
+    public function exe_obtener_complex_data($tree_arrray, $offset, $array_condition, $array_orderby){
+        $temp = $this->ci->arixkernel->arixkernel_obtener_complex_data($tree_arrray, $offset, $array_condition, $array_orderby);
+        return $this->ci->serv_cifrado->cod_cifrar_ids_matrices($temp);
     }
 
 

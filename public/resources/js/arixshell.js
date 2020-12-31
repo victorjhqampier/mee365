@@ -375,6 +375,9 @@ function arixshell_cargar_lista_cards(tabla,btns='btn-detalles,btn-borrar',cant)
         console.log('arixshell_cargar_lista_cards -> error');
     }
 }
+function arixshell_cargar_datatables(id_table, data_source, bottoms){
+    return 0;
+}
 /*----------------REDESARROLLAR MODULO DE TITULOS---------*/
 
 /*--------------------------MAIN----------------*/

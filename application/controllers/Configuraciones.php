@@ -16,7 +16,7 @@ class Configuraciones extends CI_Controller {
 	}
 	public function index(){
 		//se cargan en ese orden
-		$js = $this->serv_ejecucion_app->exe_cargar_js('configuraciones-arixjs, Chart');
+		$js = $this->serv_ejecucion_app->exe_cargar_js('configuraciones-arixjs, Chart, jquery.dataTables');
 		$this->load->view('arixshellbase',compact('js'));
 	}
 	public function sucursales(){
@@ -74,6 +74,18 @@ class Configuraciones extends CI_Controller {
 		else{
 			show_404();
 		}
+	}
+
+	//SELECCIONAR LOS SUCURSALES 
+	public function axconfig_get_sucursales_simple(){
+		// con afan de optimizar el rendimiento [$array_tabla_tupla] DEBE SER UN ARRAY FIJO 
+		$array_tabla_tupla = $this->serv_ejecucion_app->exe_contruir_consulta(array(
+            'config.sucursales'=>'sucursal_id,numero,nombre,direccion,estado',
+            'config.subcategorias'=>'subcategoria',
+            'config.categorias'=>'categoria',
+            'private.distritos'=>'distrito'
+        ), array(1,0,0,1));
+        echo json_encode($this->serv_ejecucion_app->exe_obtener_complex_data($array_tabla_tupla, 0,'', array('sucursal_id','ASC')));
 	}
 
 	#REHACER TODO DESQUE AQUI CON EL NUEVO KERNEL Y SERVICIO DE EJECUCIÓN

@@ -16,7 +16,7 @@ function axconfiguraciones_mostrar_icono_sucursales(btns='btn-detalles,btn-borra
         console.log('axconfiguraciones_mostrar_lista_sucursales -> error');
     }
 }
-function axconfiguraciones_mostrar_icono_usuarios(btns='btn-detalles,btn-borrar', tipo = true){
+/*function axconfiguraciones_mostrar_icono_usuarios(btns='btn-detalles,btn-borrar', tipo = true){
     lista = arixshell_upload_datos('configuraciones/axconfiguraciones_cargar_lista_usuarios','type='+tipo);
     if (lista != false) {
         for (var i = 0; i < lista.length; i++) { 
@@ -24,8 +24,8 @@ function axconfiguraciones_mostrar_icono_usuarios(btns='btn-detalles,btn-borrar'
             $(arixshell_cargar_llave_local(1)).append(temp);
         }
     }else{
-        console.log('axconfiguraciones_mostrar_lista_sucursales -> error');
+        console.log('axconfiguraciones_mostrar_lista_usuarios -> error');
     }
-}
+}*/
 
 //sucursales

@@ -49,7 +49,7 @@ class Serv_cifrado {
             return false;
         }        
     }    
-    public function cod_cifrar_ids_matrices($array){
+    public function cod_cifrar_ids_matrices($array){ //REHACER CON TABLAS HASH -> debe ser optimizado
         $array = $this->cod_object_to_array($array);        
         if (is_array(reset($array))) {
             $key = array_keys(reset($array)); //guarda las llaves del array
