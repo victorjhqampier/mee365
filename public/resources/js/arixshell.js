@@ -282,6 +282,18 @@ function arixshell_cargar_boton_simple(botones='btn-detalles,btn-borrar'){//devu
         console.log('arixshell_cargar_boton_simple -> error');
     }
 }
+function arixshell_cargar_botones_tabla(botones='btn-detalles,btn-borrar'){//devuelve botones en bormato html
+    botones = arixshell_upload_datos('arixapi/arixapi_cargar_botones', 'data='+botones+'&');
+    if (botones != false) {
+        var list = '<div class="btn-group btn-group-sm">';
+        for (var i = 0; i < botones.length; i++) {
+            list+='<button type="button" class="btn btn-secondary '+botones[i]['boton']+'"><i class="'+botones[i]['icono']+'" data-toggle="tooltip" data-placement="bottom" title="'+botones[i]['titulo']+'"></i></button>';
+        }
+        return list+'</div>';
+    }else{
+        console.log('arixshell_cargar_boton_simple -> error');
+    }
+}
 function arixshell_cargar_idcontenedor_en_secondary(id){
     var id = id.replace(" ", "");
         id = id.replace("#", "");

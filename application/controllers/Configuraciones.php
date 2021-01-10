@@ -16,7 +16,7 @@ class Configuraciones extends CI_Controller {
 	}
 	public function index(){
 		//se cargan en ese orden
-		$js = $this->serv_ejecucion_app->exe_cargar_js('configuraciones-arixjs, Chart, jquery.dataTables');
+		$js = $this->serv_ejecucion_app->exe_cargar_js('configuraciones-arixjs, Chart');
 		$this->load->view('arixshellbase',compact('js'));
 	}
 	public function sucursales(){

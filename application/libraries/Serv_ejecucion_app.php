@@ -78,7 +78,7 @@ class Serv_ejecucion_app {
         return 0;
     }
     # FUNCIONES DISPONIBLES PARA EL USUARIO
-    public function exe_obtener_botones($usuario_permiso, $botones){
+    public function exe_obtener_botones($usuario_permiso, $botones){//ejecutar con el los permisos del usuario
         $permisos_botones = ['1000','0100','0010','0001'];//LECTURA, ESCRITURA, ACTUALIZACION, BORRADO, un boton pertenese a un grupo
         $botones = preg_replace('([^A-Za-z0-9\,._-])', '', $botones);
         $botones = explode(",", $botones);

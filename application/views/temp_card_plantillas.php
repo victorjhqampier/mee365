@@ -337,3 +337,5 @@
         </div>
     </div>
 </div>
+
+<div class="btn-group btn-group-sm"><button type="button" class="btn btn-primary"><i class="fas fa-pen"></i></button><button type="button" class="btn btn-secondary"><i class="fa fa-check-square"></i></button></div>
