@@ -54,15 +54,11 @@ $(document).ready(function(){
             {"data": 'categoria'},
             {"data": 'subcategoria'},
             {"data": null, render: function ( data, type, row ) {return row.direccion + ' - ' + row.distrito;}},
-            {"data": 'estado',//aqui se pierde esta variable
-                render: function(data, type){
-                    if (data==false) {
-                        $(this).find('tr').addClass( "table-danger" );
-                        return data;
-                    }else return data;
-                }
-            },
+            {"data": 'estado'},
             {"data": null, render: function ( data, type, row ) {return botns;}}
+        ],
+        "order": [
+            [ 1, "asc" ]
         ],
         "columnDefs": [
             {
@@ -74,7 +70,12 @@ $(document).ready(function(){
                 "targets": [ 6 ],
                 "visible": false
             }
-        ]
+        ],
+        "createdRow": function( row, data, dataIndex ) {
+            if ( data.estado == false ) {
+                $( row ).addClass( "table-danger" );
+            }else return;
+        }
     });
 });
 //arixshell_cargar_contenido([url fuente string],[nombre string],[posicion del subtitulo int >= 4])
