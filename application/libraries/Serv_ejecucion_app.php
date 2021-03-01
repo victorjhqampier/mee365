@@ -133,7 +133,7 @@ class Serv_ejecucion_app {
             'private.departamentos'=>'departamento_id, departamento'
         ), array(1,0,0,1,0,0));
             0 = une la tabla a su continuacion (tabla)
-            1 = une la tabla a la tabla base es decir a la primera tabla (sucursal)
+            1 = une la tabla a la tabla base (config.sucursales) es decir a la primera tabla (sucursal)
         */
     }
     //funcion para recuperar datos complejos con uniones --- 
